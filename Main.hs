@@ -18,6 +18,7 @@ import System.Environment
 
 import Vectors
 import Progress
+import World
 
 res :: (Int, Int)
 res = (300, 200)
@@ -49,11 +50,6 @@ sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.5 0.7 1.0)
   where un = normalize $ direction r
         t = (y un + 1) * 0.5
 
-objects :: [Hitable_]
-objects = [
-  MkHitable $ Sphere (CVec3 0.7 0 (-1)) 0.5,
-  MkHitable $ Sphere (CVec3 0 (-100.5) (-1)) 100 ]
-
 maxFloat :: Double
 maxFloat = fromIntegral $ snd $ floatRange (0.5::Double)
 --
@@ -78,7 +74,6 @@ color r = case (hit objects r 0.00001 maxFloat) of
        return $ 0.5 *. cl
   Nothing -> return $ sky r
 
-data Sphere = Sphere CVec3 Double
 data Hit = Hit {
   hitT :: Double,
   hitP :: CVec3,
@@ -185,25 +180,6 @@ class Hitable a where
   hit :: a -> Ray -> Double -> Double -> Maybe Hit
 
 data Hitable_ = forall a . Hitable a => MkHitable a
-
-instance Hitable Sphere where
-  hit (Sphere sc sr) r@(Ray org dir) mn mx =
-    let oc = org <-> sc
-        a = dir .* dir
-        b = 2 * oc .* dir
-        c = (oc .* oc) - (sr * sr)
-        dsc = b * b - 4 * a * c
-        hf x = Just $ Hit x p n
-          where
-            p = rayPointAt r x
-            -- n = normalize $ p <-> CVec3 0 0 (-1)
-            n = (1 / sr) *. (p <-> sc)
-    in if dsc < 0 then Nothing
-       else let x0 = ( - b - sqrt dsc ) / (2 * a)
-                x1 = ( - b + sqrt dsc ) / (2 * a)
-            in if x0 >= mn && x0 <= mx then hf x0
-               else if x1 >= mn && x1 <= mx then hf x1
-                 else Nothing
 
 
 
