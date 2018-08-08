@@ -1,2 +1,10 @@
 c03ab21
 e81222e
+bf53d23
++ ./Main bf53d23 +RTS -N
+
+real	0m24.470s
+user	1m17.969s
+sys	0m25.530s
+
+
