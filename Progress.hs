@@ -49,7 +49,7 @@ parMapM'r cnt f xs =
 
     resvars <- (mapM (const $ newEmptyMVar) chunks) -- :: IO (MVar [b])
 
-    let act xs mv = mapM f xs >>= (\rs -> {-rs `deepseq` modifyIORef' cnt (+1) >> -}putMVar mv rs)
+    let act xs mv = mapM f xs >>= (\rs -> rs `deepseq` modifyIORef' cnt (+1) >> putMVar mv rs)
 
     let actions = map (uncurry act) (zip chunks resvars)
 
