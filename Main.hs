@@ -12,11 +12,9 @@ import Control.Monad.Identity
 import Debug.Trace
 
 
-import Normal
+-- import Normal
 
-
--- type Color = (Double, Double, Double)
-type Color = CVec3
+import Vectors
 
 res :: (Int, Int)
 res = (300, 200)
@@ -64,7 +62,7 @@ maxFloat = fromIntegral $ snd $ floatRange (0.5::Double)
 --   --      let target = p <+> n <+> ru
 --   --      cl <- color $ Ray p (target <-> p)
 --   --      return $ 0.5 *. cl
---   Nothing -> return $ sky r 
+--   Nothing -> return $ sky r
 
 
 color :: RandomGen g => Ray -> Rand g Color
@@ -106,22 +104,30 @@ renderUV :: RandomGen g => Double -> Double -> Rand g Color
 -- renderUV u v = CVec3 u v 0.2
 renderUV u v = color $ Ray (cOrigin camera) (cLowerLeftCorner camera <+> (u *. (cHorizontal camera)) <+> (v *. (cVertical camera)))
 
+
 colorToPixel :: Color -> PixelRGB8
 colorToPixel c =
-  let (r, g, b) = toXYZ c
-  in PixelRGB8 (fromInteger $ floor $ r * 255.9) (fromInteger $ floor $ g * 255.9) (fromInteger $ floor $ b * 255.9)
+  let (r, g, b) = toXYZ $ mapv ((* 255.9) {-. sqrt-}) c
+  in PixelRGB8 (fromInteger $ floor r) (fromInteger $ floor g) (fromInteger $ floor b)
 
 renderOnce :: RandomGen g => Int -> Int -> Rand g Color
 renderOnce x y =
   do (a:b:_) <- getRandomRs (0::Double, 1)
      renderUV ((a + fromIntegral x) / kRes) ((b + fromIntegral y) / kRes)
 
-render :: RandomGen g => Int -> Int -> Rand g PixelRGB8
-render x y = colorToPixel <$> ((1 / passes) *.) <$> rpass passes
+-- render :: RandomGen g => Int -> Int -> Rand g PixelRGB8
+-- render :: Int -> [Hitable_] -> Int -> Int -> IO PixelRGB8
+render :: Int -> Int -> IO PixelRGB8
+render x y = colorToPixel <$> avgv <$> rendersIO
   where
-    passes = 20
-    rpass 0 = renderOnce x y
-    rpass i = renderOnce x y >>= \v1 -> (rpass (i - 1) >>= \v2 -> return (v1 <+> v2))
+    gens = replicateM 20 newStdGen
+    rendersIO :: IO [Color]
+
+    rendersIO = do
+      gs <- gens
+      let rs = map (runIdentity . evalRandT (renderOnce x y)) gs
+      -- when (x == 200 && y == 40) (print rs)
+      return $ rs --rs `deepseq` rs
 
 vsum xs = foldr1 (<+>) xs
 --
@@ -143,14 +149,12 @@ genImageBuf :: Int -> Int -> IO ImgBuf
 genImageBuf w h = array ((0, 0), (w, h)) <$> lsIO
   where
     -- ls :: RandT g Identity [((Int, Int), PixelRGB8)]
-    ls = sequence (
-          do i <- [0..w]
-             j <- [0..h]
-             let v = render i j
-             return ((\c -> ((i, j), c)) <$> v))
+    allPixels = [(i, j) | i <- [0..w], j <- [0..h]]
+
+    ls = mapM (uncurry $ render) allPixels
 
     lsIO :: IO [((Int, Int), PixelRGB8)]
-    lsIO = runIdentity <$> evalRandT ls <$> getStdGen
+    lsIO = zip allPixels <$> ls
 
 genImageF :: Int -> Int -> IO (Int -> Int -> PixelRGB8)
 genImageF w h = f <$> genImageBuf w h
@@ -164,7 +168,7 @@ main = do imF <- genImageF (fst res) (snd res)
           let im = (generateImage imF (fst res) (snd res))
           -- im <- evalRandIO rim
           -- print (renderUV 0 0)
-          -- print (render 0 0)
+          print (imF 0 0)
           -- print (colorToPixel $ CVec3 0.8 0.7 1.0)
           writePng "./image.png" im
 
