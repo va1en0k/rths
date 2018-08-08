@@ -10,6 +10,8 @@ import Control.Monad.Random
 import Control.Monad.Primitive
 import Control.Monad.Identity
 import Debug.Trace
+import Data.Time.Clock.POSIX
+import System.Environment
 
 
 -- import Normal
@@ -164,13 +166,18 @@ genImageF w h = f <$> genImageBuf w h
 
 
 main :: IO ()
-main = do imF <- genImageF (fst res) (snd res)
-          let im = (generateImage imF (fst res) (snd res))
-          -- im <- evalRandIO rim
-          -- print (renderUV 0 0)
-          print (imF 0 0)
-          -- print (colorToPixel $ CVec3 0.8 0.7 1.0)
-          writePng "./image.png" im
+main = do
+  imF <- genImageF (fst res) (snd res)
+  let im = (generateImage imF (fst res) (snd res))
+  -- im <- evalRandIO rim
+  -- print (renderUV 0 0)
+  -- print (imF 10 10)
+  -- render 10 [] 10 10 >>= print
+  -- print (colorToPixel $ CVec3 0.8 0.7 1.0)
+  now <- getPOSIXTime
+  hash <- head <$> getArgs
+  writePng ("./out/image__" ++ hash ++ "__" ++ (show now) ++ ".png") im
+  writePng ("./image.png") im
 
 
 class Hitable a where
