@@ -96,3 +96,11 @@ user	1m19.675s
 sys	0m25.360s
 
 
+f64aa91
++ ./Main f64aa91 +RTS -N
+
+real	0m21.614s
+user	1m1.559s
+sys	0m25.220s
+
+
