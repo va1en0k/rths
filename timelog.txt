@@ -104,3 +104,11 @@ user	1m1.559s
 sys	0m25.220s
 
 
+fdce563
++ ./Main fdce563 +RTS -N
+
+real	0m25.973s
+user	1m32.648s
+sys	0m25.631s
+
+
