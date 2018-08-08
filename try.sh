@@ -12,4 +12,10 @@ HASH=`git rev-parse --short HEAD`
 
 date
 
-time ./Main $HASH +RTS -N
+
+echo $HASH >> timelog.txt
+{ time ./Main $HASH +RTS -N 2> stderr.log } 2>> timelog.txt
+echo >> timelog.txt
+echo >> timelog.txt
+
+cat stderr.log
