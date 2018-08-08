@@ -17,9 +17,11 @@ import System.Environment
 -- import Normal
 
 import Vectors
+import Hitable
 import Progress
 import World
 import RayTracer
+
 
 res :: (Int, Int)
 res = (300, 200)
@@ -34,46 +36,6 @@ data Camera = Camera {
 }
 
 camera = Camera (CVec3 0 0 0) (CVec3 3 0 0) (CVec3 0 (-3) 0) (CVec3 (-2) 2 (-1))
-
-
-sky :: Ray -> Color
-sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.5 0.7 1.0)
-  where un = normalize $ direction r
-        t = (y un + 1) * 0.5
-
---
--- color' :: RandomGen g => Ray -> Rand g Color
--- color' r = case (hit objects r 0 maxFloat) of
---   Just (Hit t p n) -> return $ 0.5 *. (CVec3 1 1 1 <+> n)
---   -- Just (Hit t p n) ->
---   --   do ru <- randomInUnitBall
---   --      let target = p <+> n <+> ru
---   --      cl <- color $ Ray p (target <-> p)
---   --      return $ 0.5 *. cl
---   Nothing -> return $ sky r
-
-
-color :: RandomGen g => Ray -> Rand g Color
-color r = case (hit objects r 0.00001 maxFloat) of
-  -- Just (Hit t p n) -> 0.5 *. (CVec3 1 1 1 <+> n)
-  Just (Hit t p n) ->
-    do ru <- randomInUnitBall
-       let target = p <+> n <+> ru
-       cl <- color $ Ray p (target <-> p)
-       return $ 0.5 *. cl
-  Nothing -> return $ sky r
-
-randomInUnitBall :: RandomGen g => Rand g CVec3
-randomInUnitBall =
-  -- do (a:b:c:_) <- getRandomRs (0::Double, 1)
-  --    let p = (2.0 *. CVec3 a b c) <-> CVec3 1 1 1
-  --    if norm p >= 1 then randomInUnitBall else return p
-  do --(x:y:z:_) <- normals
-     (x:y:z:_) <- getRandomRs (0::Double, 1)
-     r <- getRandomR (0::Double, 1)
-     let p = r * sqrt (x*x + y*y + z*z)
-     return $ (1 / p) *. CVec3 x y z
-
 
 
 

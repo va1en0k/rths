@@ -1,7 +1,10 @@
 module World where
 
-import RayTracer
 import Data.Vec3
+
+import Hitable
+import Vectors
+
 
 objects :: [Hitable_]
 objects = [
@@ -23,7 +26,7 @@ instance Hitable Sphere where
           where
             p = rayPointAt r x
             -- n = normalize $ p <-> CVec3 0 0 (-1)
-            n = (1 / sr) *. (p <-> sc)
+            n = mapv (/ sr) (p <-> sc)
     in if dsc < 0 then Nothing
        else let x0 = ( - b - sqrt dsc ) / (2 * a)
                 x1 = ( - b + sqrt dsc ) / (2 * a)
