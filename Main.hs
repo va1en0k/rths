@@ -19,13 +19,12 @@ import System.Environment
 import Vectors
 import Progress
 import World
+import RayTracer
 
 res :: (Int, Int)
 res = (300, 200)
 kRes :: Double
 kRes = fromIntegral $ uncurry min $ res
-
-data Ray = Ray {origin :: CVec3, direction :: CVec3}
 
 data Camera = Camera {
   cOrigin :: CVec3,
@@ -36,22 +35,12 @@ data Camera = Camera {
 
 camera = Camera (CVec3 0 0 0) (CVec3 3 0 0) (CVec3 0 (-3) 0) (CVec3 (-2) 2 (-1))
 
--- y :: Vec3 a -> Double
-y v = y'
-  where (_, y', _) = toXYZ v
-
-(*.) :: Double -> CVec3 -> CVec3
-k *. v = fromXYZ (x * k, y * k, z * k)
-  where (x, y, z) = toXYZ v
-
 
 sky :: Ray -> Color
 sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.5 0.7 1.0)
   where un = normalize $ direction r
         t = (y un + 1) * 0.5
 
-maxFloat :: Double
-maxFloat = fromIntegral $ snd $ floatRange (0.5::Double)
 --
 -- color' :: RandomGen g => Ray -> Rand g Color
 -- color' r = case (hit objects r 0 maxFloat) of
@@ -74,15 +63,6 @@ color r = case (hit objects r 0.00001 maxFloat) of
        return $ 0.5 *. cl
   Nothing -> return $ sky r
 
-data Hit = Hit {
-  hitT :: Double,
-  hitP :: CVec3,
-  hitNormal :: CVec3
-}
-
-frac :: Double -> Double
-frac = snd . properFraction
-
 randomInUnitBall :: RandomGen g => Rand g CVec3
 randomInUnitBall =
   -- do (a:b:c:_) <- getRandomRs (0::Double, 1)
@@ -95,8 +75,7 @@ randomInUnitBall =
      return $ (1 / p) *. CVec3 x y z
 
 
-rayPointAt :: Ray -> Double -> CVec3
-rayPointAt (Ray o d) t = o <+> (t *. d)
+
 
 renderUV :: RandomGen g => Double -> Double -> Rand g Color
 -- renderUV u v = CVec3 u v 0.2
@@ -174,17 +153,3 @@ main = do
   hash <- head <$> getArgs
   writePng ("./out/image__" ++ hash ++ "__" ++ (show now) ++ ".png") im
   writePng ("./image.png") im
-
-
-class Hitable a where
-  hit :: a -> Ray -> Double -> Double -> Maybe Hit
-
-data Hitable_ = forall a . Hitable a => MkHitable a
-
-
-
-instance Hitable Hitable_ where
- hit (MkHitable a) r mn mx = hit a r mn mx
-
-instance Hitable [Hitable_] where
-  hit objects r mn mx = listToMaybe $ sortBy (compare `on` hitT) $ catMaybes $ map (\o -> hit o r mn mx) objects
