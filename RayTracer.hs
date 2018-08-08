@@ -57,13 +57,13 @@ color r = case (hit objects r 0.00001 maxFloat) of
        return $ mapv (0.5 *) cl
   Nothing -> return $ sky r
 
-colorK :: RandomGen g => Double -> Ray -> Rand g Color
-colorK k r = case (hit objects r 0.00001 maxFloat) of
+colorK :: RandomGen g => Double -> [Hitable_] -> Ray -> Rand g Color
+colorK k objects r = case (hit objects r 0.00001 maxFloat) of
   -- Just (Hit t p n) -> 0.5 *. (CVec3 1 1 1 <+> n)
   Just (Hit t p n) ->
     do ru <- randomInUnitBall
        let target = p <+> n <+> ru
-       cl <- colorK (k/2) $ Ray p (target <-> p)
+       cl <- colorK (k/2) objects $ Ray p (target <-> p)
        return cl
   Nothing -> return $ mapv (k*) $ sky r
 
@@ -82,5 +82,5 @@ traceColorK objects pw ray = case (hit objects ray 0.000001 maxFloat) of
 
 traceColor :: RandomGen g => [Hitable_] -> Ray -> Rand g Color
 -- traceColor objects r = traceColorK objects 1 r
-traceColor objects r = colorK 1 r
+traceColor objects r = colorK 1 objects r
 -- traceColor _ r = return $ sky r
