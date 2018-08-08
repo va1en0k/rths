@@ -154,7 +154,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsIO
     -- ls :: RandT g Identity [((Int, Int), PixelRGB8)]
     allPixels = [(i, j) | i <- [0..w], j <- [0..h]]
 
-    ls = mapWithProgressBar (uncurry $ render) allPixels
+    ls = mapM (uncurry $ render) allPixels
 
     lsIO :: IO [((Int, Int), PixelRGB8)]
     lsIO = zip allPixels <$> ls
