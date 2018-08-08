@@ -72,3 +72,11 @@ user	1m14.449s
 sys	0m25.746s
 
 
+c04eaad
++ ./Main c04eaad +RTS -N
+
+real	0m25.927s
+user	1m17.938s
+sys	0m27.076s
+
+
