@@ -35,5 +35,5 @@ main = do
   -- print (colorToPixel $ CVec3 0.8 0.7 1.0)
   now <- getPOSIXTime
   hash <- head <$> getArgs
-  writePng ("./out/image__" ++ hash ++ "__" ++ (show now) ++ ".png") im
+  writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") im
   writePng ("./image.png") im
