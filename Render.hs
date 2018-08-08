@@ -45,7 +45,7 @@ renderUV u v = traceColor objects $ Ray (cOrigin camera) (cLowerLeftCorner camer
 
 colorToPixel :: Color -> PixelRGB8
 colorToPixel c =
-  let (r, g, b) = toXYZ $ mapv ((* 255.9) . sqrt) c
+  let (r, g, b) = toXYZ $ mapv ((* 255.9) {-. sqrt-}) c
   in PixelRGB8 (fromInteger $ floor r) (fromInteger $ floor g) (fromInteger $ floor b)
 
 renderOnce :: RandomGen g => Int -> Int -> Rand g Color

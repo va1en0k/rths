@@ -64,3 +64,11 @@ user	1m16.077s
 sys	0m24.800s
 
 
+fb27dfb
++ ./Main fb27dfb +RTS -N
+
+real	0m23.624s
+user	1m14.449s
+sys	0m25.746s
+
+
