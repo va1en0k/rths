@@ -120,3 +120,5 @@ user	0m34.417s
 sys	0m24.585s
 
 
+4cea84c
++ ./Main 4cea84c +RTS -N
