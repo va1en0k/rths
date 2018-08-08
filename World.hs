@@ -9,7 +9,7 @@ import Vectors
 objects :: [Hitable_]
 objects = [
   MkHitable $ Sphere (CVec3 0.7 0 (-1)) 0.5,
-  -- MkHitable $ Sphere (CVec3 (-1) (-0.3) (-0.8)) 0.2,
+  MkHitable $ Sphere (CVec3 (-1) (-0.3) (-0.8)) 0.2,
   MkHitable $ Sphere (CVec3 0 (-100.5) (-1)) 100 ]
 
 
