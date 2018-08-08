@@ -88,3 +88,11 @@ user	1m15.025s
 sys	0m26.592s
 
 
+f9730a0
++ ./Main f9730a0 +RTS -N
+
+real	0m24.064s
+user	1m19.675s
+sys	0m25.360s
+
+
