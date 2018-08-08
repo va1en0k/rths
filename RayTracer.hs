@@ -71,7 +71,7 @@ colorK k objects r = case (hit objects r 0.00001 maxFloat) of
 
 traceColorK :: RandomGen g => [Hitable_] -> Int -> Ray -> Rand g Color
 -- traceColorK _       pw ray | pw > 32 = return $ mapv (/ (2 ^ pw)) (sky ray)
-traceColorK objects pw ray = case (hit objects ray 0.000001 maxFloat) of
+traceColorK objects pw ray = case (hit objects ray 0.0001 maxFloat) of
   -- Just (Hit t p n) -> 0.5 *. (CVec3 1 1 1 <+> n)
   Just (Hit t p n) ->
     do ru <- randomInUnitBall
