@@ -1,9 +1,9 @@
 #!/bin/bash -ex
 
 # we want to fail compilation before the commit
-ghc Main.hs -j -fexcess-precision -optc-O3 -rtsopts -threaded
+ghc Main.hs -j -fexcess-precision -optc-O3 -optc-ffast-math -rtsopts -threaded
 
-# -optc-ffast-math -prof -fprof-auto 
+# -prof -fprof-auto
 
 git add *.hs
 git add out/*
