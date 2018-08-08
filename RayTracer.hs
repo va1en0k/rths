@@ -63,7 +63,7 @@ color r = case (hit objects r 0.00001 maxFloat) of
     do ru <- randomInUnitBall
        let target = p <+> n <+> ru
        cl <- color $ Ray p (target <-> p)
-       return $ 0.5 *. cl
+       return $ mapv (0.5 *) cl
   Nothing -> return $ sky r
 
 
