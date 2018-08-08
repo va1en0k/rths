@@ -24,20 +24,6 @@ import RayTracer
 import Render
 
 
-
--- vsum xs = foldr1 (<+>) xs
---
--- renderAntialiased :: Int -> Int -> PixelRGB8
--- renderAntialiased x y = colorToPixel $ (1 / (fromIntegral $ length points)) *. vsum points
---   where
---     points =
---       do i <- [0.1..0.9]
---          j <- [0.1..0.9]
---          return $ renderUV ((i + fromIntegral x) / kRes) ((j + fromIntegral y) / kRes)
-
-
-
-
 main :: IO ()
 main = do
   imF <- genImageF (fst res) (snd res)
