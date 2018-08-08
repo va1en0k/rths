@@ -38,7 +38,7 @@ andByTheWay a b = a >>= \r -> b >> return r
 -- parMapM'r cnt f xs = (\rs -> rs `using` parList rdeepseq) <$> mapM f xs
 
 chunkCount :: Int
-chunkCount = 2056
+chunkCount = 256
 
 parMapM'r :: (NFData b) => IORef Int -> (a -> IO b) -> [a] -> IO [b]
 parMapM'r cnt f xs =
