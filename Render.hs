@@ -67,9 +67,6 @@ render x y = colorToPixel <$> avgv <$> rendersIO
       -- when (x == 200 && y == 40) (print rs)
       return $ rs --rs `deepseq` rs
 
-
-
-
 genImageBuf :: Int -> Int -> IO ImgBuf
 genImageBuf w h = array ((0, 0), (w, h)) <$> lsIO
   where
@@ -86,11 +83,3 @@ genImageF w h = f <$> genImageBuf w h
   where
     -- f b x y | trace ((show x) ++ " " ++ (show y)) False = undefined
     f b x y = b ! (x, y)
-
--- renderAntialiased :: Int -> Int -> PixelRGB8
--- renderAntialiased x y = colorToPixel $ (1 / (fromIntegral $ length points)) *. vsum points
---   where
---     points =
---       do i <- [0.1..0.9]
---          j <- [0.1..0.9]
---          return $ renderUV ((i + fromIntegral x) / kRes) ((j + fromIntegral y) / kRes)

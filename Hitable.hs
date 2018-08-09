@@ -13,6 +13,8 @@ import Vectors
 data Ray = Ray {origin :: CVec3, direction :: CVec3}
   deriving (Show)
 
+-- data Material = Material {scatter :: Bool}
+
 data Hit = Hit {
   hitT :: Double,
   hitP :: CVec3,

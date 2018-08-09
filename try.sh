@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
 # we want to fail compilation before the commit
-ghc Main.hs -j -fexcess-precision -optc-O3 -optc-ffast-math -fforce-recomp -rtsopts -threaded
+ghc Main.hs -j -fexcess-precision -optc-O3 -optc-ffast-math -rtsopts -threaded
 
 # -prof -fprof-auto
 

@@ -122,3 +122,9 @@ sys	0m24.585s
 
 4cea84c
 + ./Main 4cea84c +RTS -N
+4f9542e
++ ./Main 4f9542e +RTS -N
+
+real	0m17.872s
+user	0m35.208s
+sys	0m24.647s
