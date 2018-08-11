@@ -8,21 +8,9 @@ import Data.Function
 import Data.List
 
 import Vectors
+import Material
 
 
-data Ray = Ray {origin :: CVec3, direction :: CVec3}
-  deriving (Show)
-
--- data Material = Material {scatter :: Bool}
-
-data Hit = Hit {
-  hitT :: Double,
-  hitP :: CVec3,
-  hitNormal :: CVec3
-}
-
-class Hitable a where
-  hit :: a -> Ray -> Double -> Double -> Maybe Hit
 
 data Hitable_ = forall a . Hitable a => MkHitable a
 

@@ -31,7 +31,7 @@ sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.5 0.7 1.0)
 traceColorK :: RandomGen g => Int -> Double -> [Hitable_] -> Ray -> Rand g Color
 traceColorK i k objects r = case (hit objects r 0.00001 maxFloat) of
   -- Just (Hit t p n) -> 0.5 *. (CVec3 1 1 1 <+> n)
-  Just (Hit t p n) ->
+  Just (Hit t p n sc) ->
     if i < 50
       then do
             ru <- randomInUnitBall

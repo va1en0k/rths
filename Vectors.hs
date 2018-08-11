@@ -1,3 +1,5 @@
+{-# LANGUAGE Rank2Types, ExistentialQuantification #-}
+
 module Vectors where
 
 import Data.Vec3
@@ -5,6 +7,7 @@ import Data.Ord
 import Data.List
 import Control.DeepSeq
 import Codec.Picture
+import Control.Monad.Random
 
 type Color = CVec3
 
@@ -38,3 +41,19 @@ reflect v n = v <-> (2 *. ((v .* n) *. n))
 
 (*.) :: Double -> CVec3 -> CVec3
 (*.) = mapv . (*)
+
+
+data Ray = Ray {origin :: CVec3, direction :: CVec3}
+  deriving (Show)
+
+type Scatter = Maybe (CVec3, Ray)
+
+data Hit = Hit {
+  hitT :: Double,
+  hitP :: CVec3,
+  hitNormal :: CVec3,
+  scatter :: forall g . RandomGen g => Rand g Scatter
+}
+
+class Hitable a where
+  hit :: a -> Ray -> Double -> Double -> Maybe Hit
