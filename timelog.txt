@@ -168,3 +168,11 @@ user	0m43.123s
 sys	0m26.202s
 
 
+5f855a5
++ ./Main 5f855a5 +RTS -N
+
+real	0m19.731s
+user	0m42.341s
+sys	0m25.793s
+
+

@@ -34,7 +34,7 @@ data Camera = Camera {
   cLowerLeftCorner :: CVec3
 }
 
-camera = Camera (CVec3 0 0 0) (CVec3 3 0 0) (CVec3 0 (-2) 0) (CVec3 (-2) 1 (-1))
+camera = Camera (CVec3 0 0 0) (CVec3 3 0 0) (CVec3 0 (-3) 0) (CVec3 (-2) 1 (-1))
 
 type ImgBuf = Array (Int, Int) PixelRGB8
 
