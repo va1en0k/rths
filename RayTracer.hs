@@ -31,15 +31,16 @@ sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.5 0.7 1.0)
 traceColorK :: RandomGen g => Int -> Double -> [Hitable_] -> Ray -> Rand g Color
 traceColorK i k objects r = case (hit objects r 0.00001 maxFloat) of
   -- Just (Hit t p n) -> 0.5 *. (CVec3 1 1 1 <+> n)
+  Nothing -> return $ mapv (k*) $ sky r
   Just (Hit t p n sc) ->
     if i < 50
-      then do
-            ru <- randomInUnitBall
-            let target = p <+> n <+> ru
-            cl <- traceColorK (i+1) (k/2) objects $ Ray p (target <-> p)
-            return cl
+      then sc >>= (\sc ->
+        case sc of
+          Nothing -> return $ CVec3 0 0 0
+          Just (attenuation, scattered) ->
+            (attenuation *<>*) <$> traceColorK (i+1) k objects scattered)
       else return $ CVec3 0 0 0
-  Nothing -> return $ mapv (k*) $ sky r
+
 
 
 traceColor :: RandomGen g => [Hitable_] -> Ray -> Rand g Color

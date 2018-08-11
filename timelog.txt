@@ -152,3 +152,11 @@ user	0m35.897s
 sys	0m26.103s
 
 
+c7bcca7
++ ./Main c7bcca7 +RTS -N
+
+real	0m19.808s
+user	0m42.792s
+sys	0m25.569s
+
+

@@ -42,6 +42,8 @@ reflect v n = v <-> (2 *. ((v .* n) *. n))
 (*.) :: Double -> CVec3 -> CVec3
 (*.) = mapv . (*)
 
+(*<>*) :: CVec3 -> CVec3 -> CVec3
+(CVec3 a b c) *<>* (CVec3 x y z) = CVec3 (a*x) (b*y) (c*z)
 
 data Ray = Ray {origin :: CVec3, direction :: CVec3}
   deriving (Show)
