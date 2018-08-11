@@ -128,3 +128,11 @@ sys	0m24.585s
 real	0m17.872s
 user	0m35.208s
 sys	0m24.647s
+9899409
++ ./Main 9899409 +RTS -N
+
+real	0m21.289s
+user	0m38.366s
+sys	0m28.368s
+
+
