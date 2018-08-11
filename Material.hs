@@ -28,14 +28,14 @@ mkLambertian albedo = Material m
               -- p + normal + random - p ?
             target = (hitNormal hit <+>) <$> randomInUnitBall
 
-mkMetal = mkLambertian
---
--- mkMetal :: RandomGen g => CVec3 -> MaterialScatterF g
--- mkMetal albedo rayIn hit =
---   return $ if didScatter
---             then Just (attenuation, scattered)
---             else Nothing
---   where reflected = reflect (normalize $ direction rayIn) (hitNormal hit)
---         scattered = Ray (hitP hit) reflected
---         attenuation = albedo
---         didScatter = reflected .* (hitNormal hit) > 0
+mkMetal :: CVec3 -> Material
+mkMetal albedo = Material m
+  where
+    m rayIn hit =
+      return (if didScatter
+                then Just (attenuation, scattered)
+                else Nothing)
+        where reflected = reflect (normalize $ direction rayIn) (hitNormal hit)
+              scattered = Ray (hitP hit) reflected
+              attenuation = albedo
+              didScatter = reflected .* (hitNormal hit) > 0
