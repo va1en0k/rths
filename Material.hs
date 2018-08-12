@@ -56,18 +56,35 @@ refract v n niOverNt = if d > 0 then Just refr else Nothing
     d = 1.0 - niOverNt * niOverNt * (1 - dt * dt)
     refr = (niOverNt *. (v <-> (dt *. n))) <-> (sqrt d *. n)
 
+schlick :: Double -> Double -> Double
+schlick cs refIdx = r02 + (1 - r02) * ((1 - cs) ** 5)
+  where r0 = (1 - refIdx) / (1 + refIdx)
+        r02 = r0 * r0
+
 mkDielectric :: Double -> Material
 mkDielectric refIdx = Material m
   where
-    m rayIn hit = return $ case refract (direction rayIn) outNorm niOverNt of
-                            Just refr -> Just (att, Ray (hitP hit) refr)
-                            Nothing -> Nothing
+    m rayIn hit = return <$> res
       where
         att = CVec3 1 1 1
-        (outNorm, niOverNt) =
-          if (direction rayIn .* hitNormal hit) > 0
-            then ((-1) *. hitNormal hit, refIdx)
-            else (hitNormal hit, 1 / refIdx)
+        drayInDPhit = direction rayIn .* hitNormal hit
+        (outNorm, niOverNt, cosine) =
+          if drayInDPhit > 0
+            then ((-1) *. hitNormal hit,
+                  refIdx,
+                  refIdx * drayInDPhit / norm (direction rayIn))
+            else (hitNormal hit,
+                  1 / refIdx,
+                  - drayInDPhit / norm (direction rayIn))
+        (reflProb, refr) =
+          case refract (direction rayIn) outNorm niOverNt of
+                  Just refr -> (schlick cosine refIdx, refr) --Just (att, Ray (hitP hit) refr)
+                  Nothing -> (1.0, undefined)
+        res = do
+          x <- getRandomR (0, 1)
+          return $ if (x < reflProb)
+                    then (att, Ray (hitP hit) refr)
+                    else (att, Ray (hitP hit) (reflect (direction rayIn) (hitNormal hit)))
 
 
       -- refr =
