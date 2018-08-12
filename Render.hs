@@ -34,7 +34,22 @@ data Camera = Camera {
   cLowerLeftCorner :: CVec3
 }
 
-camera = Camera (CVec3 0 0 0) (CVec3 2.5 0 0) (CVec3 0 (-2.5) 0) (CVec3 (-2) 1 (-1))
+-- camera = Camera (CVec3 0 0 0) (CVec3 2.5 0 0) (CVec3 0 (-2.5) 0) (CVec3 (-2) 1 (-1))
+
+camera = mkCamera 90 (fromIntegral (fst res) / fromIntegral (snd res))
+
+mkCamera :: Double -> Double -> Camera
+mkCamera vfov aspect =
+  Camera {
+    cLowerLeftCorner = CVec3 (-halfWidth) (-halfHeight) (-1),
+    cHorizontal = CVec3 (2 * halfWidth) 0 0,
+    cVertical = CVec3 0 (2 * halfHeight) 0,
+    cOrigin = CVec3 0 0 0
+  }
+    where theta = vfov * pi / 180
+          halfHeight = tan $ theta / 2
+          halfWidth = aspect * halfHeight
+
 
 type ImgBuf = Array (Int, Int) PixelRGB8
 

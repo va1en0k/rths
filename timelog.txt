@@ -288,3 +288,11 @@ user	0m51.540s
 sys	0m26.773s
 
 
+ec3938d
++ ./Main ec3938d +RTS -N
+
+real	0m22.107s
+user	0m50.633s
+sys	0m26.720s
+
+
