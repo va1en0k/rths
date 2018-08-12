@@ -12,7 +12,7 @@ objects = [
   MkHitable $ Sphere (mkLambertian $ CVec3 0.8 0.8 0.0) (CVec3 0 (-100.5) (-1)) 100,
   MkHitable $ Sphere (mkMetal 0.3 $ CVec3 0.8 0.6 0.2) (CVec3 1 0 (-1)) 0.5,
   -- MkHitable $ Sphere (mkMetal 1.0 $ CVec3 0.8 0.8 0.8) (CVec3 (-1) 0 (-1)) 0.5
-  MkHitable $ Sphere (mkDielectric 1.5) (CVec3 (-1) 0 (-1)) 0.5
+  MkHitable $ Sphere (mkDielectric 1.5) (CVec3 (-1) 0 (-1)) (-0.45)
   ]
 
 
