@@ -230,3 +230,12 @@ a5466f8
 + ./Main a5466f8 +RTS -N
 c3201f8
 + ./Main c3201f8 +RTS -N
+5eb38f0
++ ./Main 5eb38f0 +RTS -N
+
+real	0m2.010s
+user	0m3.954s
+sys	0m1.096s
++ cat stderr.log
+
+
