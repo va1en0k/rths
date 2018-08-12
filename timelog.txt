@@ -228,3 +228,5 @@ b7228f1
 + ./Main b7228f1 +RTS -N
 a5466f8
 + ./Main a5466f8 +RTS -N
+c3201f8
++ ./Main c3201f8 +RTS -N
