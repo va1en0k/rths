@@ -66,7 +66,7 @@ colorToPixel c =
 renderOnce :: RandomGen g => Int -> Int -> Rand g Color
 renderOnce x y =
   do (a:b:_) <- getRandomRs (0::Double, 1)
-     renderUV ((a + fromIntegral x) / kRes) ((b + fromIntegral y) / kRes)
+     renderUV ((a + fromIntegral x) / (fromIntegral $ fst res)) ((b + fromIntegral y) / (fromIntegral $ snd res))
 
 -- render :: RandomGen g => Int -> Int -> Rand g PixelRGB8
 -- render :: Int -> [Hitable_] -> Int -> Int -> IO PixelRGB8

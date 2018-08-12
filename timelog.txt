@@ -314,3 +314,11 @@ sys	0m29.132s
 
 dcb5089
 + ./Main dcb5089 +RTS -N
+25b8daf
++ ./Main 25b8daf +RTS -N
+
+real	0m23.614s
+user	0m50.036s
+sys	0m29.111s
+
+
