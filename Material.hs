@@ -52,9 +52,10 @@ refract :: CVec3 -> CVec3 -> Double -> Maybe CVec3
 -- might it be that it assumes that |n| = 1?
 refract v n niOverNt = if d > 0 then Just refr else Nothing
   where
-    dt = (normalize v) .* n
+    uv = normalize v
+    dt = uv .* n
     d = 1.0 - niOverNt * niOverNt * (1 - dt * dt)
-    refr = (niOverNt *. (v <-> (dt *. n))) <-> (sqrt d *. n)
+    refr = (niOverNt *. (uv <-> (dt *. n))) <-> (sqrt d *. n)
 
 schlick :: Double -> Double -> Double
 schlick cs refIdx = r02 + (1 - r02) * ((1 - cs) ** 5)
@@ -82,7 +83,7 @@ mkDielectric refIdx = Material m
                   Just refr -> (schlick cosine refIdx, refr) --Just (att, Ray (hitP hit) refr)
                   Nothing -> (1.0, undefined)
         res = do
-          x <- getRandomR (0, 0.99)
+          x <- getRandomR (0, 1.0)
           return $ if (x < reflProb)
                     then (att, Ray (hitP hit) (reflect (direction rayIn) (hitNormal hit)))
                     else (att, Ray (hitP hit) refr)
