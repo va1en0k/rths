@@ -474,3 +474,11 @@ sys	0m50.646s
 
 784dc65
 + ./Main 784dc65 +RTS -N
+fad0605
++ ./Main fad0605 +RTS -N
+
+real	2m22.399s
+user	15m13.756s
+sys	0m48.547s
+
+
