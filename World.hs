@@ -22,7 +22,7 @@ objects = [
 
 -- randomWorld :: RT ()
 randomWorld :: RandomGen g => Rand g [Hitable_]
-randomWorld = (typical++) <$> concat <$> sequence randList
+randomWorld = return typical --  (typical++) <$> concat <$> sequence randList
   where
     typical = [
       MkHitable $ Sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000,
@@ -30,9 +30,10 @@ randomWorld = (typical++) <$> concat <$> sequence randList
       MkHitable $ Sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0) 1,
       MkHitable $ Sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5) (CVec3 4 1 0) 1]
     -- randList :: [Rand g [Hitable_]]
+    randList :: RandomGen g => [Rand g [Hitable_]]
     randList = (flip map) [(a, b) | a <- [-11..11], b <- [-11..11]] (uncurry genSphere)
 
-    -- genSphere :: Double -> Double -> Rand g [Hitable_]
+    genSphere :: RandomGen g => Double -> Double -> Rand g [Hitable_]
     genSphere a b =
       do
         (mt:x:z:_) <- getRandomRs (0, 1)
