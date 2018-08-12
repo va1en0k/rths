@@ -17,7 +17,7 @@ date
 
 echo $HASH >> timelog.txt
 
-{ time ./Main $HASH +RTS -N 2> stderr.log || cat stderr.log && false; } 2> >(tee -a timelog.txt >&2)
+{ time ./Main $HASH +RTS -N 2> stderr.log || (cat stderr.log && false); } 2> >(tee -a timelog.txt >&2)
 
 echo >> timelog.txt
 echo >> timelog.txt

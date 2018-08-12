@@ -249,3 +249,10 @@ sys	0m1.167s
 + false
 e112542
 + ./Main e112542 +RTS -N
+b6e5131
++ ./Main b6e5131 +RTS -N
+
+real	0m24.537s
+user	1m20.477s
+sys	0m26.095s
++ false
