@@ -364,3 +364,15 @@ sys	0m41.554s
 
 19fabee
 + ./Main 19fabee +RTS -N
+0cd2b66
++ ./Main 0cd2b66 +RTS -N
+
+real	6m31.467s
+user	18m7.824s
+
+sys	1m36.137s
+
+
+real	36m14.722s
+user	188m17.659s
+sys	8m6.946s

@@ -7,6 +7,8 @@ import Hitable
 import Vectors
 import Material
 
+import RTMonad
+
 type World = [Hitable_]
 
 objects :: [Hitable_]
@@ -18,6 +20,7 @@ objects = [
   MkHitable $ Sphere (mkDielectric 1.5) (CVec3 (-1) 0 (-1)) (-0.45)
   ]
 
+-- randomWorld :: RT ()
 randomWorld :: RandomGen g => Rand g [Hitable_]
 randomWorld = (typical++) <$> concat <$> sequence randList
   where
