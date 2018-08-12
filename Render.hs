@@ -80,7 +80,7 @@ renderOnce world x y =
 render :: World -> Int -> Int -> IO PixelRGB8
 render world x y = colorToPixel <$> avgv <$> rendersIO
   where
-    gens = replicateM 2 newStdGen
+    gens = replicateM 20 newStdGen
     rendersIO :: IO [Color]
 
     rendersIO = do
