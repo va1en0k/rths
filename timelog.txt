@@ -354,3 +354,11 @@ user	8m54.778s
 sys	0m45.377s
 
 
+feb186a
++ ./Main feb186a +RTS -N
+
+real	1m34.063s
+user	8m20.474s
+sys	0m41.554s
+
+
