@@ -49,7 +49,7 @@ mkCamera from at vup vfov aspect focusDist =
     cOrigin = from
   }
     where theta = vfov * pi / 180
-          halfHeight = tan $ theta / 2
+          halfHeight = tan $ vfov / 2
           halfWidth = aspect * halfHeight
           w = normalize $ from <-> at
           u = normalize $ vup >< w
