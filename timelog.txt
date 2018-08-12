@@ -312,3 +312,5 @@ user	0m52.137s
 sys	0m29.132s
 
 
+dcb5089
++ ./Main dcb5089 +RTS -N

@@ -41,9 +41,9 @@ camera = mkCamera 90 (fromIntegral (fst res) / fromIntegral (snd res))
 mkCamera :: Double -> Double -> Camera
 mkCamera vfov aspect =
   Camera {
-    cLowerLeftCorner = CVec3 (-halfWidth) (-halfHeight) (-1),
+    cLowerLeftCorner = CVec3 (-halfWidth) (halfHeight) (-1),
     cHorizontal = CVec3 (2 * halfWidth) 0 0,
-    cVertical = CVec3 0 (2 * halfHeight) 0,
+    cVertical = CVec3 0 (-2 * halfHeight) 0,
     cOrigin = CVec3 0 0 0
   }
     where theta = vfov * pi / 180
