@@ -91,12 +91,12 @@ reportProgress starTime v =
     reportProgress starTime v
 
 mapWithProgressBar :: NFData b => (a -> IO b) -> [a] -> IO [b]
-mapWithProgressBar f xs =
-  mapM f xs
+-- mapWithProgressBar f xs =
+  -- mapM f xs
 -- mapWithProgressBar f xs = (id $!!) <$> mapM f xs
   -- concat <$> mapWithProgressBar' (parMapM' f) (chunksOf 16 xs)
 
-mapWithProgressBar''' f xs =
+mapWithProgressBar f xs =
   do -- let total = length xs
 
     hSetBuffering stdout NoBuffering

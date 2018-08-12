@@ -247,3 +247,5 @@ user	0m4.383s
 sys	0m1.167s
 + cat stderr.log
 + false
+e112542
++ ./Main e112542 +RTS -N
