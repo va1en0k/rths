@@ -424,3 +424,11 @@ user	0m2.481s
 sys	0m1.631s
 
 
+b2c9157
++ ./Main b2c9157 +RTS -N
+
+real	0m1.737s
+user	0m2.715s
+sys	0m2.416s
+
+

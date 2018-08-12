@@ -55,12 +55,14 @@ mkCamera from at vup vfov aspect focusDist =
           u = normalize $ vup >< w
           v = w >< u
 
+getRay :: Camera -> Double -> Double -> Ray
+getRay c u v = Ray (cOrigin c) (cLowerLeftCorner c <+> (u *. (cHorizontal c)) <+> (v *. (cVertical c)) <-> (cOrigin c))
 
 type ImgBuf = Array (Int, Int) PixelRGB8
 
 renderUV :: RandomGen g => World -> Double -> Double -> Rand g Color
 -- renderUV u v = CVec3 u v 0.2
-renderUV world u v = traceColor world $ Ray (cOrigin camera) (cLowerLeftCorner camera <+> (u *. (cHorizontal camera)) <+> (v *. (cVertical camera)))
+renderUV world u v = traceColor world $ getRay camera  u v
 
 
 colorToPixel :: Color -> PixelRGB8
