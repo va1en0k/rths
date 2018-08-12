@@ -33,12 +33,6 @@ instance NFData CVec3 where
 instance NFData PixelRGB8 where
   rnf (PixelRGB8 r g b) = r `seq` g `seq` b `seq` ()
 
-reflect :: CVec3 -> CVec3 -> CVec3
--- might it be that it assumes that |n| = 1?
-reflect v n = v <-> (2 *. ((v .* n) *. n))
-
-
-
 (*.) :: Double -> CVec3 -> CVec3
 (*.) = mapv . (*)
 
