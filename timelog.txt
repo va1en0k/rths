@@ -472,3 +472,5 @@ user	15m57.522s
 sys	0m50.646s
 
 
+784dc65
++ ./Main 784dc65 +RTS -N

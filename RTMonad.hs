@@ -38,11 +38,7 @@ getRand :: RT Double
 getRand = RT $ \s -> getRandomR (0, 1) >>= \v -> return (v, s)
 
 getRands :: RT [Double]
-getRands =
-  do
-    a <- getRand
-    bs <- getRands
-    return (a:bs)
+getRands = RT $ \s -> getRandomRs (0, 1) >>= \vs -> return (vs, s)
 
 getSettings :: RT Settings
 getSettings = RT $ \s -> return (s, s)
