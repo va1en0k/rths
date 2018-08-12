@@ -32,9 +32,9 @@ randomWorld = concat <$> sequence randList
         let center = CVec3 (a + x * 0.9) 0.2 (b + 0.9 * z)
         if (norm (center <-> CVec3 4 0.2 0) > 0.9)
           then return $ return $ case () of
-                                  () | mt < 0.8 ->
+                                  () | mt < 0.6 ->
                                       MkHitable $ Sphere (mkLambertian $ CVec3 (r1 * r2) (r3 * r4) (r5 * r6)) center 0.2
-                                  () | mt < 0.95 ->
+                                  () | mt < 0.75 ->
                                       MkHitable $ Sphere (mkMetal (0.5 * r4) $ CVec3 (0.5 * (1 + r1)) (0.5 * (1 + r2)) (0.5 * (1 + r3))) center 0.2
                                   () | otherwise -> MkHitable $ Sphere (mkDielectric 1.5) center 0.2
           else return []
