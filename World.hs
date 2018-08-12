@@ -1,6 +1,7 @@
 module World where
 
 import Data.Vec3
+import Control.Monad.Random
 
 import Hitable
 import Vectors
@@ -15,6 +16,26 @@ objects = [
   MkHitable $ Sphere (mkDielectric 1.5) (CVec3 (-1) 0 (-1)) (-0.45)
   ]
 
+randomWorld :: RandomGen g => Rand g [Hitable_]
+randomWorld = concat <$> sequence randList
+  where
+    -- randList :: [Rand g [Hitable_]]
+    randList = (flip map) [(a, b) | a <- [-11..11], b <- [-11..11]] (uncurry genSphere)
+
+    -- genSphere :: Double -> Double -> Rand g [Hitable_]
+    genSphere a b =
+      do
+        (mt:x:z:_) <- getRandomRs (0, 1)
+        (r1:r2:r3:r4:r5:r6:_) <- getRandomRs (0, 1)
+        let center = CVec3 (a + x * 0.9) 0.2 (b + 0.9 * z)
+        if (norm (center <-> CVec3 4 0.2 0) > 0.9)
+          then return $ return $ case () of
+                                  () | mt < 0.8 ->
+                                      MkHitable $ Sphere (mkLambertian $ CVec3 (r1 * r2) (r3 * r4) (r5 * r6)) center 0.2
+                                  () | mt < 0.95 ->
+                                      MkHitable $ Sphere (mkMetal (0.5 * r4) $ CVec3 (0.5 * (1 + r1)) (0.5 * (1 + r2)) (0.5 * (1 + r3))) center 0.2
+                                  () | otherwise -> MkHitable $ Sphere (mkDielectric 1.5) center 0.2
+          else return []
 
 data Sphere = Sphere Material CVec3 Double
 

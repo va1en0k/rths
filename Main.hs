@@ -26,6 +26,7 @@ import Render
 
 main :: IO ()
 main = do
+  world <- evalRandT randomWorld <$> newStdGen
   imF <- genImageF (fst res) (snd res)
   let im = (generateImage imF (fst res) (snd res))
   -- im <- evalRandIO rim
