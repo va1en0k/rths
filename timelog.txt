@@ -256,3 +256,11 @@ real	0m24.537s
 user	1m20.477s
 sys	0m26.095s
 + false
+6db00c8
++ ./Main 6db00c8 +RTS -N
+
+real	0m27.558s
+user	1m23.507s
+sys	0m27.651s
+
+

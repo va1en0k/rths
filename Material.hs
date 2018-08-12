@@ -68,14 +68,15 @@ mkDielectric refIdx = Material m
       where
         att = CVec3 1 1 1
         drayInDPhit = direction rayIn .* hitNormal hit
+        cosine' = drayInDPhit / norm (direction rayIn)
         (outNorm, niOverNt, cosine) =
           if drayInDPhit > 0
             then ((-1) *. hitNormal hit,
                   refIdx,
-                  refIdx * drayInDPhit / norm (direction rayIn))
+                  sqrt (1 - refIdx * refIdx * (1 - cosine' * cosine')))
             else (hitNormal hit,
                   1 / refIdx,
-                  - drayInDPhit / norm (direction rayIn))
+                  - cosine')
         (reflProb, refr) =
           case refract (direction rayIn) outNorm niOverNt of
                   Just refr -> (schlick cosine refIdx, refr) --Just (att, Ray (hitP hit) refr)
