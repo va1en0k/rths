@@ -226,3 +226,5 @@ sys	0m24.097s
 
 b7228f1
 + ./Main b7228f1 +RTS -N
+a5466f8
++ ./Main a5466f8 +RTS -N
