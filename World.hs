@@ -22,7 +22,7 @@ objects = [
 
 -- randomWorld :: RT ()
 randomWorld :: RandomGen g => Rand g [Hitable_]
-randomWorld = return typical --  (typical++) <$> concat <$> sequence randList
+randomWorld = (typical++) <$> concat <$> sequence randList
   where
     typical = [
       MkHitable $ Sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000,

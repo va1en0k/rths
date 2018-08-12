@@ -448,3 +448,11 @@ user	0m4.353s
 sys	0m2.140s
 
 
+3cec15e
++ ./Main 3cec15e +RTS -N
+
+real	0m2.123s
+user	0m5.168s
+sys	0m2.522s
+
+
