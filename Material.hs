@@ -64,7 +64,7 @@ schlick cs refIdx = r02 + (1 - r02) * ((1 - cs) ** 5)
 mkDielectric :: Double -> Material
 mkDielectric refIdx = Material m
   where
-    m rayIn hit = return <$> res
+    m rayIn hit = Just <$> res
       where
         att = CVec3 1 1 1
         drayInDPhit = direction rayIn .* hitNormal hit
