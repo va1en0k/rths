@@ -304,3 +304,11 @@ user	0m49.860s
 sys	0m27.959s
 
 
+ef27572
++ ./Main ef27572 +RTS -N
+
+real	0m24.410s
+user	0m52.137s
+sys	0m29.132s
+
+
