@@ -53,9 +53,9 @@ mkCamera vfov aspect =
 
 type ImgBuf = Array (Int, Int) PixelRGB8
 
-renderUV :: RandomGen g => Double -> Double -> Rand g Color
+renderUV :: RandomGen g => World -> Double -> Double -> Rand g Color
 -- renderUV u v = CVec3 u v 0.2
-renderUV u v = traceColor objects $ Ray (cOrigin camera) (cLowerLeftCorner camera <+> (u *. (cHorizontal camera)) <+> (v *. (cVertical camera)))
+renderUV world u v = traceColor world $ Ray (cOrigin camera) (cLowerLeftCorner camera <+> (u *. (cHorizontal camera)) <+> (v *. (cVertical camera)))
 
 
 colorToPixel :: Color -> PixelRGB8
@@ -63,38 +63,38 @@ colorToPixel c =
   let (r, g, b) = toXYZ $ mapv ((* 255.9) {-. sqrt-}) c
   in PixelRGB8 (fromInteger $ floor r) (fromInteger $ floor g) (fromInteger $ floor b)
 
-renderOnce :: RandomGen g => Int -> Int -> Rand g Color
-renderOnce x y =
+renderOnce :: RandomGen g => World -> Int -> Int -> Rand g Color
+renderOnce world x y =
   do (a:b:_) <- getRandomRs (0::Double, 1)
-     renderUV ((a + fromIntegral x) / (fromIntegral $ fst res)) ((b + fromIntegral y) / (fromIntegral $ snd res))
+     renderUV world ((a + fromIntegral x) / (fromIntegral $ fst res)) ((b + fromIntegral y) / (fromIntegral $ snd res))
 
 -- render :: RandomGen g => Int -> Int -> Rand g PixelRGB8
 -- render :: Int -> [Hitable_] -> Int -> Int -> IO PixelRGB8
-render :: Int -> Int -> IO PixelRGB8
-render x y = colorToPixel <$> avgv <$> rendersIO
+render :: World -> Int -> Int -> IO PixelRGB8
+render world x y = colorToPixel <$> avgv <$> rendersIO
   where
     gens = replicateM 20 newStdGen
     rendersIO :: IO [Color]
 
     rendersIO = do
       gs <- gens
-      let rs = map (runIdentity . evalRandT (renderOnce x y)) gs
+      let rs = map (runIdentity . evalRandT (renderOnce world x y)) gs
       -- when (x == 200 && y == 40) (print rs)
       return $ rs --rs `deepseq` rs
 
-genImageBuf :: Int -> Int -> IO ImgBuf
-genImageBuf w h = array ((0, 0), (w, h)) <$> lsIO
+genImageBuf :: World -> Int -> Int -> IO ImgBuf
+genImageBuf world w h = array ((0, 0), (w, h)) <$> lsIO
   where
     -- ls :: RandT g Identity [((Int, Int), PixelRGB8)]
     allPixels = [(i, j) | i <- [0..w], j <- [0..h]]
 
-    ls = mapWithProgressBar (uncurry $ render) allPixels
+    ls = mapWithProgressBar (uncurry $ render world) allPixels
 
     lsIO :: IO [((Int, Int), PixelRGB8)]
     lsIO = zip allPixels <$> ls
 
-genImageF :: Int -> Int -> IO (Int -> Int -> PixelRGB8)
-genImageF w h = f <$> genImageBuf w h
+genImageF :: World -> Int -> Int -> IO (Int -> Int -> PixelRGB8)
+genImageF world w h = f <$> genImageBuf world w h
   where
     -- f b x y | trace ((show x) ++ " " ++ (show y)) False = undefined
     f b x y = b ! (x, y)

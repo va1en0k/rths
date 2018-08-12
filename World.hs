@@ -7,6 +7,8 @@ import Hitable
 import Vectors
 import Material
 
+type World = [Hitable_]
+
 objects :: [Hitable_]
 objects = [
   MkHitable $ Sphere (mkLambertian $ CVec3 0.1 0.2 0.5) (CVec3 0 0 (-1)) 0.5,
