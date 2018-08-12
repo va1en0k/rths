@@ -38,7 +38,7 @@ data Camera = Camera {
 
 -- camera = mkCamera 90 (fromIntegral (fst res) / fromIntegral (snd res))
 
-camera = mkCamera (CVec3 13 2 3) (CVec3 0 0 0) (CVec3 0 1 0) 20 (fromIntegral (fst res) / fromIntegral (snd res)) 10
+camera = mkCamera (CVec3 13 2 3) (CVec3 0 0 0) (CVec3 0 (-1) 0) 20 (fromIntegral (fst res) / fromIntegral (snd res)) 10
 
 mkCamera :: CVec3 -> CVec3 -> CVec3 -> Double -> Double -> Double -> Camera
 mkCamera from at vup vfov aspect focusDist =
