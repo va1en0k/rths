@@ -17,16 +17,18 @@ import System.Environment
 -- import Normal
 
 import Vectors
-import Hitable
+import Types
 import Progress
 import World
 import RayTracer
 import Render
 
+import RTMonad
 
 main :: IO ()
 main = do
-  world <- runIdentity <$> evalRandT randomWorld <$> newStdGen
+  world <- runRT undefined (randomWorld >> getWorld)
+  -- let world = randomWorld
   -- let world = objects
   imF <- genImageF world (fst res) (snd res)
   let im = (generateImage imF (fst res) (snd res))

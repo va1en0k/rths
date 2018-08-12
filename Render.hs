@@ -17,7 +17,7 @@ import System.Environment
 -- import Normal
 
 import Vectors
-import Hitable
+import Types
 import Progress
 import World
 import RayTracer

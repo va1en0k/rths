@@ -9,8 +9,7 @@ import Control.DeepSeq
 import Codec.Picture
 import Control.Monad.Random
 
-type Color = CVec3
-
+import Types
 
 vsum :: [CVec3] -> CVec3
 vsum = foldr1 (<+>)
@@ -38,18 +37,3 @@ instance NFData PixelRGB8 where
 
 (*<>*) :: CVec3 -> CVec3 -> CVec3
 (CVec3 a b c) *<>* (CVec3 x y z) = CVec3 (a*x) (b*y) (c*z)
-
-data Ray = Ray {origin :: CVec3, direction :: CVec3}
-  deriving (Show)
-
-type Scatter = Maybe (CVec3, Ray)
-
-data Hit = Hit {
-  hitT :: Double,
-  hitP :: CVec3,
-  hitNormal :: CVec3,
-  scatter :: forall g . RandomGen g => Rand g Scatter
-}
-
-class Hitable a where
-  hit :: a -> Ray -> Double -> Double -> Maybe Hit

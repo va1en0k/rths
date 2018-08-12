@@ -7,7 +7,7 @@ import Control.Monad.Random
 
 import Random
 import Vectors
-
+import Types
 
 type MaterialScatterF g = RandomGen g => Ray -> Hit -> Rand g Scatter
 

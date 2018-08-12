@@ -6,7 +6,7 @@ import Data.List
 import Data.Maybe
 import Data.Function
 
-import Hitable
+import Types
 import Vectors
 import World
 import Random

@@ -3,13 +3,12 @@ module World where
 import Data.Vec3
 import Control.Monad.Random
 
-import Hitable
+import Types
 import Vectors
 import Material
+import Hitable
 
 import RTMonad
-
-type World = [Hitable_]
 
 objects :: [Hitable_]
 objects = [
@@ -20,9 +19,9 @@ objects = [
   MkHitable $ Sphere (mkDielectric 1.5) (CVec3 (-1) 0 (-1)) (-0.45)
   ]
 
--- randomWorld :: RT ()
-randomWorld :: RandomGen g => Rand g [Hitable_]
-randomWorld = (typical++) <$> concat <$> sequence randList
+randomWorld :: RT ()
+-- randomWorld :: RandomGen g => Rand g World
+randomWorld = ((typical++) <$> concat <$> sequence randList) >>= \w -> setSettings (Settings w)
   where
     typical = [
       MkHitable $ Sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000,
@@ -30,15 +29,15 @@ randomWorld = (typical++) <$> concat <$> sequence randList
       MkHitable $ Sphere (mkDielectric 1.5) (CVec3 0 1 0) 1,
       MkHitable $ Sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0) 1,
       MkHitable $ Sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5) (CVec3 4 1 0) 1]
-    -- randList :: [Rand g [Hitable_]]
-    randList :: RandomGen g => [Rand g [Hitable_]]
+
+    randList :: [RT [Hitable_]]
     randList = (flip map) [(a, b) | a <- [-11..11], b <- [-11..11]] (uncurry genSphere)
 
-    genSphere :: RandomGen g => Double -> Double -> Rand g [Hitable_]
+    genSphere :: Double -> Double -> RT [Hitable_]
     genSphere a b =
       do
-        (mt:x:z:_) <- getRandomRs (0, 1)
-        (r1:r2:r3:r4:r5:r6:_) <- getRandomRs (0, 1)
+        (mt:x:z:_) <- getRands
+        (r1:r2:r3:r4:r5:r6:_) <- getRands
         let center = CVec3 (a + x * 0.9) 0.2 (b + 0.9 * z)
         if (norm (center <-> CVec3 4 0.2 0) > 0.9)
           then return $ return $ case () of
