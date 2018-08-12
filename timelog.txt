@@ -239,3 +239,11 @@ sys	0m1.096s
 + cat stderr.log
 
 
+7e2d05e
++ ./Main 7e2d05e +RTS -N
+
+real	0m2.195s
+user	0m4.383s
+sys	0m1.167s
++ cat stderr.log
++ false

@@ -81,10 +81,10 @@ mkDielectric refIdx = Material m
                   Just refr -> (schlick cosine refIdx, refr) --Just (att, Ray (hitP hit) refr)
                   Nothing -> (1.0, undefined)
         res = do
-          x <- getRandomR (0, 1)
-          return $ if (x < reflProb)
-                    then (att, Ray (hitP hit) refr)
-                    else (att, Ray (hitP hit) (reflect (direction rayIn) (hitNormal hit)))
+          x <- getRandomR (0, 1.0)
+          return $ if (x <= reflProb)
+                    then (att, Ray (hitP hit) (reflect (direction rayIn) (hitNormal hit)))
+                    else (att, Ray (hitP hit) refr)
 
 
       -- refr =
