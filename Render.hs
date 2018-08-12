@@ -36,19 +36,24 @@ data Camera = Camera {
 
 -- camera = Camera (CVec3 0 0 0) (CVec3 2.5 0 0) (CVec3 0 (-2.5) 0) (CVec3 (-2) 1 (-1))
 
-camera = mkCamera 90 (fromIntegral (fst res) / fromIntegral (snd res))
+-- camera = mkCamera 90 (fromIntegral (fst res) / fromIntegral (snd res))
 
-mkCamera :: Double -> Double -> Camera
-mkCamera vfov aspect =
+camera = mkCamera (CVec3 13 2 3) (CVec3 0 0 0) (CVec3 0 1 0) 20 (fromIntegral (fst res) / fromIntegral (snd res)) 10
+
+mkCamera :: CVec3 -> CVec3 -> CVec3 -> Double -> Double -> Double -> Camera
+mkCamera from at vup vfov aspect focusDist =
   Camera {
-    cLowerLeftCorner = CVec3 (-halfWidth) (halfHeight) (-1),
-    cHorizontal = CVec3 (2 * halfWidth) 0 0,
-    cVertical = CVec3 0 (-2 * halfHeight) 0,
-    cOrigin = CVec3 0 0 0
+    cLowerLeftCorner = from <-> ((halfWidth * focusDist) *. u) <-> ((halfHeight * focusDist) *. v) <-> (focusDist *. w),
+    cHorizontal = (2 * halfWidth * focusDist) *. u,
+    cVertical = (-2 * halfWidth * focusDist) *. v,
+    cOrigin = from
   }
     where theta = vfov * pi / 180
           halfHeight = tan $ theta / 2
           halfWidth = aspect * halfHeight
+          w = normalize $ from <-> at
+          u = normalize $ vup >< w
+          v = w >< u
 
 
 type ImgBuf = Array (Int, Int) PixelRGB8

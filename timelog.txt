@@ -362,3 +362,5 @@ user	8m20.474s
 sys	0m41.554s
 
 
+19fabee
++ ./Main 19fabee +RTS -N
