@@ -47,7 +47,7 @@ mkCamera from at vup vfov aspect focusDist =
   Camera {
     cLowerLeftCorner = from <-> ((halfWidth * focusDist) *. u) <-> ((halfHeight * focusDist) *. v) <-> (focusDist *. w),
     cHorizontal = (2 * halfWidth * focusDist) *. u,
-    cVertical = (2 * aspect * halfWidth * focusDist) *. v,
+    cVertical = (2 * halfWidth * focusDist / aspect) *. v,
     cOrigin = from
   }
     where theta = vfov * pi / 180
