@@ -9,9 +9,6 @@ import Random
 import Vectors
 import Types
 
-type MaterialScatterF g = RandomGen g => Ray -> Hit -> Rand g Scatter
-
-data Material = Material {scatterF :: forall g. RandomGen g => MaterialScatterF g}
 
 
 -- mkLambertian :: RandomGen g => CVec3 -> MaterialScatterF g

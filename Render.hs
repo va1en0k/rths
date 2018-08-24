@@ -23,9 +23,11 @@ import World
 import RayTracer
 
 res :: (Int, Int)
-res = (300, 200)
+res = (150, 100)
 kRes :: Double
 kRes = fromIntegral $ uncurry min $ res
+
+genCount = 5
 
 data Camera = Camera {
   cOrigin :: CVec3,
@@ -45,7 +47,7 @@ mkCamera from at vup vfov aspect focusDist =
   Camera {
     cLowerLeftCorner = from <-> ((halfWidth * focusDist) *. u) <-> ((halfHeight * focusDist) *. v) <-> (focusDist *. w),
     cHorizontal = (2 * halfWidth * focusDist) *. u,
-    cVertical = (2 * halfWidth * focusDist) *. v,
+    cVertical = (2 * aspect * halfWidth * focusDist) *. v,
     cOrigin = from
   }
     where theta = vfov * pi / 180
@@ -80,7 +82,7 @@ renderOnce world x y =
 render :: World -> Int -> Int -> IO PixelRGB8
 render world x y = colorToPixel <$> avgv <$> rendersIO
   where
-    gens = replicateM 20 newStdGen
+    gens = replicateM genCount newStdGen
     rendersIO :: IO [Color]
 
     rendersIO = do

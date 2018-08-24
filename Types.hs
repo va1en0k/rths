@@ -13,7 +13,7 @@ type World = [Hitable_]
 data Ray = Ray {origin :: CVec3, direction :: CVec3}
   deriving (Show)
 
-type Scatter = Maybe (CVec3, Ray)
+
 
 data Hit = Hit {
   hitT :: Double,
@@ -26,3 +26,13 @@ class Hitable a where
   hit :: a -> Ray -> Double -> Double -> Maybe Hit
 
 type Color = CVec3
+
+
+
+
+-- Materials
+type Scatter = Maybe (CVec3, Ray)
+
+type MaterialScatterF g = RandomGen g => Ray -> Hit -> Rand g Scatter
+
+data Material = Material {scatterF :: forall g. RandomGen g => MaterialScatterF g}
