@@ -65,6 +65,12 @@ prepareShader = runIO (do
   return (engine, shader)) >>= \(engine, shader) -> updateSettings (\s -> s {shaderEngine = engine, rayTraceShader = shader})
 
 
+hits :: [Ray] -> RT [Maybe Hit]
+hits rs = do
+  (Settings w e s) <- getSettings
+  runIO $ runGeometryShader e s (map asSphere w) rs
+
+
 genImageBuf :: Int -> Int -> RT ImgBuf
 genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
   where
@@ -74,12 +80,9 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     allRays = map ((uncurry $ getRay camera) . toUV) allPixels
 
     lsRT = do
-      (Settings w e s) <- getSettings
-      runIO $ print $ length w
-      runIO $ print $ length allRays
-      hits <- runIO $ runGeometryShader e s (map asSphere w) allRays
+      hs <- hits allRays
       -- runIO $ print hits
-      let ps = map (colorToPixel . (mapv (/10)) . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hits
+      let ps = map (colorToPixel . (mapv (/10)) . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hs
       -- let
       --   redIfHit (Just _) = CVec3 0.9 0.1 0.3
       --   redIfHit Nothing = CVec3 0 0 0

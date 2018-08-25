@@ -882,3 +882,11 @@ user	0m2.331s
 sys	0m0.864s
 
 
+2a6bf4c
++ ./Main 2a6bf4c +RTS -N
+
+real	0m1.616s
+user	0m2.441s
+sys	0m0.887s
+
+
