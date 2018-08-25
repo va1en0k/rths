@@ -50,7 +50,12 @@ hits rs = do
 
 
 nextRay :: Hit -> RT Ray
-nextRay (Hit {hitNormal=n, hitP=p}) = Ray p <$> ((n <+>) <$> randomInUnitBall'')
+nextRay (Hit {hitNormal=n, hitP=p}) =
+  Ray p <$> ((n <+>) <$> randomInUnitBall'')
+
+applyMaterial :: Hit -> Color -> Color
+applyMaterial (Hit {hitSphere=(Sphere m c r)}) nextColor =
+  mapv ((/16) . (+8) . abs) c <+> mapv (/2) nextColor
 
 colors :: Int -> [Ray] -> RT [Color]
 colors 100 rs = return $ map sky rs
@@ -63,7 +68,7 @@ colors i rs = do
     applyColors :: [Ray] -> [Maybe Hit] -> [Color] -> [Color]
     applyColors [] [] [] = []
     applyColors (r:rs) (Nothing:hs) cs = sky r : applyColors rs hs cs
-    applyColors (r:rs) (Just h:hs) (c:cs) = mapv (/2) c : applyColors rs hs cs
+    applyColors (r:rs) (Just h:hs) (c:cs) = applyMaterial h c : applyColors rs hs cs
 
   -- bulkmapOnlyExisting processFurther hs
   -- processFurther :: [Hit] -> [Color]
@@ -86,7 +91,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     uvAA (x, y) = do
       (a:b:_) <- getRands
       return $ (((a + fromIntegral x) / (fromIntegral $ fst res)), ((b + fromIntegral y) / (fromIntegral $ snd res)))
-      
+
     lsRT = do
       allRaysAA <- map (uncurry $ getRay camera) <$> allUVsAA
       ps <- map colorToPixel <$> map avgv <$> takeBy aaIters <$> colors 0 allRaysAA
