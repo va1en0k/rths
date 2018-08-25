@@ -664,3 +664,5 @@ c22b310
 + ./Main c22b310 +RTS -N
 68c5bc7
 + ./Main 68c5bc7 +RTS -N
+f4c6d05
++ ./Main f4c6d05 +RTS -N
