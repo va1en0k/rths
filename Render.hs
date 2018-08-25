@@ -62,7 +62,7 @@ renderUV world u v = traceColor world $ getRay camera  u v
 
 colorToPixel :: Color -> PixelRGB8
 colorToPixel c =
-  let (r, g, b) = toXYZ $ mapv ((* 255.9) {-. sqrt-}) c
+  let (r, g, b) = toXYZ $ mapv ((* 255.9) . sqrt) c
   in PixelRGB8 (fromInteger $ floor r) (fromInteger $ floor g) (fromInteger $ floor b)
 
 renderOnce :: RandomGen g => World -> Int -> Int -> Rand g Color
