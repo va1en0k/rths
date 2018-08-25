@@ -63,16 +63,24 @@ prepareShader = runIO (do
 
 
 genImageBuf :: Int -> Int -> RT ImgBuf
-genImageBuf w h = array ((0, 0), (w, h)) <$> lsIO
+genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
   where
     -- ls :: RandT g Identity [((Int, Int), PixelRGB8)]
     allPixels = [(i, j) | i <- [0..w], j <- [0..h]]
 
-    -- ls = mapWithProgressBar (uncurry $ renderPixelOnShader world) allPixels
-    ls = return $ map (const $ colorToPixel (CVec3 200 100 100)) allPixels
+    allRays = map ((uncurry $ getRay camera) . (\(x, y) -> (fromIntegral x, fromIntegral y))) allPixels
 
-    lsIO :: RT [((Int, Int), PixelRGB8)]
-    lsIO = zip allPixels <$> ls
+    lsRT = do
+      (Settings w e s) <- getSettings
+      hits <- runIO $ runGeometryShader e s (map asSphere w) allRays
+      let ps = map (colorToPixel . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hits
+      return $ zip allPixels ps
+    -- ls = mapWithProgressBar (uncurry $ renderPixelOnShader world) allPixels
+    -- ls = return $ map (const $ colorToPixel (CVec3 200 100 100)) allPixels
+
+    -- lsIO :: RT [((Int, Int), PixelRGB8)]
+    -- lsIO = zip allPixels <$> ls
+
 
 genImageF :: Int -> Int -> RT (Int -> Int -> PixelRGB8)
 genImageF w h = prepareShader >> (f <$> genImageBuf w h)

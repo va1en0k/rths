@@ -610,3 +610,11 @@ user	0m0.238s
 sys	0m0.128s
 
 
+b327250
++ ./Main b327250 +RTS -N
+
+real	0m0.813s
+user	0m0.250s
+sys	0m0.123s
+
+
