@@ -82,7 +82,7 @@ hits rs = do
 -- randomInUnitBall = return (CVec3 0.1 0.2 0.3)
 
 nextRay :: Hit -> RT Ray
-nextRay (Hit {hitNormal=n, hitP=p}) = Ray p <$> ((n <+>) <$> randomInUnitBall')
+nextRay (Hit {hitNormal=n, hitP=p}) = Ray p <$> ((n <+>) <$> randomInUnitBall'')
 
 colors :: Int -> [Ray] -> RT [Color]
 colors 100 rs = return $ map sky rs

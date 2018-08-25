@@ -946,3 +946,11 @@ user	0m21.851s
 sys	0m4.896s
 
 
+bee0582
++ ./Main bee0582 +RTS -N
+
+real	0m8.605s
+user	0m24.095s
+sys	0m5.560s
+
+
