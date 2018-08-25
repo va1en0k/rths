@@ -7,13 +7,10 @@ import Data.Maybe
 import Data.Function
 
 import Types
-import Vectors
+import Geometry.Vectors
 import World
 import Random
 
-
-maxFloat :: Double
-maxFloat = fromIntegral $ snd $ floatRange (0.5::Double)
 
 
 
@@ -23,10 +20,6 @@ y v = y'
 
 
 
-sky :: Ray -> Color
-sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.5 0.7 1.0)
-  where un = normalize $ direction r
-        t = (y un + 1) * 0.5
 
 traceColorK :: RandomGen g => Int -> Double -> [Hitable_] -> Ray -> Rand g Color
 traceColorK i k objects r = case (hit objects r 0.00001 maxFloat) of

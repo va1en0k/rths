@@ -3,7 +3,7 @@ module Random where
 import Control.Monad.Random
 import Data.Vec3
 
-import Vectors
+import Geometry.Vectors
 import RTMonad
 import Types
 

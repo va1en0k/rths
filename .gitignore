@@ -3,3 +3,6 @@
 *.dyn_o
 *.dyn_hi
 Main
+.DS_Store
+*.prof
+stderr.log

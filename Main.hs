@@ -17,14 +17,14 @@ import qualified Data.Text.IO as T
 
 -- import Normal
 
-import Vectors
+import Geometry.Vectors
 import Types
-import Progress
+-- import Progress
 import World
-import RayTracer
+-- import RayTracer
 import Config
 
-import Render (kRes, camera, getRay, ImgBuf, colorToPixel)
+-- import Render (kRes, camera, getRay, ImgBuf, colorToPixel)
 
 
 

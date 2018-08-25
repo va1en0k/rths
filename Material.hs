@@ -6,7 +6,7 @@ import Data.Vec3
 import Control.Monad.Random
 
 import Random
-import Vectors
+import Geometry.Vectors
 import Types
 import RTMonad
 

@@ -12,7 +12,7 @@ import Data.Ord
 
 import Types
 import World
-import RayTracer
+-- import RayTracer
 import Parallel.Shaders hiding (main)
 import Util
 

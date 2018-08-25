@@ -16,15 +16,12 @@ import System.Environment
 
 -- import Normal
 
-import Vectors
+import Geometry.Vectors
 import Types
 import Progress
 import World
 import RayTracer
 import Config
-
-kRes :: Double
-kRes = fromIntegral $ uncurry min $ res
 
 
 
@@ -32,37 +29,13 @@ kRes = fromIntegral $ uncurry min $ res
 
 -- camera = mkCamera 90 (fromIntegral (fst res) / fromIntegral (snd res))
 
-camera = mkCamera (CVec3 13 2 3) (CVec3 0 0 0) (CVec3 0 (-1) 0) 20 (fromIntegral (fst res) / fromIntegral (snd res)) 10
-
-mkCamera :: CVec3 -> CVec3 -> CVec3 -> Double -> Double -> Double -> Camera
-mkCamera from at vup vfov aspect focusDist =
-  Camera {
-    cLowerLeftCorner = from <-> ((halfWidth * focusDist) *. u) <-> ((halfHeight * focusDist) *. v) <-> (focusDist *. w),
-    cHorizontal = (2 * halfWidth * focusDist) *. u,
-    cVertical = (2 * halfHeight * focusDist) *. v,
-    cOrigin = from
-  }
-    where theta = vfov * pi / 180
-          halfHeight = tan $ theta / 2
-          halfWidth = aspect * halfHeight
-          w = normalize $ from <-> at
-          u = normalize $ vup >< w
-          v = w >< u
-
-getRay :: Camera -> Double -> Double -> Ray
-getRay c u v = Ray (cOrigin c) (cLowerLeftCorner c <+> (u *. (cHorizontal c)) <+> (v *. (cVertical c)) <-> (cOrigin c))
-
-type ImgBuf = Array (Int, Int) PixelRGB8
 
 renderUV :: RandomGen g => World -> Double -> Double -> Rand g Color
 -- renderUV u v = CVec3 u v 0.2
 renderUV world u v = traceColor world $ getRay camera  u v
 
 
-colorToPixel :: Color -> PixelRGB8
-colorToPixel c =
-  let (r, g, b) = toXYZ $ mapv ((* 255.9) . sqrt) c
-  in PixelRGB8 (fromInteger $ floor r) (fromInteger $ floor g) (fromInteger $ floor b)
+
 
 renderOnce :: RandomGen g => World -> Int -> Int -> Rand g Color
 renderOnce world x y =

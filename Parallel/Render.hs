@@ -17,21 +17,31 @@ import System.Environment
 
 -- import Normal
 
-import Vectors
+import Geometry.Vectors
 import Types
-import Progress
+-- import Progress
 import World
-import RayTracer
+-- import RayTracer
 
 import RTMonad
 import Random
 import Util
 import Config
 
-import Render (kRes, camera, getRay, ImgBuf, colorToPixel)
+-- import Render (kRes, camera, getRay, ImgBuf, colorToPixel)
 
 import Parallel.OpenCLGeometry
 import Parallel.Shaders
+
+import Graphics.Images
+
+import Geometry.Camera
+
+
+sky :: Ray -> Color
+sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.5 0.7 1.0)
+  where CVec3 _ y _ = normalize $ direction r
+        t = (y + 1) * 0.5
 
 
 toUV :: (Int, Int) -> (Double, Double)

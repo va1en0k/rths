@@ -7,7 +7,7 @@ import Data.Maybe
 import Data.Function
 import Data.List
 
-import Vectors
+import Geometry.Vectors
 import Material
 import Types
 

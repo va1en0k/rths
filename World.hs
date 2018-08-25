@@ -4,7 +4,7 @@ import Data.Vec3
 import Control.Monad.Random
 
 import Types
-import Vectors
+import Geometry.Vectors
 import Material
 import Hitable
 
