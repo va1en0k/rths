@@ -690,3 +690,11 @@ user	0m6.762s
 sys	0m0.602s
 
 
+a1a3dba
++ ./Main a1a3dba +RTS -N
+
+real	0m3.824s
+user	0m13.710s
+sys	0m3.858s
+
+
