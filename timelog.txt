@@ -658,3 +658,5 @@ user	0m0.047s
 sys	0m0.046s
 + cat stderr.log
 + false
+4cca07c
++ ./Main 4cca07c +RTS -N

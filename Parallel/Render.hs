@@ -72,10 +72,10 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
 
     lsRT = do
       (Settings w e s) <- getSettings
-      runIO $ print (map asSphere w)
-      runIO $ print allRays
+      -- runIO $ print (map asSphere w)
+      -- runIO $ print allRays
       hits <- runIO $ runGeometryShader e s (map asSphere w) allRays
-      runIO $ print hits
+      -- runIO $ print hits
       let ps = map (colorToPixel . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hits
       return $ zip allPixels ps
     -- ls = mapWithProgressBar (uncurry $ renderPixelOnShader world) allPixels
