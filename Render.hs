@@ -23,7 +23,7 @@ import World
 import RayTracer
 
 res :: (Int, Int)
-res = (300, 200)
+res = (600, 400)
 kRes :: Double
 kRes = fromIntegral $ uncurry min $ res
 
