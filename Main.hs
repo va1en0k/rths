@@ -13,6 +13,7 @@ import Debug.Trace
 import Data.Time.Clock.POSIX
 import System.Environment
 
+import qualified Data.Text.IO as T
 
 -- import Normal
 
@@ -24,6 +25,14 @@ import RayTracer
 import Render
 
 import RTMonad
+
+import WebGL
+
+
+
+import Material
+
+
 
 main :: IO ()
 main = do
@@ -41,3 +50,10 @@ main = do
   hash <- head <$> getArgs
   writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") im
   writePng ("./image.png") im
+
+
+main' :: IO ()
+main' = do
+  putStrLn $ types
+  putStrLn $ cameraToWebgl camera
+  putStrLn $ sphereToWebgl 1 (Sphere (mkLambertian $ CVec3 0.1 0.2 0.5) (CVec3 0 0 (-1)) 0.5)

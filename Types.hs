@@ -29,6 +29,13 @@ type Color = CVec3
 
 
 
+data Camera = Camera {
+  cOrigin :: CVec3,
+  cHorizontal :: CVec3,
+  cVertical :: CVec3,
+  cLowerLeftCorner :: CVec3
+}
+
 
 -- Materials
 type Scatter = Maybe (CVec3, Ray)

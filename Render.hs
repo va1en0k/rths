@@ -27,14 +27,7 @@ res = (150, 100)
 kRes :: Double
 kRes = fromIntegral $ uncurry min $ res
 
-genCount = 5
-
-data Camera = Camera {
-  cOrigin :: CVec3,
-  cHorizontal :: CVec3,
-  cVertical :: CVec3,
-  cLowerLeftCorner :: CVec3
-}
+genCount = 20
 
 -- camera = Camera (CVec3 0 0 0) (CVec3 2.5 0 0) (CVec3 0 (-2.5) 0) (CVec3 (-2) 1 (-1))
 

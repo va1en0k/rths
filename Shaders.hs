@@ -18,20 +18,85 @@ import           Text.PrettyPrint.Mainland       (prettyCompact)
 import           Text.PrettyPrint.Mainland.Class (ppr)
 
 
-data ShaderEngine = ShaderEngine
-data Shader = Shader
+data ShaderEngine = ShaderEngine { openCLState :: OpenCLState }
+data Shader = Shader CLKernel
 
--- initShaderEngline :: IO ShaderEngine
--- initShaderEngline = do
--- createShader :: String -> IO Shader
--- createShader source = prettyCompact (ppr source)
+initShaderEngine :: IO ShaderEngine
+initShaderEngine = do
+  context <- clCreateContextFromType [] [CL_DEVICE_TYPE_DEFAULT] print
+  device  <- last <$> clGetContextDevices context
+  -- pname device
+  dname device
+  queue   <- clCreateCommandQueue context device []
 
--- runOnShader :: Shader -> Int -> [Float] -> IO [Float]
--- runOnShader prog outputPerInput input =
+  return $ ShaderEngine $ OpenCLState
+            { clDevice  = device
+            , clContext = context
+            , clQueue   = queue
+            }
+
+createShader :: ShaderEngine -> String -> IO Shader
+createShader engine source = do
+  let OpenCLState
+            { clDevice  = device
+            , clContext = context
+            , clQueue   = queue
+            } = openCLState engine
+  program <- clCreateProgramWithSource context source
+  clBuildProgram program [device] ""
+  kernel <- clCreateKernel program "doubleArray"
+  return $ Shader kernel
+
+  --
+
+runOnShader :: ShaderEngine -> Shader -> Int -> [Float] -> IO [Float]
+runOnShader engine shader outSize input = do
+  let OpenCLState
+            { clDevice  = device
+            , clContext = context
+            , clQueue   = queue
+            } = openCLState engine
+  let (Shader kernel) = shader
+  -- Set up memory
+  let
+      inputData :: Vector CFloat
+      inputData = V.fromList $ map realToFrac input
+
+      nElem  = V.length inputData
+      nInBytes = nElem * sizeOf (undefined :: CFloat)
+      nOutBytes = outSize * sizeOf (undefined :: CFloat)
+
+  -- Buffers for input and output data.
+  -- We request OpenCL to create a buffer on the host (CL_MEM_ALLOC_HOST_PTR)
+  -- since we're using CPU. The performance here may not be ideal, because
+  -- we're copying the buffer. However, it's safe, and not unduly nested.
+  bufIn <- clCreateBuffer context
+                          [CL_MEM_READ_ONLY, CL_MEM_ALLOC_HOST_PTR]
+                          (nInBytes, nullPtr)
+  bufOut <- clCreateBuffer context
+                           [CL_MEM_WRITE_ONLY, CL_MEM_ALLOC_HOST_PTR]
+                           (nOutBytes, nullPtr)
+
+  -- Copy our input data Vector to the input buffer; blocks until complete
+  writeVectorToBuffer state bufIn inputData
+
+  -- Run the kernel
+  clSetKernelArgSto kernel 0 bufIn
+  clSetKernelArgSto kernel 1 bufOut
+  execEvent <- clEnqueueNDRangeKernel queue kernel [nElem] [] []
+
+  -- Get the result; blocks until complete
+  outputData <- bufferToVector queue
+                               bufOut
+                               outSize
+                               [execEvent]
+                               :: IO (Vector CFloat)
+
+  return $ map realToFrac $ V.toList outputData
 
 -- | The kernel to execute: the equivalient of 'map (*2)'.
 kernelSource :: String
-kernelSource = prettyCompact . ppr $ [cfun|
+kernelSource = prettyCompact $ ppr $ [cfun|
     /* This example kernel just does `map (*2)` */
     kernel void doubleArray(
         global float *in,
@@ -53,56 +118,25 @@ main = do
     describePlatforms
 
     -- Create a Context, Queue and a CLUtil OpenCLState
-    context <- clCreateContextFromType [] [CL_DEVICE_TYPE_CPU] print
-    device  <- head <$> clGetContextDevices context
-    -- pname device
-    dname device
-    queue   <- clCreateCommandQueue context device []
-    -- NB: OpenCLState is used by CLUtil when manipulating vector buffers
-    let state = OpenCLState
-                { clDevice  = device
-                , clContext = context
-                , clQueue   = queue
-                }
+    engine <- initShaderEngine
+    let state = openCLState engine
+    let OpenCLState
+              { clDevice  = device
+              , clContext = context
+              , clQueue   = queue
+              } = state
 
     -- Create the Kernel
-    program <- clCreateProgramWithSource context kernelSource
-    clBuildProgram program [device] ""
-    kernel <- clCreateKernel program "doubleArray"
+    shader <- createShader engine kernelSource
+    let (Shader kernel) = shader
 
-    -- Set up memory
-    let
-        inputData :: Vector CFloat
-        inputData = V.fromList [(-4) .. 4]
 
-        nElem  = V.length inputData
-        nBytes = nElem * sizeOf (undefined :: CFloat)
+    let inputData = [(-4) .. 4]
+    let outSize = length inputData
 
-    -- Buffers for input and output data.
-    -- We request OpenCL to create a buffer on the host (CL_MEM_ALLOC_HOST_PTR)
-    -- since we're using CPU. The performance here may not be ideal, because
-    -- we're copying the buffer. However, it's safe, and not unduly nested.
-    bufIn <- clCreateBuffer context
-                            [CL_MEM_READ_ONLY, CL_MEM_ALLOC_HOST_PTR]
-                            (nBytes, nullPtr)
-    bufOut <- clCreateBuffer context
-                             [CL_MEM_WRITE_ONLY, CL_MEM_ALLOC_HOST_PTR]
-                             (nBytes, nullPtr)
+    output <- runOnShader engine shader outSize inputData
 
-    -- Copy our input data Vector to the input buffer; blocks until complete
-    writeVectorToBuffer state bufIn inputData
 
-    -- Run the kernel
-    clSetKernelArgSto kernel 0 bufIn
-    clSetKernelArgSto kernel 1 bufOut
-    execEvent <- clEnqueueNDRangeKernel queue kernel [nElem] [] []
-
-    -- Get the result; blocks until complete
-    outputData <- bufferToVector queue
-                                 bufOut
-                                 nElem
-                                 [execEvent]
-                                 :: IO (Vector CFloat)
 
     -- Clean up the Context
     _ <- clReleaseContext context
@@ -110,7 +144,7 @@ main = do
     -- Show our work
     putStrLn "\n* Results *"
     putStrLn $ "Input:  " ++ show inputData
-    putStrLn $ "Output: " ++ show outputData
+    putStrLn $ "Output: " ++ show output
 
 
 
