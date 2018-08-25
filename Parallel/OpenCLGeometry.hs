@@ -136,7 +136,7 @@ runGeometryShader :: ShaderEngine -> Shader -> [Sphere] -> [Ray] -> IO [Maybe Hi
 runGeometryShader e s spheres rs = do
   let rcnt = length rs
   -- print (rcnt * 2)
-  output <- runOnShader e s (rcnt * length spheres) 8 [(map rayToDoubles rs), (map sphereToDoubles spheres)]
+  output <- runOnShader e s rcnt 8 [(map rayToDoubles rs), (map sphereToDoubles spheres)]
   -- print $ takeBy 8 output
   let hits = map doublesToHit $ takeBy 8 output
   let hitsByRay = takeBy (length spheres) hits
