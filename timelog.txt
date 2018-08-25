@@ -714,3 +714,11 @@ user	0m17.517s
 sys	0m5.298s
 
 
+f78fc87
++ ./Main f78fc87 +RTS -N
+
+real	0m3.847s
+user	0m13.022s
+sys	0m4.029s
+
+

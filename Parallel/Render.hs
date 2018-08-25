@@ -78,7 +78,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
       -- runIO $ print hits
       -- let ps = map (colorToPixel . (mapv (/10)) . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hits
       let
-        redIfHit (Just _) = CVec3 0.2 0.1 0.3
+        redIfHit (Just _) = CVec3 0.9 0.1 0.3
         redIfHit Nothing = CVec3 0 0 0
       let ps = map (colorToPixel . redIfHit) hits
       return $ zip allPixels ps
