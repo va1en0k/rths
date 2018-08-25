@@ -40,7 +40,8 @@ toUV (x, y) = (((fromIntegral x) / (fromIntegral $ fst res)), ((fromIntegral y) 
 prepareShader :: RT ()
 prepareShader = runIO (do
   engine <- initShaderEngine
-  shader <- createShader engine sphereSource
+  source <- sphereSource
+  shader <- createShader engine source
   return (engine, shader)) >>= \(engine, shader) -> updateSettings (\s -> s {shaderEngine = engine, rayTraceShader = shader})
 
 

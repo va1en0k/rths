@@ -101,17 +101,17 @@ runOnShader engine shader outcount outsize inputs = do
   return $ map realToFrac $ V.toList outputData
 
 -- | The kernel to execute: the equivalient of 'map (*2)'.
-kernelSource :: String
-kernelSource = prettyCompact $ ppr $ [cfun|
-    /* This example kernel just does `map (*2)` */
-    kernel void doubleArray(
-        global float *in,
-        global float *out
-    ) {
-        int i = get_global_id(0);
-        out[i] = 2 * in[i];
-    }
-|]
+-- kernelSource :: String
+-- kernelSource = prettyCompact $ ppr $ [cfun|
+--     /* This example kernel just does `map (*2)` */
+--     kernel void doubleArray(
+--         global float *in,
+--         global float *out
+--     ) {
+--         int i = get_global_id(0);
+--         out[i] = 2 * in[i];
+--     }
+-- |]
 
 
 
@@ -133,7 +133,8 @@ main = do
               } = state
 
     -- Create the Kernel
-    shader <- createShader engine kernelSource
+    -- shader <- createShader engine kernelSource
+    shader <- undefined
     let (Shader kernel) = shader
 
 

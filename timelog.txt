@@ -1058,3 +1058,11 @@ user	5m25.395s
 sys	1m9.582s
 
 
+fc92c38
++ ./Main fc92c38 +RTS -N
+
+real	0m30.299s
+user	1m16.413s
+sys	0m20.626s
+
+

@@ -29,7 +29,7 @@ import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
 
 import RTMonad
 
-import WebGL
+-- import WebGL
 
 
 
@@ -74,9 +74,10 @@ main = do
   writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") im
   writePng ("./image.png") im
 
-
+{-
 main'' :: IO ()
 main'' = do
   putStrLn $ types
   putStrLn $ cameraToWebgl camera
   putStrLn $ sphereToWebgl 1 (Sphere (mkLambertian $ CVec3 0.1 0.2 0.5) (CVec3 0 0 (-1)) 0.5)
+-}
