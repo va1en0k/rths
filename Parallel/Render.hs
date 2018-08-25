@@ -84,7 +84,7 @@ nextRay :: Hit -> RT Ray
 nextRay (Hit {hitNormal=n, hitP=p}) = Ray p <$> ((n <+>) <$> randomInUnitBall)
 
 colors :: Int -> [Ray] -> RT [Color]
-colors 5 rs = return $ map sky rs
+colors 10 rs = return $ map sky rs
 colors i rs = do
   hs <- hits rs :: RT [Maybe Hit]
   nextRays <- mapM nextRay $ catMaybes hs :: RT [Ray]
