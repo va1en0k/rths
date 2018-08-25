@@ -850,3 +850,11 @@ user	0m2.612s
 sys	0m0.820s
 
 
+bde4dc0
++ ./Main bde4dc0 +RTS -N
+
+real	0m1.575s
+user	0m2.506s
+sys	0m0.899s
+
+
