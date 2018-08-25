@@ -634,3 +634,11 @@ user	0m0.070s
 sys	0m0.057s
 + cat stderr.log
 + false
+97dc422
++ ./Main 97dc422 +RTS -N
+
+real	0m0.713s
+user	0m0.058s
+sys	0m0.043s
++ cat stderr.log
++ false
