@@ -108,7 +108,7 @@ sphereSource = [i|
           //struct sphere s = {{0.1, 0.1, 0.1}, 1.1};
 
 
-          if (sphereHit(sphere, rayIn, 0.001, hbest.t, &hbest)) {
+          if (sphereHit(sphere, rayIn, 0.00001, hbest.t, &hbest)) {
             /*if (hbest.t > h.t) {
               hbest = h;
             }*/
