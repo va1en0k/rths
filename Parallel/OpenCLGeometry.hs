@@ -97,7 +97,7 @@ sphereSource = [i|
         struct hit h, hbest;
         hbest.t = 100000; //lol random
 
-        for (int sphereId = 1; sphereId <= 208; sphereId++) {
+        for (int sphereId = 0; sphereId <= 208; sphereId++) {
           struct sphere sphere = {
             {allSpheres[sphereId][0], allSpheres[sphereId][1], allSpheres[sphereId][2]},
             allSpheres[sphereId][3]
