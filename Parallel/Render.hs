@@ -75,7 +75,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsIO
     lsIO = zip allPixels <$> ls
 
 genImageF :: Int -> Int -> RT (Int -> Int -> PixelRGB8)
-genImageF w h = f <$> genImageBuf w h
+genImageF w h = prepareShader >> (f <$> genImageBuf w h)
   where
     -- f b x y | trace ((show x) ++ " " ++ (show y)) False = undefined
     f b x y = b ! (x, y)
