@@ -810,3 +810,11 @@ user	0m2.503s
 sys	0m0.913s
 
 
+ae27170
++ ./Main ae27170 +RTS -N
+
+real	0m1.774s
+user	0m2.769s
+sys	0m0.873s
+
+
