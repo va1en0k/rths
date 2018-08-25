@@ -626,3 +626,11 @@ user	0m0.068s
 sys	0m0.052s
 + cat stderr.log
 + false
+3625752
++ ./Main 3625752 +RTS -N
+
+real	0m0.737s
+user	0m0.070s
+sys	0m0.057s
++ cat stderr.log
++ false
