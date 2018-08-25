@@ -930,3 +930,11 @@ user	0m21.463s
 sys	0m5.349s
 
 
+d3915e8
++ ./Main d3915e8 +RTS -N
+
+real	0m7.706s
+user	0m21.022s
+sys	0m5.134s
++ cat stderr.log
++ false

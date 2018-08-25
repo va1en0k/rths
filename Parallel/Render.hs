@@ -89,7 +89,7 @@ colors 100 rs = return $ map sky rs
 colors i rs = do
   hs <- hits rs :: RT [Maybe Hit]
   nextRays <- mapM nextRay $ catMaybes hs :: RT [Ray]
-  cs <- colors (i+1) nextRays :: RT [Color]
+  cs <- if length nextRays > 0 then colors (i+1) nextRays else return [] :: RT [Color]
   return $ applyColors rs hs cs
   where
     applyColors :: [Ray] -> [Maybe Hit] -> [Color] -> [Color]
