@@ -24,7 +24,7 @@ objects = [
 
 randomWorld :: RT ()
 -- randomWorld :: RandomGen g => Rand g World
-randomWorld = ((typical++) <$> concat <$> sequence randList) >>= \w -> setSettings (Settings w)
+randomWorld = ((typical++) <$> concat <$> sequence randList) >>= \w -> updateSettings (\s -> s { world = w })
   where
     typical = [
       sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000,

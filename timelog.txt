@@ -578,3 +578,11 @@ user	16m32.775s
 sys	0m38.885s
 
 
+3373d7f
++ ./Main 3373d7f +RTS -N
+
+real	0m0.106s
+user	0m0.244s
+sys	0m0.104s
+
+

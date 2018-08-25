@@ -8,7 +8,13 @@ import Control.Applicative
 
 import Types
 
-data Settings = Settings World
+import Parallel.Shaders
+
+data Settings = Settings {
+  world :: World,
+  shaderEngine :: ShaderEngine,
+  rayTraceShader :: Shader
+}
 
 data RT a = RT (forall g . RandomGen g => Settings -> Rand g (a, Settings))
 
@@ -28,8 +34,11 @@ instance Monad RT where
        let (RT a2) = f v1
        a2 s1
 
-setSettings :: Settings -> RT ()
-setSettings s = RT $ \_ -> return ((), s)
+-- setSettings :: Settings -> RT ()
+-- setSettings s = RT $ \_ -> return ((), s)
+
+updateSettings :: (Settings -> Settings) -> RT ()
+updateSettings f = RT $ \s -> return ((), f s)
 
 -- runRand :: RandomGen g => Rand g a -> RT a
 -- runRand m = RT Nothing m
@@ -45,7 +54,7 @@ getSettings = RT $ \s -> return (s, s)
 --
 --
 getWorld :: RT World
-getWorld = getSettings >>= (\(Settings w) -> return w)
+getWorld = getSettings >>= (\(Settings w _ _) -> return w)
 
 runRT :: Settings -> RT a -> IO a
 runRT s (RT a) = fst <$> runIdentity <$> evalRandT (a s) <$> newStdGen
