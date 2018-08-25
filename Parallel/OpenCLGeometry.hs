@@ -77,7 +77,7 @@ sphereSource = [i|
     ) {
 
         int i = get_global_id(0);
-        int sphereId = get_global_id(1);
+
         int outId = get_global_size(1) * i + sphereId;
 /*        fout[outId] = (float8)(
           i,
@@ -90,16 +90,27 @@ sphereSource = [i|
           {frayIn[i][0], frayIn[i][1], frayIn[i][2]},
           {frayIn[i][3], frayIn[i][4], frayIn[i][5]}
         };
-        struct sphere sphere = {
-          {allSpheres[sphereId][0], allSpheres[sphereId][1], allSpheres[sphereId][2]},
-          allSpheres[sphereId][3]
-        };
 
-        //struct sphere s = {{0.1, 0.1, 0.1}, 1.1};
+        //int sphereId = get_global_id(1);
+        int sphereCount = get_global_size(1);
 
-        struct hit h;
-        if (!sphereHit(sphere, rayIn, 0, 100000, &h)) {
-          h.t = -1;
+        struct hit h, hbest;
+        hbest.t = 100000; //lol random
+
+        for (int sphereId = 0; sphereId < sphereCount; sphereId++) {
+          struct sphere sphere = {
+            {allSpheres[sphereId][0], allSpheres[sphereId][1], allSpheres[sphereId][2]},
+            allSpheres[sphereId][3]
+          };
+
+          //struct sphere s = {{0.1, 0.1, 0.1}, 1.1};
+
+
+          if (sphereHit(sphere, rayIn, 0, hbest.t, &hbest)) {
+            /*if (hbest.t > h.t) {
+              hbest = h;
+            }*/
+          }
         }
 
         /*struct hit h = {
@@ -109,9 +120,9 @@ sphereSource = [i|
         };*/
 
         fout[outId] = (float8)(
-          h.t,
-          h.point[0], h.point[1], h.point[2],
-          h.normal[0], h.normal[1], h.normal[2],
+          hbest.t,
+          hbest.point[0], hbest.point[1], hbest.point[2],
+          hbest.normal[0], hbest.normal[1], hbest.normal[2],
           -1
         );
     }
