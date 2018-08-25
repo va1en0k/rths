@@ -25,8 +25,7 @@ import RayTracer
 
 import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
 
-import Render
--- import Parallel.Render
+
 
 import RTMonad
 
@@ -37,6 +36,8 @@ import WebGL
 import Material
 
 
+{-
+import Render
 main :: IO ()
 main = do
   world <- runRT (Settings undefined undefined undefined) (randomWorld >> getWorld)
@@ -53,10 +54,11 @@ main = do
   hash <- head <$> getArgs
   writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") im
   writePng ("./image.png") im
+-}
 
-{-
-main' :: IO ()
-main' = do
+import Parallel.Render
+main :: IO ()
+main = do
   -- let world = randomWorld >> getWorld)
   -- let world = randomWorld
   -- let world = objects
@@ -71,7 +73,7 @@ main' = do
   hash <- head <$> getArgs
   writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") im
   writePng ("./image.png") im
--}
+
 
 main'' :: IO ()
 main'' = do

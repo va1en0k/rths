@@ -682,3 +682,11 @@ user	0m0.019s
 sys	0m0.024s
 + cat stderr.log
 + false
+f89f590
++ ./Main f89f590 +RTS -N
+
+real	0m1.309s
+user	0m6.762s
+sys	0m0.602s
+
+
