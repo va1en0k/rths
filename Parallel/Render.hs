@@ -79,11 +79,11 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
       runIO $ print $ length allRays
       hits <- runIO $ runGeometryShader e s (map asSphere w) allRays
       -- runIO $ print hits
-      -- let ps = map (colorToPixel . (mapv (/10)) . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hits
-      let
-        redIfHit (Just _) = CVec3 0.9 0.1 0.3
-        redIfHit Nothing = CVec3 0 0 0
-      let ps = map (colorToPixel . redIfHit) hits
+      let ps = map (colorToPixel . (mapv (/10)) . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hits
+      -- let
+      --   redIfHit (Just _) = CVec3 0.9 0.1 0.3
+      --   redIfHit Nothing = CVec3 0 0 0
+      -- let ps = map (colorToPixel . redIfHit) hits
       return $ zip allPixels ps
     -- ls = mapWithProgressBar (uncurry $ renderPixelOnShader world) allPixels
     -- ls = return $ map (const $ colorToPixel (CVec3 200 100 100)) allPixels
