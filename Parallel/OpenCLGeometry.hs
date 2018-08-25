@@ -139,7 +139,7 @@ runGeometryShader e s spheres rs = do
   output <- runOnShader e s rcnt 8 [(map rayToDoubles rs), (map sphereToDoubles spheres)]
   -- print $ takeBy 8 output
   let hits = map doublesToHit $ takeBy 8 output
-  let hitsByRay = takeBy (length spheres) hits
+  let hitsByRay = takeBy 1 hits
   let goodRaysF = catMaybes . map (\h -> if hitT h <= 0 then Nothing else Just h)
   let validHitsByRay = map goodRaysF hitsByRay
   let bestHitByRay = map (\xs -> if length xs == 0 then Nothing else Just (minimumBy (comparing hitT) xs)) validHitsByRay
