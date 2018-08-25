@@ -914,3 +914,11 @@ user	0m5.449s
 sys	0m1.411s
 
 
+33b7af4
++ ./Main 33b7af4 +RTS -N
+
+real	0m7.573s
+user	0m21.448s
+sys	0m5.271s
+
+
