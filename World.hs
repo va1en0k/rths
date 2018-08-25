@@ -34,7 +34,7 @@ randomWorld = ((typical++) <$> concat <$> sequence randList) >>= \w -> updateSet
       sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5) (CVec3 4 1 0) 1]
 
     randList :: [RT [Hitable_]]
-    randList = (flip map) [(a, b) | a <- [-3..3], b <- [-3..3]] (uncurry genSphere)
+    randList = (flip map) [(a, b) | a <- [-11..11], b <- [-11..11]] (uncurry genSphere)
 
     genSphere :: Double -> Double -> RT [Hitable_]
     genSphere a b =
