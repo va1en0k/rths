@@ -770,3 +770,11 @@ user	0m33.999s
 sys	0m13.064s
 + cat stderr.log
 + false
+a12e68a
++ ./Main a12e68a +RTS -N
+
+real	0m1.166s
+user	0m1.678s
+sys	0m0.677s
++ cat stderr.log
++ false
