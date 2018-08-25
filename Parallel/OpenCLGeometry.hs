@@ -107,7 +107,7 @@ takeBy cnt xs = (take cnt xs : takeBy cnt (drop cnt xs))
 runGeometryShader :: ShaderEngine -> Shader -> [Ray] -> IO [Hit]
 runGeometryShader e s rs = do
   let rcnt = length rs
-  output <- runOnShader e s (rcnt * 8) (concatMap rayToDoubles rs)
+  output <- runOnShader e s (rcnt * 8) [(concatMap rayToDoubles rs)]
   return $ map doublesToHit $ takeBy 8 output
 
 main :: IO ()

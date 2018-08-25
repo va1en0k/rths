@@ -49,8 +49,8 @@ createShader engine source = do
 
   --
 
-runOnShader :: ShaderEngine -> Shader -> Int -> [Double] -> IO [Double]
-runOnShader engine shader outSize input = do
+runOnShader :: ShaderEngine -> Shader -> Int -> [[Double]] -> IO [Double]
+runOnShader engine shader outSize inputs = do
   let OpenCLState
             { clDevice  = device
             , clContext = context
@@ -58,21 +58,13 @@ runOnShader engine shader outSize input = do
             } = openCLState engine
   let (Shader kernel) = shader
   -- Set up memory
-  let
-      inputData :: Vector CFloat
-      inputData = V.fromList $ map realToFrac input
-
-      nElem  = V.length inputData
-      nInBytes = nElem * sizeOf (undefined :: CFloat)
-      nOutBytes = outSize * sizeOf (undefined :: CFloat)
+  let nOutBytes = outSize * sizeOf (undefined :: CFloat)
 
   -- Buffers for input and output data.
   -- We request OpenCL to create a buffer on the host (CL_MEM_ALLOC_HOST_PTR)
   -- since we're using CPU. The performance here may not be ideal, because
   -- we're copying the buffer. However, it's safe, and not unduly nested.
-  bufIn <- clCreateBuffer context
-                          [CL_MEM_READ_ONLY, CL_MEM_ALLOC_HOST_PTR]
-                          (nInBytes, nullPtr)
+
   bufOut <- clCreateBuffer context
                            [CL_MEM_WRITE_ONLY, CL_MEM_ALLOC_HOST_PTR]
                            (nOutBytes, nullPtr)
@@ -81,8 +73,18 @@ runOnShader engine shader outSize input = do
   writeVectorToBuffer (openCLState engine) bufIn inputData
 
   -- Run the kernel
-  clSetKernelArgSto kernel 0 bufIn
-  clSetKernelArgSto kernel 1 bufOut
+  mapM (\(i, input) -> do
+    let
+        inputData :: Vector CFloat
+        inputData = V.fromList $ map realToFrac input
+
+        nElem  = V.length inputData
+        nInBytes = nElem * sizeOf (undefined :: CFloat)
+    bufIn <- clCreateBuffer context
+                            [CL_MEM_READ_ONLY, CL_MEM_ALLOC_HOST_PTR]
+                            (nInBytes, nullPtr)
+    clSetKernelArgSto kernel i bufIn) (zip [0..] inputs)
+  clSetKernelArgSto kernel (length inputs) bufOut
   execEvent <- clEnqueueNDRangeKernel queue kernel [nElem] [] []
 
   -- Get the result; blocks until complete
