@@ -83,7 +83,7 @@ divideAndConquer lf rf eithers =
 
 
 colors :: Int -> [Ray] -> RT [Color]
-colors 100 rs = return $ map sky rs
+colors 256 rs = return $ map sky rs
 colors i rs = do
   hs <- hits rs :: RT [Maybe Hit]
 
