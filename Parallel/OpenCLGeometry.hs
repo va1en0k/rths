@@ -78,7 +78,7 @@ sphereSource = [i|
 
         int i = get_global_id(0);
 
-        int outId = get_global_size(1) * i + sphereId;
+        int outId = i;
 /*        fout[outId] = (float8)(
           i,
           sphereId,
