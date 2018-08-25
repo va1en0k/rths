@@ -84,6 +84,7 @@ render world x y = colorToPixel <$> avgv <$> rendersIO
       -- when (x == 200 && y == 40) (print rs)
       return $ rs --rs `deepseq` rs
 
+
 genImageBuf :: World -> Int -> Int -> IO ImgBuf
 genImageBuf world w h = array ((0, 0), (w, h)) <$> lsIO
   where

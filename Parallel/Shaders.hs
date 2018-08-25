@@ -49,8 +49,8 @@ createShader engine source = do
 
   --
 
-runOnShader :: ShaderEngine -> Shader -> Int -> [[Double]] -> IO [Double]
-runOnShader engine shader outSize inputs = do
+runOnShader :: ShaderEngine -> Shader -> Int -> Int -> [[[Double]]] -> IO [Double]
+runOnShader engine shader outcount outsize inputs = do
   let OpenCLState
             { clDevice  = device
             , clContext = context
@@ -58,6 +58,8 @@ runOnShader engine shader outSize inputs = do
             } = openCLState engine
   let (Shader kernel) = shader
   -- Set up memory
+  let dimensions = map length inputs
+  let outSize = outcount * outsize
   let nOutBytes = outSize * sizeOf (undefined :: CFloat)
 
   -- Buffers for input and output data.
@@ -70,22 +72,24 @@ runOnShader engine shader outSize inputs = do
                            (nOutBytes, nullPtr)
 
   -- Copy our input data Vector to the input buffer; blocks until complete
-  writeVectorToBuffer (openCLState engine) bufIn inputData
+
 
   -- Run the kernel
   mapM (\(i, input) -> do
     let
         inputData :: Vector CFloat
-        inputData = V.fromList $ map realToFrac input
+        inputData = V.fromList $ map realToFrac $ concat input
 
         nElem  = V.length inputData
         nInBytes = nElem * sizeOf (undefined :: CFloat)
+    print (i, nElem, nInBytes)
     bufIn <- clCreateBuffer context
                             [CL_MEM_READ_ONLY, CL_MEM_ALLOC_HOST_PTR]
                             (nInBytes, nullPtr)
+    writeVectorToBuffer (openCLState engine) bufIn inputData
     clSetKernelArgSto kernel i bufIn) (zip [0..] inputs)
-  clSetKernelArgSto kernel (length inputs) bufOut
-  execEvent <- clEnqueueNDRangeKernel queue kernel [nElem] [] []
+  clSetKernelArgSto kernel (fromIntegral $ length inputs) bufOut
+  execEvent <- clEnqueueNDRangeKernel queue kernel dimensions [] []
 
   -- Get the result; blocks until complete
   outputData <- bufferToVector queue
@@ -133,10 +137,10 @@ main = do
     let (Shader kernel) = shader
 
 
-    let inputData = [(-4) .. 4]
+    let inputData = [[(-4) .. 4]]
     let outSize = length inputData
 
-    output <- runOnShader engine shader outSize inputData
+    output <- runOnShader engine shader 1 1 [inputData]
 
 
 

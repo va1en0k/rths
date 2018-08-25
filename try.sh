@@ -5,9 +5,9 @@ ghc Main.hs -j -fexcess-precision -optc-O3 -optc-ffast-math -rtsopts -threaded
 
 # -prof -fprof-auto
 
-git add *.hs
-git add */*.hs
-git add */*/*.hs
+git add *.hs || true
+git add */*.hs || true
+git add */*/*.hs || true
 git add 'out/*'
 
 git commit -a -m "${1:-"tryin"}"

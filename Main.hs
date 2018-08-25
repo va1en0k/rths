@@ -22,7 +22,11 @@ import Types
 import Progress
 import World
 import RayTracer
-import Render
+
+import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
+
+-- import Render
+import Parallel.Render
 
 import RTMonad
 
@@ -36,10 +40,10 @@ import Material
 
 main :: IO ()
 main = do
-  world <- runRT undefined (randomWorld >> getWorld)
+  -- let world = randomWorld >> getWorld)
   -- let world = randomWorld
   -- let world = objects
-  imF <- genImageF world (fst res) (snd res)
+  imF <- runRT undefined $ randomWorld >> genImageF (fst res) (snd res)
   let im = (generateImage imF (fst res) (snd res))
   -- im <- evalRandIO rim
   -- print (renderUV 0 0)
