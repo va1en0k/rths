@@ -21,13 +21,12 @@ import Types
 import Progress
 import World
 import RayTracer
+import Config
 
-res :: (Int, Int)
-res = (300, 200)
 kRes :: Double
 kRes = fromIntegral $ uncurry min $ res
 
-genCount = 8
+
 
 -- camera = Camera (CVec3 0 0 0) (CVec3 2.5 0 0) (CVec3 0 (-2.5) 0) (CVec3 (-2) 1 (-1))
 
@@ -75,7 +74,7 @@ renderOnce world x y =
 render :: World -> Int -> Int -> IO PixelRGB8
 render world x y = colorToPixel <$> avgv <$> rendersIO
   where
-    gens = replicateM genCount newStdGen
+    gens = replicateM aaGenCount newStdGen
     rendersIO :: IO [Color]
 
     rendersIO = do

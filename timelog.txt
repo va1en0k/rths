@@ -1066,3 +1066,11 @@ user	1m16.413s
 sys	0m20.626s
 
 
+ae902c8
++ ./Main ae902c8 +RTS -p -N
+
+real	0m52.434s
+user	2m12.419s
+sys	0m28.999s
+
+

@@ -22,8 +22,9 @@ import Types
 import Progress
 import World
 import RayTracer
+import Config
 
-import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
+import Render (kRes, camera, getRay, ImgBuf, colorToPixel)
 
 
 

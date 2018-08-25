@@ -26,8 +26,9 @@ import RayTracer
 import RTMonad
 import Random
 import Util
+import Config
 
-import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
+import Render (kRes, camera, getRay, ImgBuf, colorToPixel)
 
 import Parallel.OpenCLGeometry
 import Parallel.Shaders
@@ -134,10 +135,8 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     allUVs = map toUV allPixels
     allUVsAA = concat <$> mapM uvsAA allPixels
 
-    aaIters = 8
-
     uvsAA :: (Int, Int) -> RT [(Double, Double)]
-    uvsAA (x, y) = mapM (const $ uvAA (x, y)) [1..aaIters]
+    uvsAA (x, y) = mapM (const $ uvAA (x, y)) [1..aaGenCount]
 
     uvAA :: (Int, Int) -> RT (Double, Double)
     uvAA (x, y) = do
@@ -146,7 +145,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
 
     lsRT = do
       allRaysAA <- map (uncurry $ getRay camera) <$> allUVsAA
-      ps <- map colorToPixel <$> map avgv <$> takeBy aaIters <$> colors 0 allRaysAA
+      ps <- map colorToPixel <$> map avgv <$> takeBy aaGenCount <$> colors 0 allRaysAA
       return $ zip allPixels ps
 
 
