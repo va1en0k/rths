@@ -30,31 +30,7 @@ import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
 
 import Parallel.OpenCLGeometry
 import Parallel.Shaders
---
--- renderUV :: RandomGen g => World -> Double -> Double -> Rand g Color
--- -- renderUV u v = CVec3 u v 0.2
--- renderUV world u v = traceColor world $ getRay camera  u v
---
--- renderOnce :: RandomGen g => World -> Int -> Int -> Rand g Color
--- renderOnce world x y =
---   do (a:b:_) <- getRandomRs (0::Double, 1)
---      renderUV world ((a + fromIntegral x) / (fromIntegral $ fst res)) ((b + fromIntegral y) / (fromIntegral $ snd res))
---
--- -- render :: RandomGen g => Int -> Int -> Rand g PixelRGB8
--- -- render :: Int -> [Hitable_] -> Int -> Int -> IO PixelRGB8
--- render :: World -> Int -> Int -> IO PixelRGB8
--- render world x y = colorToPixel <$> avgv <$> rendersIO
---   where
---     gens = replicateM genCount newStdGen
---     rendersIO :: IO [Color]
---
---     rendersIO = do
---       gs <- gens
---       let rs = map (runIdentity . evalRandT (renderOnce world x y)) gs
---       -- when (x == 200 && y == 40) (print rs)
---       return $ rs --rs `deepseq` rs
---
---
+
 
 toUV :: (Int, Int) -> (Double, Double)
 toUV (x, y) = (((fromIntegral x) / (fromIntegral $ fst res)), ((fromIntegral y) / (fromIntegral $ snd res)))
@@ -72,15 +48,6 @@ hits rs = do
   (Settings w e s) <- getSettings
   runIO $ runGeometryShader e s (map asSphere w) rs
 
--- bulkmapOnlyExisting :: [Maybe a] -> ([a] -> [b]) -> [Maybe b]
--- bulkmapOnlyExisting ms f = if length xs == 0 then map (const Nothing) ms else replaceJusts ms (f xs)
---   where
---     xs = catMaybes ms
---     replaceJusts [] [] = []
---     replaceJusts (Nothing:ms) rs = Nothing:replaceJusts ms rs
---     replaceJusts (Just _:ms) (r:rs) = replaceJusts ms rs
-
--- randomInUnitBall = return (CVec3 0.1 0.2 0.3)
 
 nextRay :: Hit -> RT Ray
 nextRay (Hit {hitNormal=n, hitP=p}) = Ray p <$> ((n <+>) <$> randomInUnitBall'')
@@ -119,27 +86,11 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     uvAA (x, y) = do
       (a:b:_) <- getRands
       return $ (((a + fromIntegral x) / (fromIntegral $ fst res)), ((b + fromIntegral y) / (fromIntegral $ snd res)))
-
-    -- allRays = map (uncurry $ getRay camera) allUVs
-
-    -- allRaysAA = concat <$> mapM aa allRays
-
+      
     lsRT = do
       allRaysAA <- map (uncurry $ getRay camera) <$> allUVsAA
-      -- hs <- hits allRays
-      -- runIO $ print hits
-      -- let ps = map (colorToPixel . (mapv (/10)) . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hs
-      -- let
-      --   redIfHit (Just _) = CVec3 0.9 0.1 0.3
-      --   redIfHit Nothing = CVec3 0 0 0
-      -- let ps = map (colorToPixel . redIfHit) hits
       ps <- map colorToPixel <$> map avgv <$> takeBy aaIters <$> colors 0 allRaysAA
       return $ zip allPixels ps
-    -- ls = mapWithProgressBar (uncurry $ renderPixelOnShader world) allPixels
-    -- ls = return $ map (const $ colorToPixel (CVec3 200 100 100)) allPixels
-
-    -- lsIO :: RT [((Int, Int), PixelRGB8)]
-    -- lsIO = zip allPixels <$> ls
 
 
 genImageF :: Int -> Int -> RT (Int -> Int -> PixelRGB8)

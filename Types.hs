@@ -22,10 +22,12 @@ data Hit = Hit {
   hitT :: Double,
   hitP :: CVec3,
   hitNormal :: CVec3,
-  scatter :: forall g . RandomGen g => Rand g Scatter
-}
-instance Show Hit where
-  show (Hit t p n _) = "Hit " ++ show t ++ " (" ++ show p ++ ") (" ++ show n ++ ")"
+  -- scatter :: forall g . RandomGen g => Rand g Scatter
+  hitSphere :: Sphere
+} deriving (Show)
+--
+-- instance Show Hit where
+--   show (Hit t p n _) = "Hit " ++ show t ++ " (" ++ show p ++ ") (" ++ show n ++ ")"
 
 data Sphere = Sphere Material CVec3 Double
   deriving Show

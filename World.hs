@@ -54,7 +54,7 @@ randomWorld = ((typical++) <$> concat <$> sequence randList) >>= \w -> updateSet
 
 instance Hitable Sphere where
   asSphere a = a
-  hit (Sphere m sc sr) r@(Ray org dir) mn mx =
+  hit s@(Sphere m sc sr) r@(Ray org dir) mn mx =
     let oc = org <-> sc
         a = dir .* dir
         b = 2 * oc .* dir
@@ -65,7 +65,7 @@ instance Hitable Sphere where
             p = rayPointAt r x
             -- n = normalize $ p <-> CVec3 0 0 (-1)
             n = mapv (/ sr) (p <-> sc)
-            h = Hit x p n (scatterF m r h)
+            h = Hit x p n s
     in if dsc < 0 then Nothing
        else let x0 = ( - b - sqrt dsc ) / (2 * a)
                 x1 = ( - b + sqrt dsc ) / (2 * a)

@@ -970,3 +970,11 @@ user	3m59.083s
 sys	0m49.861s
 
 
+412cbac
++ ./Main 412cbac +RTS -N
+
+real	0m17.745s
+user	0m53.822s
+sys	0m12.788s
+
+
