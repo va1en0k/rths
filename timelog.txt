@@ -938,3 +938,11 @@ user	0m21.022s
 sys	0m5.134s
 + cat stderr.log
 + false
+e45aade
++ ./Main e45aade +RTS -N
+
+real	0m8.153s
+user	0m21.851s
+sys	0m4.896s
+
+
