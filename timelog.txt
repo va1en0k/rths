@@ -666,3 +666,11 @@ c22b310
 + ./Main 68c5bc7 +RTS -N
 f4c6d05
 + ./Main f4c6d05 +RTS -N
+ba9d088
++ ./Main ba9d088 +RTS -N
+
+real	0m3.819s
+user	0m13.533s
+sys	0m3.857s
+
+
