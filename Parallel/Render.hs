@@ -24,6 +24,7 @@ import RayTracer
 
 import RTMonad
 import Random
+import Util
 
 import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
 
@@ -106,9 +107,25 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     -- ls :: RandT g Identity [((Int, Int), PixelRGB8)]
     allPixels = [(i, j) | i <- [0..w], j <- [0..h]]
 
-    allRays = map ((uncurry $ getRay camera) . toUV) allPixels
+    allUVs = map toUV allPixels
+    allUVsAA = concat <$> mapM uvsAA allPixels
+
+    aaIters = 8
+
+    uvsAA :: (Int, Int) -> RT [(Double, Double)]
+    uvsAA (x, y) = mapM (const $ uvAA (x, y)) [1..aaIters]
+
+    uvAA :: (Int, Int) -> RT (Double, Double)
+    uvAA (x, y) = do
+      (a:b:_) <- getRands
+      return $ (((a + fromIntegral x) / (fromIntegral $ fst res)), ((b + fromIntegral y) / (fromIntegral $ snd res)))
+
+    -- allRays = map (uncurry $ getRay camera) allUVs
+
+    -- allRaysAA = concat <$> mapM aa allRays
 
     lsRT = do
+      allRaysAA <- map (uncurry $ getRay camera) <$> allUVsAA
       -- hs <- hits allRays
       -- runIO $ print hits
       -- let ps = map (colorToPixel . (mapv (/10)) . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hs
@@ -116,7 +133,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
       --   redIfHit (Just _) = CVec3 0.9 0.1 0.3
       --   redIfHit Nothing = CVec3 0 0 0
       -- let ps = map (colorToPixel . redIfHit) hits
-      ps <- map colorToPixel <$> colors 0 allRays
+      ps <- map colorToPixel <$> map avgv <$> takeBy aaIters <$> colors 0 allRaysAA
       return $ zip allPixels ps
     -- ls = mapWithProgressBar (uncurry $ renderPixelOnShader world) allPixels
     -- ls = return $ map (const $ colorToPixel (CVec3 200 100 100)) allPixels

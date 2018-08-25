@@ -954,3 +954,11 @@ user	0m24.095s
 sys	0m5.560s
 
 
+8d23c4e
++ ./Main 8d23c4e +RTS -N
+
+real	0m9.900s
+user	0m25.939s
+sys	0m5.992s
+
+
