@@ -802,3 +802,11 @@ user	0m0.044s
 sys	0m0.053s
 + cat stderr.log
 + false
+efd16fd
++ ./Main efd16fd +RTS -N
+
+real	0m1.653s
+user	0m2.503s
+sys	0m0.913s
+
+
