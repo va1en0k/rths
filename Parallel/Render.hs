@@ -70,6 +70,34 @@ hits rs = do
   (Settings w e s) <- getSettings
   runIO $ runGeometryShader e s (map asSphere w) rs
 
+-- bulkmapOnlyExisting :: [Maybe a] -> ([a] -> [b]) -> [Maybe b]
+-- bulkmapOnlyExisting ms f = if length xs == 0 then map (const Nothing) ms else replaceJusts ms (f xs)
+--   where
+--     xs = catMaybes ms
+--     replaceJusts [] [] = []
+--     replaceJusts (Nothing:ms) rs = Nothing:replaceJusts ms rs
+--     replaceJusts (Just _:ms) (r:rs) = replaceJusts ms rs
+
+randomInUnitBall = return (CVec3 0.1 0.2 0.3)
+
+nextRay :: Hit -> RT Ray
+nextRay (Hit {hitNormal=n, hitP=p}) = Ray p <$> ((n <+>) <$> randomInUnitBall)
+
+colors :: Int -> [Ray] -> RT [Color]
+colors 5 rs = return $ map sky rs
+colors i rs = do
+  hs <- hits rs :: RT [Maybe Hit]
+  nextRays <- mapM nextRay $ catMaybes hs :: RT [Ray]
+  cs <- colors (i+1) nextRays :: RT [Color]
+  return $ applyColors rs hs cs
+  where
+    applyColors :: [Ray] -> [Maybe Hit] -> [Color] -> [Color]
+    applyColors [] [] [] = []
+    applyColors (r:rs) (Nothing:hs) cs = sky r : applyColors rs hs cs
+    applyColors (r:rs) (Just h:hs) (c:cs) = mapv (/2) c : applyColors rs hs cs
+
+  -- bulkmapOnlyExisting processFurther hs
+  -- processFurther :: [Hit] -> [Color]
 
 genImageBuf :: Int -> Int -> RT ImgBuf
 genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
@@ -80,13 +108,14 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     allRays = map ((uncurry $ getRay camera) . toUV) allPixels
 
     lsRT = do
-      hs <- hits allRays
+      -- hs <- hits allRays
       -- runIO $ print hits
-      let ps = map (colorToPixel . (mapv (/10)) . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hs
+      -- let ps = map (colorToPixel . (mapv (/10)) . hitNormal . fromMaybe (Hit undefined undefined (CVec3 0 0 0) undefined)) hs
       -- let
       --   redIfHit (Just _) = CVec3 0.9 0.1 0.3
       --   redIfHit Nothing = CVec3 0 0 0
       -- let ps = map (colorToPixel . redIfHit) hits
+      ps <- map colorToPixel <$> colors 0 allRays
       return $ zip allPixels ps
     -- ls = mapWithProgressBar (uncurry $ renderPixelOnShader world) allPixels
     -- ls = return $ map (const $ colorToPixel (CVec3 200 100 100)) allPixels
