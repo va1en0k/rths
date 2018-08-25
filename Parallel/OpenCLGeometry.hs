@@ -97,7 +97,7 @@ sphereSource = [i|
         struct hit h, hbest;
         hbest.t = 100000; //lol random
 
-        for (int sphereId = 0; sphereId < sphereCount; sphereId++) {
+        for (int sphereId = 1; sphereId < sphereCount; sphereId++) {
           struct sphere sphere = {
             {allSpheres[sphereId][0], allSpheres[sphereId][1], allSpheres[sphereId][2]},
             allSpheres[sphereId][3]
@@ -106,12 +106,13 @@ sphereSource = [i|
           //struct sphere s = {{0.1, 0.1, 0.1}, 1.1};
 
 
-          if (sphereHit(sphere, rayIn, 0, hbest.t, &hbest)) {
+          if (sphereHit(sphere, rayIn, 0.001, hbest.t, &hbest)) {
             /*if (hbest.t > h.t) {
               hbest = h;
             }*/
           }
         }
+        if (hbest.t == 100000) hbest.t = -1;
 
         /*struct hit h = {
           rayIn.direction.x + rayIn.direction.y/10,
