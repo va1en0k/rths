@@ -141,7 +141,7 @@ sphereToDoubles :: Sphere -> [Double]
 sphereToDoubles (Sphere _ (CVec3 a b c) r) = [a, b, c, r]
 
 doublesToHit :: [Double] -> Hit
-doublesToHit [t,a,b,c,x,y,z,-1] = Hit t (CVec3 a b c) (CVec3 x y z) undefined
+doublesToHit [t,a,b,c,x,y,z,sid] = Hit t (CVec3 a b c) (CVec3 x y z) undefined
 
 
 
