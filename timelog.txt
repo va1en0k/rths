@@ -562,3 +562,11 @@ user	363m9.929s
 sys	14m47.216s
 
 
+def3955
++ ./Main def3955 +RTS -N
+
+real	2m47.266s
+user	18m10.572s
+sys	0m48.813s
+
+
