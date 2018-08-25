@@ -54,6 +54,9 @@ import Parallel.Shaders
 --
 --
 
+toUV :: (Int, Int) -> (Double, Double)
+toUV (x, y) = (((fromIntegral x) / (fromIntegral $ fst res)), ((fromIntegral y) / (fromIntegral $ snd res)))
+
 
 prepareShader :: RT ()
 prepareShader = runIO (do
@@ -68,7 +71,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     -- ls :: RandT g Identity [((Int, Int), PixelRGB8)]
     allPixels = [(i, j) | i <- [0..w], j <- [0..h]]
 
-    allRays = map ((uncurry $ getRay camera) . (\(x, y) -> (fromIntegral x, fromIntegral y))) allPixels
+    allRays = map ((uncurry $ getRay camera) . toUV) allPixels
 
     lsRT = do
       (Settings w e s) <- getSettings
