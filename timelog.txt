@@ -834,3 +834,11 @@ user	0m2.245s
 sys	0m0.982s
 
 
+190917e
++ ./Main 190917e +RTS -N
+
+real	0m1.540s
+user	0m1.976s
+sys	0m1.094s
+
+
