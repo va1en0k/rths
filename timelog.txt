@@ -818,3 +818,11 @@ user	0m2.769s
 sys	0m0.873s
 
 
+e68a309
++ ./Main e68a309 +RTS -N
+
+real	0m1.791s
+user	0m2.880s
+sys	0m0.938s
+
+
