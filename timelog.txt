@@ -514,3 +514,11 @@ user	0m47.030s
 sys	0m2.337s
 
 
+c7b8008
++ ./Main c7b8008 +RTS -N
+
+real	0m7.139s
+user	0m46.213s
+sys	0m2.190s
+
+
