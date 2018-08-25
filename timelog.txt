@@ -618,3 +618,11 @@ user	0m0.250s
 sys	0m0.123s
 
 
+c24ee3c
++ ./Main c24ee3c +RTS -N
+
+real	0m0.722s
+user	0m0.068s
+sys	0m0.052s
++ cat stderr.log
++ false
