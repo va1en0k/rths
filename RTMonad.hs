@@ -16,7 +16,8 @@ data Settings = Settings {
   rayTraceShader :: Shader
 }
 
-data RT a = RT (forall g . RandomGen g => Settings -> Rand g (a, Settings))
+-- data RT a = RT (forall g . RandomGen g => Settings -> Rand g (a, Settings))
+data RT a = RT (Settings -> IO (a, Settings))
 
 instance Functor RT where
   fmap f (RT c) = RT $ \s -> fmap (\(v, s1) -> (f v, s1)) (c s)
@@ -57,4 +58,5 @@ getWorld :: RT World
 getWorld = getSettings >>= (\(Settings w _ _) -> return w)
 
 runRT :: Settings -> RT a -> IO a
-runRT s (RT a) = fst <$> runIdentity <$> evalRandT (a s) <$> newStdGen
+-- runRT s (RT a) = fst <$> runIdentity <$> evalRandT (a s) <$> newStdGen
+runRT s (RT a) = fst <$> a s

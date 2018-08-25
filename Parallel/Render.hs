@@ -50,6 +50,11 @@ import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
 --       return $ rs --rs `deepseq` rs
 --
 --
+
+
+-- prepareShader :: RT 
+
+
 genImageBuf :: Int -> Int -> RT ImgBuf
 genImageBuf w h = array ((0, 0), (w, h)) <$> lsIO
   where

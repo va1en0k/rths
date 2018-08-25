@@ -586,3 +586,11 @@ user	0m0.244s
 sys	0m0.104s
 
 
+c7cda0b
++ ./Main c7cda0b +RTS -N
+
+real	0m0.145s
+user	0m0.210s
+sys	0m0.125s
+
+
