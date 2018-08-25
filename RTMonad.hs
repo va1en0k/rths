@@ -10,14 +10,9 @@ import Types
 
 import Parallel.Shaders
 
-data Settings = Settings {
-  world :: World,
-  shaderEngine :: ShaderEngine,
-  rayTraceShader :: Shader
-}
 
 -- data RT a = RT (forall g . RandomGen g => Settings -> Rand g (a, Settings))
-data RT a = RT (Settings -> IO (a, Settings))
+
 
 instance Functor RT where
   fmap f (RT c) = RT $ \s -> fmap (\(v, s1) -> (f v, s1)) (c s)

@@ -8,7 +8,9 @@ import Control.Monad.Random
 import Random
 import Vectors
 import Types
+import RTMonad
 
+-- data Material = Material {scatterF :: Ray -> Hit -> RT (Maybe (Color, Ray))}
 
 
 -- mkLambertian :: RandomGen g => CVec3 -> MaterialScatterF g
@@ -28,7 +30,7 @@ mkLambertian albedo = Material m
           target >>= \t -> return $ Just (albedo, Ray (hitP hit) t)
           where
               -- p + normal + random - p ?
-            target = (hitNormal hit <+>) <$> randomInUnitBall
+            target = (hitNormal hit <+>) <$> randomInUnitBall''
 
 mkMetal :: Double -> CVec3 -> Material
 mkMetal fuzz albedo = Material m
@@ -40,7 +42,7 @@ mkMetal fuzz albedo = Material m
                     then Just (attenuation, sc)
                     else Nothing)
         where reflected = reflect (normalize $ direction rayIn) (hitNormal hit)
-              scattered = randomInUnitBall >>= \r -> return $ Ray (hitP hit) (reflected <+> (fuzz *. r))
+              scattered = randomInUnitBall'' >>= \r -> return $ Ray (hitP hit) (reflected <+> (fuzz *. r))
               attenuation = albedo
               didScatter = reflected .* (hitNormal hit) > 0
 
@@ -80,7 +82,7 @@ mkDielectric refIdx = Material m
                   Just refr -> (schlick cosine refIdx, refr) --Just (att, Ray (hitP hit) refr)
                   Nothing -> (1.0, undefined)
         res = do
-          x <- getRandomR (0, 1.0)
+          x <- getRand
           return $ if (x < reflProb)
                     then (att, Ray (hitP hit) (reflect (direction rayIn) (hitNormal hit)))
                     else (att, Ray (hitP hit) refr)

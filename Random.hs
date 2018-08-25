@@ -5,6 +5,7 @@ import Data.Vec3
 
 import Vectors
 import RTMonad
+import Types
 
 randomInUnitBall' :: RT CVec3
 randomInUnitBall' = do

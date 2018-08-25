@@ -5,6 +5,7 @@ import Data.Vec3
 import Data.Maybe
 import Data.List
 import Data.Array
+import Data.Either
 import Data.Function
 import Control.Monad.Random
 import Control.Monad.Primitive
@@ -53,22 +54,72 @@ nextRay :: Hit -> RT Ray
 nextRay (Hit {hitNormal=n, hitP=p}) =
   Ray p <$> ((n <+>) <$> randomInUnitBall'')
 
-applyMaterial :: Hit -> Color -> Color
-applyMaterial (Hit {hitSphere=(Sphere m c r)}) nextColor =
-  mapv ((/16) . (+8) . abs) c <+> mapv (/2) nextColor
+-- applyMaterial :: Hit -> Color -> Color
+-- applyMaterial (Hit {hitSphere=(Sphere m c r)}) nextColor =
+--   mapv ((/16) . (+8) . abs) c <+> mapv (/2) nextColor
+
+applyMaterial :: Ray -> Hit -> RT (Either Color (Color, Ray))
+applyMaterial r h@(Hit {hitSphere=(Sphere m _ _)}) =
+  (scatterF m) r h >>= \sc -> return $ case sc of
+    Just (c, r) -> Right (c, r)
+    Nothing -> Left (CVec3 0 0 0)
+
+-- scatterF :: Ray -> Hit -> RT (Color, Ray)
+
+divideAndConquer :: ([a] -> RT [c]) -> ([b] -> RT [c]) -> [Either a b] -> RT [c]
+divideAndConquer lf rf eithers =
+  do
+    let (ls, rs) = partitionEithers eithers
+
+    lr <- lf ls
+    rr <- rf rs
+
+    let
+      recollect [] [] [] = []
+      recollect (Left _:es) (l:lr) rr = l:recollect es lr rr
+      recollect (Right _:es) lr (r:rr) = r:recollect es lr rr
+
+    return $ recollect eithers lr rr
+
 
 colors :: Int -> [Ray] -> RT [Color]
 colors 100 rs = return $ map sky rs
 colors i rs = do
   hs <- hits rs :: RT [Maybe Hit]
-  nextRays <- mapM nextRay $ catMaybes hs :: RT [Ray]
-  cs <- if length nextRays > 0 then colors (i+1) nextRays else return [] :: RT [Color]
-  return $ applyColors rs hs cs
-  where
-    applyColors :: [Ray] -> [Maybe Hit] -> [Color] -> [Color]
-    applyColors [] [] [] = []
-    applyColors (r:rs) (Nothing:hs) cs = sky r : applyColors rs hs cs
-    applyColors (r:rs) (Just h:hs) (c:cs) = applyMaterial h c : applyColors rs hs cs
+
+  let
+    asResult (ray, Just hit) = Right (ray, hit)
+    asResult (ray, Nothing) = Left ray
+
+    applyScatters :: [(Color, Ray)] -> RT [Color]
+    applyScatters crs = do
+      nextColors <- colors (i+1) (map snd crs)
+      return $ map (uncurry (*<>*)) $ zip (map fst crs) nextColors
+
+    -- applyMaterials :: [(Ray, Hit)] -> Either Color (Color, Ray)
+    -- applyMaterials =
+
+    actions = map asResult $ zip rs hs :: [Either Ray (Ray, Hit)]
+
+  nextActions <- divideAndConquer (return . map (Left . sky)) (mapM (uncurry applyMaterial)) actions :: RT [Either Color (Color, Ray)]
+
+  colors <- divideAndConquer return applyScatters nextActions :: RT [Color]
+
+  return colors
+  --
+  -- let matches = map (uncurry z) $ zip rs hs :: RT [Maybe (Ray, Hit)]
+  -- scatters <- mapM applyMaterial matches :: RT [Maybe (Color, Ray)]
+  --
+  -- nextRays <- mapM nextRay $ catMaybes hs :: RT [Ray]
+  --
+  -- cs <- if length nextRays > 0 then colors (i+1) nextRays else return [] :: RT [Color]
+  -- return $ applyColors rs hs cs
+  -- where
+  --
+  --   applyColors :: [Ray] -> [Maybe Hit] -> [Color] -> [Color]
+  --   applyColors [] [] [] = []
+  --   applyColors (r:rs) (Nothing:hs) cs = sky r : applyColors rs hs cs
+  --   applyColors (r:rs) (Just h:hs) (c:cs) = applyMaterial h c : applyColors rs hs cs
 
   -- bulkmapOnlyExisting processFurther hs
   -- processFurther :: [Hit] -> [Color]

@@ -4,6 +4,7 @@ module Types where
 
 import Data.Vec3
 import Control.Monad.Random
+import Parallel.Shaders
 
 
 data Hitable_ = forall a . (Show a, Hitable a) => MkHitable a
@@ -50,11 +51,16 @@ data Camera = Camera {
 
 
 -- Materials
-type Scatter = Maybe (CVec3, Ray)
 
-type MaterialScatterF g = RandomGen g => Ray -> Hit -> Rand g Scatter
-
-data Material = Material {scatterF :: forall g. RandomGen g => MaterialScatterF g}
+data Material = Material {scatterF :: Ray -> Hit -> RT (Maybe (Color, Ray))}
 
 instance Show Material where
   show a = "(Material)"
+
+data RT a = RT (Settings -> IO (a, Settings))
+
+data Settings = Settings {
+  world :: World,
+  shaderEngine :: ShaderEngine,
+  rayTraceShader :: Shader
+}
