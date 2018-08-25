@@ -25,6 +25,9 @@ import RayTracer
 import RTMonad
 
 import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
+
+import Parallel.OpenCLGeometry
+import Parallel.Shaders
 --
 -- renderUV :: RandomGen g => World -> Double -> Double -> Rand g Color
 -- -- renderUV u v = CVec3 u v 0.2
@@ -52,7 +55,11 @@ import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
 --
 
 
--- prepareShader :: RT 
+prepareShader :: RT ()
+prepareShader = runIO (do
+  engine <- initShaderEngine
+  shader <- createShader engine sphereSource
+  return (engine, shader)) >>= \(engine, shader) -> updateSettings (\s -> s {shaderEngine = engine, rayTraceShader = shader})
 
 
 genImageBuf :: Int -> Int -> RT ImgBuf

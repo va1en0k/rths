@@ -50,6 +50,9 @@ getRand = RT $ \s -> getRandomR (0, 1) >>= \v -> return (v, s)
 getRands :: RT [Double]
 getRands = RT $ \s -> getRandomRs (0, 1) >>= \vs -> return (vs, s)
 
+runIO :: IO a -> RT a
+runIO a = RT (\s -> a >>= \a -> return (a, s))
+
 getSettings :: RT Settings
 getSettings = RT $ \s -> return (s, s)
 --

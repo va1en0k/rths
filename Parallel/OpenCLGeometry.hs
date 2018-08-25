@@ -159,10 +159,10 @@ main :: IO ()
 main = do
   -- print $ compileSphere $ Sphere undefined (CVec3 0 0 (-1)) 0.5
   engine <- initShaderEngine
-  let s = sphereSource
-  putStrLn s
-  print worldOfSpheres
-  shader <- createShader engine s
+  -- let s = sphereSource
+  -- putStrLn s
+  -- print worldOfSpheres
+  shader <- createShader engine sphereSource
   output <- runGeometryShader engine shader worldOfSpheres testRays
   putStrLn $ "Output shaders: " ++ show output
   -- print $ map (\r -> hit (head worldOfSpheres) r 0.00001 maxFloat) testRays
