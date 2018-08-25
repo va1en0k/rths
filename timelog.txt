@@ -754,3 +754,11 @@ user	0m12.738s
 sys	0m3.818s
 
 
+fe63d86
++ ./Main fe63d86 +RTS -N
+
+real	0m12.955s
+user	0m52.804s
+sys	0m15.377s
+
+

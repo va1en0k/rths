@@ -89,7 +89,7 @@ runOnShader engine shader outcount outsize inputs = do
     writeVectorToBuffer (openCLState engine) bufIn inputData
     clSetKernelArgSto kernel i bufIn) (zip [0..] inputs)
   clSetKernelArgSto kernel (fromIntegral $ length inputs) bufOut
-  execEvent <- clEnqueueNDRangeKernel queue kernel dimensions [] []
+  execEvent <- clEnqueueNDRangeKernel queue kernel [(length $ head inputs), 1] [] []
 
   -- Get the result; blocks until complete
   outputData <- bufferToVector queue
