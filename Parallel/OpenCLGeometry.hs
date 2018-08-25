@@ -142,7 +142,7 @@ runGeometryShader e s spheres rs = do
   let hitsByRay = takeBy (length spheres) hits
   let goodRaysF = catMaybes . map (\h -> if hitT h <= 0 then Nothing else Just h)
   let validHitsByRay = map goodRaysF hitsByRay
-  let bestHitByRay = map (\xs -> if length xs == 0 then Nothing else Just (maximumBy (comparing hitT) xs)) validHitsByRay
+  let bestHitByRay = map (\xs -> if length xs == 0 then Nothing else Just (minimumBy (comparing hitT) xs)) validHitsByRay
   return bestHitByRay
 
 
