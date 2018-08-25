@@ -23,6 +23,7 @@ import World
 import RayTracer
 
 import RTMonad
+import Random
 
 import Render (res, kRes, camera, getRay, ImgBuf, colorToPixel)
 
@@ -78,10 +79,10 @@ hits rs = do
 --     replaceJusts (Nothing:ms) rs = Nothing:replaceJusts ms rs
 --     replaceJusts (Just _:ms) (r:rs) = replaceJusts ms rs
 
-randomInUnitBall = return (CVec3 0.1 0.2 0.3)
+-- randomInUnitBall = return (CVec3 0.1 0.2 0.3)
 
 nextRay :: Hit -> RT Ray
-nextRay (Hit {hitNormal=n, hitP=p}) = Ray p <$> ((n <+>) <$> randomInUnitBall)
+nextRay (Hit {hitNormal=n, hitP=p}) = Ray p <$> ((n <+>) <$> randomInUnitBall')
 
 colors :: Int -> [Ray] -> RT [Color]
 colors 100 rs = return $ map sky rs

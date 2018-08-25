@@ -4,6 +4,14 @@ import Control.Monad.Random
 import Data.Vec3
 
 import Vectors
+import RTMonad
+
+randomInUnitBall' :: RT CVec3
+randomInUnitBall' = do
+   (x:y:z:r:_) <- getRands
+   -- r <- getRandomR (-1::Double, 1)
+   let p = r * sqrt (x*x + y*y + z*z)
+   return $ (1 / p) *. CVec3 x y z
 
 randomInUnitBall :: RandomGen g => Rand g CVec3
 randomInUnitBall =
