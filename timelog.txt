@@ -662,3 +662,5 @@ sys	0m0.046s
 + ./Main 4cca07c +RTS -N
 c22b310
 + ./Main c22b310 +RTS -N
+68c5bc7
++ ./Main 68c5bc7 +RTS -N
