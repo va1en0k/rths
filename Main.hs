@@ -39,7 +39,7 @@ import Material
 
 main :: IO ()
 main = do
-  world <- runRT undefined (randomWorld >> getWorld)
+  world <- runRT (Settings undefined undefined undefined) (randomWorld >> getWorld)
   -- let world = randomWorld
   -- let world = objects
   imF <- genImageF world (fst res) (snd res)

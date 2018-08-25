@@ -674,3 +674,11 @@ user	0m13.533s
 sys	0m3.857s
 
 
+759024c
++ ./Main 759024c +RTS -N
+
+real	0m0.053s
+user	0m0.019s
+sys	0m0.024s
++ cat stderr.log
++ false
