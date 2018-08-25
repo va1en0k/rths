@@ -29,6 +29,7 @@ sphereSource = [i|
         float t;
         float3 point;
         float3 normal;
+        int sphereId;
     };
 
     struct sphere
@@ -111,6 +112,7 @@ sphereSource = [i|
             /*if (hbest.t > h.t) {
               hbest = h;
             }*/
+            hbest.sphereId = sphereId;
           }
         }
         if (hbest.t == 100000) hbest.t = -1;
@@ -125,7 +127,7 @@ sphereSource = [i|
           hbest.t,
           hbest.point[0], hbest.point[1], hbest.point[2],
           hbest.normal[0], hbest.normal[1], hbest.normal[2],
-          -1
+          hbest.sphereId
         );
     }
 |]

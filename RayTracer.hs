@@ -34,7 +34,7 @@ traceColorK i k objects r = case (hit objects r 0.00001 maxFloat) of
   Nothing -> return $ mapv (k*) $ sky r
   Just (Hit t p n sc) ->
     if i < 50
-      then undefined >>= (\sc ->
+      then undefined{-sc-} >>= (\sc ->
         case sc of
           Nothing -> return $ CVec3 0 0 0
           Just (attenuation, scattered) ->
