@@ -994,3 +994,11 @@ user	0m12.769s
 sys	0m3.024s
 + cat stderr.log
 + false
+de8d3ae
++ ./Main de8d3ae +RTS -N
+
+real	0m17.718s
+user	0m52.498s
+sys	0m12.562s
+
+

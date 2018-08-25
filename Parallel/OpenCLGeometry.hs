@@ -29,7 +29,7 @@ sphereSource = [i|
         float t;
         float3 point;
         float3 normal;
-        int sphereId;
+        float sphereId;
     };
 
     struct sphere
@@ -140,8 +140,9 @@ rayToDoubles (Ray (CVec3 a b c) (CVec3 d e f)) = [a, b, c, d, e, f, -1, -1]
 sphereToDoubles :: Sphere -> [Double]
 sphereToDoubles (Sphere _ (CVec3 a b c) r) = [a, b, c, r]
 
-doublesToHit :: [Double] -> Hit
-doublesToHit [t,a,b,c,x,y,z,sid] = Hit t (CVec3 a b c) (CVec3 x y z) undefined
+doublesToHit :: [Sphere] -> [Double] -> Hit
+doublesToHit spheres [t,a,b,c,x,y,z,sid] =
+  Hit t (CVec3 a b c) (CVec3 x y z) (spheres !! floor sid)
 
 
 
@@ -152,7 +153,7 @@ runGeometryShader e s spheres rs = do
   -- print (rcnt * 2)
   output <- runOnShader e s rcnt 8 [(map rayToDoubles rs), (map sphereToDoubles spheres)]
   -- print $ takeBy 8 output
-  let hits = map doublesToHit $ takeBy 8 output
+  let hits = map (doublesToHit spheres) $ takeBy 8 output
   let hitsByRay = takeBy 1 hits
   let goodRaysF = catMaybes . map (\h -> if hitT h <= 0 then Nothing else Just h)
   let validHitsByRay = map goodRaysF hitsByRay
