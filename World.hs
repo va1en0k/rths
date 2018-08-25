@@ -51,9 +51,9 @@ randomWorld = ((typical++) <$> concat <$> sequence randList) >>= \w -> setSettin
                                   () | otherwise -> sphere (mkDielectric 1.5) center 0.2
           else return []
 
-data Sphere = Sphere Material CVec3 Double
 
 instance Hitable Sphere where
+  asSphere a = a
   hit (Sphere m sc sr) r@(Ray org dir) mn mx =
     let oc = org <-> sc
         a = dir .* dir
