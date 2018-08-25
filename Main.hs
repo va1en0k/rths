@@ -43,7 +43,7 @@ main = do
   -- let world = randomWorld >> getWorld)
   -- let world = randomWorld
   -- let world = objects
-  imF <- runRT undefined $ randomWorld >> genImageF (fst res) (snd res)
+  imF <- runRT (Settings undefined undefined undefined) $ randomWorld >> genImageF (fst res) (snd res)
   let im = (generateImage imF (fst res) (snd res))
   -- im <- evalRandIO rim
   -- print (renderUV 0 0)
