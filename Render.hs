@@ -23,11 +23,11 @@ import World
 import RayTracer
 
 res :: (Int, Int)
-res = (300, 200)
+res = (600, 400)
 kRes :: Double
 kRes = fromIntegral $ uncurry min $ res
 
-genCount = 20
+genCount = 100
 
 -- camera = Camera (CVec3 0 0 0) (CVec3 2.5 0 0) (CVec3 0 (-2.5) 0) (CVec3 (-2) 1 (-1))
 
