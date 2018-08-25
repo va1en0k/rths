@@ -866,3 +866,11 @@ user	0m2.234s
 sys	0m0.840s
 
 
+07ed410
++ ./Main 07ed410 +RTS -N
+
+real	0m1.577s
+user	0m1.976s
+sys	0m1.098s
+
+
