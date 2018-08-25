@@ -842,3 +842,11 @@ user	0m1.976s
 sys	0m1.094s
 
 
+f644ca8
++ ./Main f644ca8 +RTS -N
+
+real	0m1.541s
+user	0m2.612s
+sys	0m0.820s
+
+

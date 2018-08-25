@@ -50,9 +50,9 @@ sphereSource = [i|
       return true;*/
 
       if (dsc < 0.0) {
-        hit->t = 0;
-        hit->point = (float3)(0, 0, 0);
-        hit->normal = (float3)(0, 0, 0);
+        //hit->t = 0;
+        //hit->point = (float3)(0, 0, 0);
+        //hit->normal = (float3)(0, 0, 0);
         return false;
       }
       float sqDsc = sqrt(dsc);
