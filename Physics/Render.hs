@@ -5,7 +5,7 @@ import Data.Vec3
 import Types
 import World
 
-yStep = 0.1
+yStep = 0.02
 
 applyGravity :: Sphere -> Sphere
 applyGravity s@(Sphere m c r) | r > 3 = s

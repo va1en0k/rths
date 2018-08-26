@@ -63,18 +63,19 @@ import           Parallel.Render
 
 import Physics.Render
 
-writeGif fname images = case writeGifAnimation fname 50 LoopingForever images of
+writeGif fname images = case writeGifAnimation fname 5 LoopingForever images of
   Left s -> putStrLn s
   Right a -> a
 
 main :: IO ()
 main = do
   world <- runRT (Settings undefined undefined undefined) $ randomWorld >> getWorld
-  let scenario = take 30 $ makeScenario world
+  let scenario = take 15 $ makeScenario world
   -- let world = randomWorld
   -- let world = objects
-  images <- (flip mapM) scenario $ \w ->
+  images <- (flip mapM) (zip [1..] scenario) $ \(i, w) ->
     do
+      print $ "--- " ++ show i ++ " ---"
       imF <-
         runRT (Settings w undefined undefined) $ uncurry genImageF res
       let im = (generateImage imF (fst res) (snd res))
