@@ -40,7 +40,7 @@ randomWorld = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
     ]
 
   randList :: [RT [Hitable_]]
-  randList = (flip map) [ (a, b) | a <- [-11 .. 11], b <- [-11 .. 11] ]
+  randList = (flip map) [ (a, b) | a <- [-10 .. 7], b <- [-8 .. 8] ]
                         (uncurry genSphere)
 
   genSphere :: Double -> Double -> RT [Hitable_]

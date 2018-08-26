@@ -1148,3 +1148,5 @@ user	27m32.083s
 sys	7m10.718s
 
 
+a0f49ec
++ ./Main a0f49ec +RTS -N
