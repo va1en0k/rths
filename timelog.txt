@@ -1108,3 +1108,11 @@ sys	0m20.430s
 
 bd144d2
 + ./Main bd144d2 +RTS -N
+d3c2624
++ ./Main d3c2624 +RTS -N
+
+real	10m23.594s
+user	29m13.847s
+sys	6m55.865s
+
+
