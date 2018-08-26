@@ -16,7 +16,7 @@ import           Types
 
 
 rayPointAt :: Ray -> Double -> CVec3
-rayPointAt (Ray o d) t = o <+> (mapv (*t) d)
+rayPointAt (Ray o d) t = o <+> (mapv (* t) d)
 
 
 instance Hitable Hitable_ where

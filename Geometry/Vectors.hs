@@ -1,13 +1,13 @@
 module Geometry.Vectors where
 
-import Data.Vec3
-import Data.Ord
-import Data.List
-import Control.DeepSeq
-import Codec.Picture
-import Control.Monad.Random
+import           Data.Vec3
+import           Data.Ord
+import           Data.List
+import           Control.DeepSeq
+import           Codec.Picture
+import           Control.Monad.Random
 
-import Types
+import           Types
 
 vsum :: [CVec3] -> CVec3
 vsum = foldr1 (<+>)
@@ -34,4 +34,4 @@ instance NFData PixelRGB8 where
 (*.) = flip (.^)
 
 (*<>*) :: CVec3 -> CVec3 -> CVec3
-(CVec3 a b c) *<>* (CVec3 x y z) = CVec3 (a*x) (b*y) (c*z)
+(CVec3 a b c) *<>* (CVec3 x y z) = CVec3 (a * x) (b * y) (c * z)

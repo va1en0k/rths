@@ -5,4 +5,4 @@ takeBy cnt [] = []
 takeBy cnt xs = (take cnt xs : takeBy cnt (drop cnt xs))
 
 maxFloat :: Double
-maxFloat = fromIntegral $ snd $ floatRange (0.5::Double)
+maxFloat = fromIntegral $ snd $ floatRange (0.5 :: Double)

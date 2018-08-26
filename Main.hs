@@ -15,7 +15,7 @@ import           Data.Vec3
 import           Debug.Trace
 import           System.Environment
 
-import qualified Data.Text.IO            as T
+import qualified Data.Text.IO                  as T
 
 -- import Normal
 
@@ -65,14 +65,17 @@ main = do
   -- let world = randomWorld >> getWorld)
   -- let world = randomWorld
   -- let world = objects
-  imF <- runRT (Settings undefined undefined undefined) $ randomWorld >> genImageF (fst res) (snd res)
+  imF <-
+    runRT (Settings undefined undefined undefined) $ randomWorld >> genImageF
+      (fst res)
+      (snd res)
   let im = (generateImage imF (fst res) (snd res))
   -- im <- evalRandIO rim
   -- print (renderUV 0 0)
   -- print (imF 10 10)
   -- render 10 [] 10 10 >>= print
   -- print (colorToPixel $ CVec3 0.8 0.7 1.0)
-  now <- getPOSIXTime
+  now  <- getPOSIXTime
   hash <- head <$> getArgs
   writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") im
   writePng ("./image.png") im
