@@ -1090,3 +1090,11 @@ user	1m29.752s
 sys	0m23.927s
 
 
+c2d535f
++ ./Main c2d535f +RTS -N
+
+real	0m29.099s
+user	1m20.338s
+sys	0m21.172s
+
+
