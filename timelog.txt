@@ -1106,3 +1106,5 @@ user	1m26.509s
 sys	0m20.430s
 
 
+bd144d2
++ ./Main bd144d2 +RTS -N
