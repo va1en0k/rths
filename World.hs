@@ -47,7 +47,7 @@ randomWorld = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
   genSphere a b = do
     (mt           : x  : y  : z  : _) <- getRands
     (r1 : r2 : r3 : r4 : r5 : r6 : _) <- getRands
-    let center = CVec3 (a + x * 0.9) (0.2 + y) (b + 0.9 * z)
+    let center = CVec3 (a + x * 0.9) (0.2 + y * 5) (b + 0.9 * z)
     if (norm (center <-> CVec3 4 0.2 0) > 0.9)
       then return $ return $ case () of
         () | mt < 0.6 ->
