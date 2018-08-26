@@ -70,7 +70,7 @@ writeGif fname images = case writeGifAnimation fname 5 LoopingForever images of
 main :: IO ()
 main = do
   world <- runRT (Settings undefined undefined undefined) $ randomWorld >> getWorld
-  let scenario = take 15 $ makeScenario world
+  let scenario = take 20 $ makeScenario world
   -- let world = randomWorld
   -- let world = objects
   images <- (flip mapM) (zip [1..] scenario) $ \(i, w) ->

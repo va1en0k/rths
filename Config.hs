@@ -1,10 +1,10 @@
 module Config where
 
 res :: (Int, Int)
-res = (150, 100)
+res = (300, 200)
 
 aaGenCount :: Int
-aaGenCount = 4
+aaGenCount = 8
 
 ---
 
