@@ -60,25 +60,31 @@ main = do
 -}
 
 import           Parallel.Render
+
+import Physics.Render
+
+writeGif fname images = case writeGifAnimation fname 100 LoopingForever images of
+  Left s -> putStrLn s
+  Right a -> a
+
 main :: IO ()
 main = do
-  -- let world = randomWorld >> getWorld)
+  world <- runRT (Settings undefined undefined undefined) $ randomWorld >> getWorld
+  let scenario = take 20 $ makeScenario world
   -- let world = randomWorld
   -- let world = objects
-  imF <-
-    runRT (Settings undefined undefined undefined) $ randomWorld >> genImageF
-      (fst res)
-      (snd res)
-  let im = (generateImage imF (fst res) (snd res))
-  -- im <- evalRandIO rim
-  -- print (renderUV 0 0)
-  -- print (imF 10 10)
-  -- render 10 [] 10 10 >>= print
-  -- print (colorToPixel $ CVec3 0.8 0.7 1.0)
+  images <- (flip mapM) scenario $ \w ->
+    do
+      imF <-
+        runRT (Settings w undefined undefined) $ uncurry genImageF res
+      let im = (generateImage imF (fst res) (snd res))
+      return im
+
   now  <- getPOSIXTime
   hash <- head <$> getArgs
-  writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") im
-  writePng ("./image.png") im
+  writeGif ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".gif") images
+  writeGif ("./image.gif") images
+
 
 {-
 main'' :: IO ()

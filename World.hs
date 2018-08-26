@@ -23,10 +23,12 @@ objects =
     sphere (mkDielectric 1.5)                 (CVec3 (-1) 0 (-1))     (-0.45)
   ]
 
+setWorld :: World -> RT ()
+setWorld w = updateSettings (\s -> s { world = w })
+
 randomWorld :: RT ()
 -- randomWorld :: RandomGen g => Rand g World
-randomWorld = ((typical ++) <$> concat <$> sequence randList)
-  >>= \w -> updateSettings (\s -> s { world = w })
+randomWorld = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
  where
   typical =
     [ sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000

@@ -1098,3 +1098,11 @@ user	1m20.338s
 sys	0m21.172s
 
 
+bfcfaa3
++ ./Main bfcfaa3 +RTS -N
+
+real	0m30.480s
+user	1m26.509s
+sys	0m20.430s
+
+
