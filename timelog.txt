@@ -1150,3 +1150,12 @@ sys	7m10.718s
 
 a0f49ec
 + ./Main a0f49ec +RTS -N
+12def4e
++ ./Main 12def4e +RTS -N
+./try.sh: line 20: 74696 Abort trap: 6           ./Main $HASH +RTS -N 2> stderr.log
+
+real	62m0.305s
+user	142m3.744s
+sys	78m51.919s
++ cat stderr.log
++ false
