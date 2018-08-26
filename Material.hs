@@ -1,14 +1,15 @@
-{-# LANGUAGE Rank2Types, ExistentialQuantification #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE Rank2Types                #-}
 
 module Material where
 
-import Data.Vec3
-import Control.Monad.Random
+import           Control.Monad.Random
+import           Data.Vec3
 
-import Random
-import Geometry.Vectors
-import Types
-import RTMonad
+import           Geometry.Vectors
+import           Random
+import           RTMonad
+import           Types
 
 -- data Material = Material {scatterF :: Ray -> Hit -> RT (Maybe (Color, Ray))}
 
@@ -80,7 +81,7 @@ mkDielectric refIdx = Material m
         (reflProb, refr) =
           case refract (direction rayIn) outNorm niOverNt of
                   Just refr -> (schlick cosine refIdx, refr) --Just (att, Ray (hitP hit) refr)
-                  Nothing -> (1.0, undefined)
+                  Nothing   -> (1.0, undefined)
         res = do
           x <- getRand
           return $ if (x < reflProb)

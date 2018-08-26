@@ -1,40 +1,42 @@
-{-# LANGUAGE ExistentialQuantification, FlexibleInstances, TypeFamilies #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE FlexibleInstances         #-}
+{-# LANGUAGE TypeFamilies              #-}
 
-import Codec.Picture
-import Data.Vec3
-import Data.Maybe
-import Data.List
-import Data.Array
-import Data.Function
-import Control.Monad.Random
-import Control.Monad.Primitive
-import Control.Monad.Identity
-import Debug.Trace
-import Data.Time.Clock.POSIX
-import System.Environment
+import           Codec.Picture
+import           Control.Monad.Identity
+import           Control.Monad.Primitive
+import           Control.Monad.Random
+import           Data.Array
+import           Data.Function
+import           Data.List
+import           Data.Maybe
+import           Data.Time.Clock.POSIX
+import           Data.Vec3
+import           Debug.Trace
+import           System.Environment
 
-import qualified Data.Text.IO as T
+import qualified Data.Text.IO            as T
 
 -- import Normal
 
-import Geometry.Vectors
-import Types
+import           Geometry.Vectors
+import           Types
 -- import Progress
-import World
+import           World
 -- import RayTracer
-import Config
+import           Config
 
 -- import Render (kRes, camera, getRay, ImgBuf, colorToPixel)
 
 
 
-import RTMonad
+import           RTMonad
 
 -- import WebGL
 
 
 
-import Material
+import           Material
 
 
 {-
@@ -57,7 +59,7 @@ main = do
   writePng ("./image.png") im
 -}
 
-import Parallel.Render
+import           Parallel.Render
 main :: IO ()
 main = do
   -- let world = randomWorld >> getWorld)

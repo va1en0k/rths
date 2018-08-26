@@ -1,10 +1,12 @@
-{-# LANGUAGE ExistentialQuantification, FlexibleInstances, Rank2Types #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE FlexibleInstances         #-}
+{-# LANGUAGE Rank2Types                #-}
 
 module Types where
 
-import Data.Vec3
-import Control.Monad.Random
-import Parallel.Shaders
+import           Control.Monad.Random
+import           Data.Vec3
+import           Parallel.Shaders
 
 
 data Hitable_ = forall a . (Show a, Hitable a) => MkHitable a
@@ -20,8 +22,8 @@ data Ray = Ray {origin :: CVec3, direction :: CVec3}
 
 
 data Hit = Hit {
-  hitT :: Double,
-  hitP :: CVec3,
+  hitT      :: Double,
+  hitP      :: CVec3,
   hitNormal :: CVec3,
   -- scatter :: forall g . RandomGen g => Rand g Scatter
   hitSphere :: Sphere
@@ -43,9 +45,9 @@ type Color = CVec3
 
 
 data Camera = Camera {
-  cOrigin :: CVec3,
-  cHorizontal :: CVec3,
-  cVertical :: CVec3,
+  cOrigin          :: CVec3,
+  cHorizontal      :: CVec3,
+  cVertical        :: CVec3,
   cLowerLeftCorner :: CVec3
 }
 
@@ -60,7 +62,7 @@ instance Show Material where
 data RT a = RT (Settings -> IO (a, Settings))
 
 data Settings = Settings {
-  world :: World,
-  shaderEngine :: ShaderEngine,
+  world          :: World,
+  shaderEngine   :: ShaderEngine,
   rayTraceShader :: Shader
 }

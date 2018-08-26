@@ -1,14 +1,14 @@
 module World where
 
-import Data.Vec3
-import Control.Monad.Random
+import           Control.Monad.Random
+import           Data.Vec3
 
-import Types
-import Geometry.Vectors
-import Material
-import Hitable
+import           Geometry.Vectors
+import           Hitable
+import           Material
+import           Types
 
-import RTMonad
+import           RTMonad
 
 sphere m c r = MkHitable $ Sphere m c r
 

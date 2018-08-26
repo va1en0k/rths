@@ -1,14 +1,15 @@
-{-# LANGUAGE Rank2Types, ExistentialQuantification #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE Rank2Types                #-}
 
 module RTMonad where
 
-import Control.Monad.Random
-import Control.Monad.Identity
-import Control.Applicative
+import           Control.Applicative
+import           Control.Monad.Identity
+import           Control.Monad.Random
 
-import Types
+import           Types
 
-import Parallel.Shaders
+import           Parallel.Shaders
 
 
 -- data RT a = RT (forall g . RandomGen g => Settings -> Rand g (a, Settings))

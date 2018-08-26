@@ -1,15 +1,17 @@
-{-# LANGUAGE ExistentialQuantification, FlexibleInstances, TypeFamilies #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE FlexibleInstances         #-}
+{-# LANGUAGE TypeFamilies              #-}
 
 module Hitable where
 
-import Data.Vec3
-import Data.Maybe
-import Data.Function
-import Data.List
+import           Data.Function
+import           Data.List
+import           Data.Maybe
+import           Data.Vec3
 
-import Geometry.Vectors
-import Material
-import Types
+import           Geometry.Vectors
+import           Material
+import           Types
 
 
 
