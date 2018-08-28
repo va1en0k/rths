@@ -2480,3 +2480,11 @@ user	0m37.128s
 sys	0m7.601s
 
 
+fb20338
++ ./Main fb20338 +RTS -N
+
+real	0m18.621s
+user	0m38.710s
+sys	0m8.027s
+
+
