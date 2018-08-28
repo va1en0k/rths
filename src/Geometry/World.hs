@@ -1,9 +1,9 @@
 module Geometry.World where
 
 import           Control.Monad.Random
-import           Data.Vec3
+import           Data.Foldable
 import           Linear.V3
-import           Linear.Metric hiding (norm)
+import           Linear.Metric
 
 import           Geometry.Vectors
 import           Geometry.Camera
@@ -21,12 +21,12 @@ polygon m ps = MkHitable $ Polygon m ps
 
 objects :: [Hitable_]
 objects =
-  [ sphere (mkLambertian $ CVec3 0.1 0.2 0.5) (CVec3 0 0 (-1))        0.5
-  , sphere (mkLambertian $ CVec3 0.8 0.8 0.0) (CVec3 0 (-100.5) (-1)) 100
-  , sphere (mkMetal 0.3 $ CVec3 0.8 0.6 0.2)  (CVec3 1 0 (-1))        0.5
+  [ sphere (mkLambertian $ V3 0.1 0.2 0.5) (V3 0 0 (-1))        0.5
+  , sphere (mkLambertian $ V3 0.8 0.8 0.0) (V3 0 (-100.5) (-1)) 100
+  , sphere (mkMetal 0.3 $ V3 0.8 0.6 0.2)  (V3 1 0 (-1))        0.5
   ,
-  -- sphere (mkMetal 1.0 $ CVec3 0.8 0.8 0.8) (CVec3 (-1) 0 (-1)) 0.5
-    sphere (mkDielectric 1.5)                 (CVec3 (-1) 0 (-1))     (-0.45)
+  -- sphere (mkMetal 1.0 $ V3 0.8 0.8 0.8) (V3 (-1) 0 (-1)) 0.5
+    sphere (mkDielectric 1.5)                 (V3 (-1) 0 (-1))     (-0.45)
   ]
 
 setWorld :: World -> RT ()
@@ -40,9 +40,9 @@ randomWorld :: RT ()
 --   , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
 --   ]
 
-red = (mkLambertian $ CVec3 0.9 0.1 0.1)
-blue = (mkLambertian $ CVec3 0.1 0.1 0.9)
-green = (mkLambertian $ CVec3 0.1 0.9 0.1)
+red = (mkLambertian $ V3 0.9 0.1 0.1)
+blue = (mkLambertian $ V3 0.1 0.1 0.9)
+green = (mkLambertian $ V3 0.1 0.9 0.1)
 
 -- cameraF = (getCameraReflectedThroughUV camera)
 
@@ -55,32 +55,32 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
       -- , (CVec3 0 (0.3) (-1))
       ] ++
       [ --sphere red cameraF 0.1
-      --, triangle red (lv cameraF) (lv $ (cLowerLeftCorner camera <+> cVertical camera)) (lv cameraF + V3 1 0 0)
+      --, triangle red (lv cameraF) (lv $ (cLowerLeftCorner camera + cVertical camera)) (lv cameraF + V3 1 0 0)
       ]
 
     -- X> Yv Z^
 
     typical = table ++
-      [ sphere (mkMetal 0.1 $ CVec3 0.7 0.6 0.4) (CVec3 (0) (-1.6) 8) 1.8
-      , sphere (mkLambertian $ CVec3 0.4 0.2 0.8) (CVec3 (-2.0) (0.4) 3.5) 0.8
-      , sphere (mkDielectric 1.5) (CVec3 1.1 (0.3) 3.7) 0.85
+      [ sphere (mkMetal 0.1 $ V3 0.7 0.6 0.4) (V3 (0) (-1.6) 8) 1.8
+      , sphere (mkLambertian $ V3 0.4 0.2 0.8) (V3 (-2.0) (0.4) 3.5) 0.8
+      , sphere (mkDielectric 1.5) (V3 1.1 (0.3) 3.7) 0.85
       ]
     typical' =
-      [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
-        -- triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 0 0) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
-        polygon (mkLambertian $ CVec3 0.5 0.5 0.5)
+      [ --plane (mkLambertian $ V3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
+        -- triangle (mkLambertian $ V3 0.5 0.5 0.5) (V3 0 0 0) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
+        polygon (mkLambertian $ V3 0.5 0.5 0.5)
         [
         -- , (V3 0.4 (0.3) 4)
         -- , (V3 (-1.6) (0.3) 4)
         -- , (V3 (-1.6) (0.3) 2)
         -- , (V3 0.4 (0.3) 2)
         ]
-      --sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
+      --sphere (mkLambertian $ V3 0.5 0.5 0.5) (V3 0 (-1000) 0) 1000
       ,
-      -- sphere (mkDielectric 1.5) (CVec3 0 0 0) 1,
-        sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
-      , sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0)    1
-      , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
+      -- sphere (mkDielectric 1.5) (V3 0 0 0) 1,
+        sphere (mkDielectric 1.5)                 (V3 0 1 0)       1
+      , sphere (mkLambertian $ V3 0.4 0.2 0.1) (V3 (-4) 1 0)    1
+      , sphere (mkMetal 0 $ V3 0.7 0.6 0.5)    (V3 4 1 0)       1
       ]
 
     randList :: [RT [Hitable_]]
@@ -91,14 +91,14 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
     genSphere a b = do
       (mt           : x  : y  : z  : _) <- getRands
       (r1 : r2 : r3 : r4 : r5 : r6 : _) <- getRands
-      let center = CVec3 (a + x * 0.9) (0.2 + y * 5) (b + 0.9 * z)
-      if (norm (center <-> CVec3 4 0.2 0) > 0.9)
+      let center = V3 (a + x * 0.9) (0.2 + y * 5) (b + 0.9 * z)
+      if (norm (center - V3 4 0.2 0) > 0.9)
         then return $ return $ case () of
           () | mt < 0.6 ->
-            sphere (mkLambertian $ CVec3 (r1 * r2) (r3 * r4) (r5 * r6)) center 0.2
+            sphere (mkLambertian $ V3 (r1 * r2) (r3 * r4) (r5 * r6)) center 0.2
           () | mt < 0.75 -> sphere
             ( mkMetal (0.5 * r4)
-            $ CVec3 (0.5 * (1 + r1)) (0.5 * (1 + r2)) (0.5 * (1 + r3))
+            $ V3 (0.5 * (1 + r1)) (0.5 * (1 + r2)) (0.5 * (1 + r3))
             )
             center
             0.2
@@ -106,10 +106,10 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
         else return []
 
 lv :: CVec3 -> V3 Double
-lv (CVec3 a b c) = V3 a b c
+lv = id
 
 bv :: V3 Double -> CVec3
-bv (V3 a b c) = CVec3 a b c
+bv = id
 
 -- point, normal
 data Plane = Plane Material (V3 Double) (V3 Double)
@@ -127,7 +127,7 @@ instance Hitable Plane where
 
 table =
   let
-    mat = mkLambertian $ CVec3 (209/256) (192/256) (87/256)
+    mat = mkLambertian $ V3 (209/256) (192/256) (87/256)
     cover =
       [ (V3 0.2 (0.3) 4)
       , (V3 (-1.1) (0.3) 4)
@@ -177,16 +177,16 @@ instance Hitable Polygon where
 instance Hitable Sphere where
   asSphere a = a
   hit (Sphere m sc sr) r@(Ray org dir) mn mx =
-    let oc = org <-> sc
-        a = dir .* dir
-        b = 2 * oc .* dir
-        c = (oc .* oc) - (sr * sr)
+    let oc = org - sc
+        a = dir `dot` dir
+        b = 2 * oc `dot` dir
+        c = (oc `dot` oc) - (sr * sr)
         dsc = b * b - 4 * a * c
         hf x = Just h
           where
             p = rayPointAt r x
-            -- n = normalize $ p <-> CVec3 0 0 (-1)
-            n = mapv (/ sr) (p <-> sc)
+            -- n = normalize $ p - CVec3 0 0 (-1)
+            n = mapv (/ sr) (p - sc)
             h = Hit x p n m
     in if dsc < 0 then Nothing
        else let x0 = ( - b - sqrt dsc ) / (2 * a)

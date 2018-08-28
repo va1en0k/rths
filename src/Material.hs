@@ -4,7 +4,8 @@
 module Material where
 
 import           Control.Monad.Random
-import           Data.Vec3
+import           Linear.V3
+import           Linear.Metric
 
 import           Geometry.Vectors
 import           Random
@@ -18,11 +19,11 @@ import           Types
 -- mkLambertian albedo rayIn hit =
 --   target >>= \t -> return $ Just (albedo, Ray (hitP hit) t)
 --   -- p + normal + random - p ?
---   where target = (hitNormal hit <+>) <$> randomInUnitBall
+--   where target = (hitNormal hit +) <$> randomInUnitBall
 
 reflect :: CVec3 -> CVec3 -> CVec3
 -- might it be that it assumes that |n| = 1?
-reflect v n = v <-> (2 *. ((v .* n) *. n))
+reflect v n = v - (2 *. ((v `dot` n) *. n))
 
 
 mkLambertian :: CVec3 -> Material
@@ -31,7 +32,7 @@ mkLambertian albedo = Material m
   m rayIn hit = target >>= \t -> return $ Just (albedo, Ray (hitP hit) t)
     where
         -- p + normal + random - p ?
-          target = (hitNormal hit <+>) <$> randomInUnitBall''
+          target = (hitNormal hit +) <$> randomInUnitBall''
 
 mkMetal :: Double -> CVec3 -> Material
 mkMetal fuzz albedo = Material m
@@ -41,9 +42,9 @@ mkMetal fuzz albedo = Material m
    where
     reflected = reflect (normalize $ direction rayIn) (hitNormal hit)
     scattered = randomInUnitBall''
-      >>= \r -> return $ Ray (hitP hit) (reflected <+> (fuzz *. r))
+      >>= \r -> return $ Ray (hitP hit) (reflected + (fuzz *. r))
     attenuation = albedo
-    didScatter  = reflected .* (hitNormal hit) > 0
+    didScatter  = reflected `dot` (hitNormal hit) > 0
 
 
 refract :: CVec3 -> CVec3 -> Double -> Maybe CVec3
@@ -51,9 +52,9 @@ refract :: CVec3 -> CVec3 -> Double -> Maybe CVec3
 refract v n niOverNt = if d > 0 then Just refr else Nothing
  where
   uv   = normalize v
-  dt   = uv .* n
+  dt   = uv `dot` n
   d    = 1.0 - niOverNt * niOverNt * (1 - dt * dt)
-  refr = (niOverNt *. (uv <-> (dt *. n))) <-> (sqrt d *. n)
+  refr = (niOverNt *. (uv - (dt *. n))) - (sqrt d *. n)
 
 schlick :: Double -> Double -> Double
 schlick cs refIdx = r02 + (1 - r02) * ((1 - cs) ** 5)
@@ -66,8 +67,8 @@ mkDielectric refIdx = Material m
  where
   m rayIn hit = Just <$> res
    where
-    att                         = CVec3 1 1 1
-    drayInDPhit                 = direction rayIn .* hitNormal hit
+    att                         = V3 1 1 1
+    drayInDPhit                 = direction rayIn `dot` hitNormal hit
     cosine'                     = drayInDPhit / norm (direction rayIn)
     (outNorm, niOverNt, cosine) = if drayInDPhit > 0
       then

@@ -1,7 +1,9 @@
 module Graphics.Render.RayTracer where
 
 import           Codec.Picture
-import           Data.Vec3
+import           Linear.V3
+import           Linear.Vector
+import           Linear.Metric
 import           Data.Maybe
 import           Data.List
 import           Data.Array
@@ -39,10 +41,10 @@ import           Geometry.Camera
 
 
 sky :: Ray -> Color
-sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.6 0.8 1.0)
+sky r = ((1.0 - t) *^ V3 1 1 1) + (t *^ V3 0.6 0.8 1.0)
  where
-  CVec3 _ y _ = normalize $ direction r
-  t           = 0.6 + 0.4 * (abs y + 1) * 0.5
+  V3 _ y _ = (normalize $ direction r) :: CVec3
+  t        = 0.6 + 0.4 * (abs y + 1) * 0.5
 
 
 toUV :: (Int, Int) -> (Double, Double)
@@ -81,17 +83,17 @@ hits rs = do
 
 nextRay :: Hit -> RT Ray
 nextRay (Hit { hitNormal = n, hitP = p }) =
-  Ray p <$> ((n <+>) <$> randomInUnitBall'')
+  Ray p <$> ((n +) <$> randomInUnitBall'')
 
 -- applyMaterial :: Hit -> Color -> Color
 -- applyMaterial (Hit {hitSphere=(Sphere m c r)}) nextColor =
---   mapv ((/16) . (+8) . abs) c <+> mapv (/2) nextColor
+--   mapv ((/16) . (+8) . abs) c + mapv (/2) nextColor
 
 applyMaterial :: Ray -> Hit -> RT (Either Color (Color, Ray))
 applyMaterial r h =
   (scatterF $ hitMaterial h) r h >>= \sc -> return $ case sc of
     Just (c, r) -> Right (c, r)
-    Nothing     -> Left (CVec3 0 0 0)
+    Nothing     -> Left (V3 0 0 0)
 
 -- scatterF :: Ray -> Hit -> RT (Color, Ray)
 

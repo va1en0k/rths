@@ -5,9 +5,10 @@
 module Types where
 
 import           Control.Monad.Random
-import           Data.Vec3
+import           Linear.V3
 import           Parallel.Shaders
 
+type CVec3 = V3 Double
 
 data Hitable_ = forall a . (Show a, Hitable a) => MkHitable a
 

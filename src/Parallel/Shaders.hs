@@ -19,9 +19,9 @@ import           Foreign                        ( nullPtr
                                                 )
 import           Foreign.C.Types                ( CFloat )
 import           Language.C.Quote.OpenCL        ( cfun )
-import           Text.PrettyPrint.Mainland      ( prettyCompact )
-import           Text.PrettyPrint.Mainland.Class
-                                                ( ppr )
+-- import           Text.PrettyPrint.Mainland      ( prettyCompact )
+-- import           Text.PrettyPrint.Mainland.Class
+--                                                 ( ppr )
 
 
 data ShaderEngine = ShaderEngine { openCLState :: OpenCLState }

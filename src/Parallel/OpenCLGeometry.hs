@@ -5,7 +5,7 @@ module Parallel.OpenCLGeometry where
 import           Data.String.Interpolate
 -- import           Language.C.Quote.OpenCL         (cfun)
 
-import           Data.Vec3
+import           Linear.V3
 import           Data.Maybe
 import           Data.List
 import           Data.Ord
@@ -17,19 +17,19 @@ import           Parallel.Shaders        hiding ( main )
 import           Util
 
 fullSource :: IO String
-fullSource = readFile "Parallel/sphere.c"
+fullSource = readFile "src/Parallel/sphere.c"
 
 -- v (CVec3 x y z) = [i|(float3)(#{x}, #{y}, #{z})|]
 
 rayToDoubles :: Ray -> [Double]
-rayToDoubles (Ray (CVec3 a b c) (CVec3 d e f)) = [a, b, c, d, e, f, -1, -1]
+rayToDoubles (Ray (V3 a b c) (V3 d e f)) = [a, b, c, d, e, f, -1, -1]
 
 sphereToDoubles :: Sphere -> [Double]
-sphereToDoubles (Sphere _ (CVec3 a b c) r) = [a, b, c, r]
+sphereToDoubles (Sphere _ (V3 a b c) r) = [a, b, c, r]
 
 doublesToHit :: [Sphere] -> [Double] -> Hit
 doublesToHit spheres [t, a, b, c, x, y, z, sid] =
-  Hit t (CVec3 a b c) (CVec3 x y z) (error "doublesToHit") -- (spheres !! floor sid)
+  Hit t (V3 a b c) (V3 x y z) (error "doublesToHit") -- (spheres !! floor sid)
 
 
 
@@ -64,9 +64,9 @@ worldOfSpheres = map asSphere objects
 -- worldOfSpheres = [Sphere undefined (CVec3 2 0 0) 0.9]
 
 testRays =
-  [ Ray (CVec3 0 0 0) (CVec3 0 1 0)
-  , Ray (CVec3 7 8 9) (CVec3 10 11 12)
-  , Ray (CVec3 0 0 0) (CVec3 0 1 0)
+  [ Ray (V3 0 0 0) (V3 0 1 0)
+  , Ray (V3 7 8 9) (V3 10 11 12)
+  , Ray (V3 0 0 0) (V3 0 1 0)
   ]
 
 -- testRays = [Ray (CVec3 0 0 0) (CVec3 1 0 0)]

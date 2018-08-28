@@ -1,6 +1,8 @@
 module Geometry.Camera where
 
-import           Data.Vec3
+import           Linear.V3
+import           Linear.Metric
+import           Linear.Vector
 
 import           Types
 import           Config
@@ -23,9 +25,9 @@ type Camera = (Double, Double) -> Ray
 --   cVertical = CVec3 0 16 0,
 --   cLowerLeftCorner = CVec3 (-16) (-10) (-3)}
 
-camera = mkCamera (CVec3 0 8 (-10))
-                  (CVec3 0.7 0.3 3)
-                  (CVec3 0 1 0)
+camera = mkCamera (V3 0 8 (-10))
+                  (V3 0.7 0.3 3)
+                  (V3 0 1 0)
                   20
                   (fromIntegral (fst res) / fromIntegral (snd res))
                   10
@@ -34,23 +36,23 @@ mkCamera :: CVec3 -> CVec3 -> CVec3 -> Double -> Double -> Double -> Camera
 mkCamera from at vup fov aspect focusDist = \(u, v) ->
   Ray cOrigin
     (   cLowerLeftCorner
-    <+> (cHorizontal .^ u)
-    <+> (cVertical .^ v)
-    <-> cOrigin
+    + (cHorizontal ^* u)
+    + (cVertical ^* v)
+    - cOrigin
     )
   where
     theta      = fov * pi / 180
     halfHeight = tan $ theta / 2
     halfWidth  = aspect * halfHeight
-    w          = normalize $ from <-> at
-    u          = normalize $ vup >< w
-    v          = w >< u
+    w          = normalize $ from - at
+    u          = normalize $ vup `cross` w
+    v          = w `cross` u
     cLowerLeftCorner = from
-      <-> (u .^ (halfWidth * focusDist))
-      <-> (v .^ (halfHeight * focusDist))
-      <-> (w .^ focusDist)
-    cHorizontal      = u .^ (2 * halfWidth * focusDist)
-    cVertical        = v .^ (2 * halfHeight * focusDist)
+      - (u ^* (halfWidth * focusDist))
+      - (v ^* (halfHeight * focusDist))
+      - (w ^* focusDist)
+    cHorizontal      = u ^* (2 * halfWidth * focusDist)
+    cVertical        = v ^* (2 * halfHeight * focusDist)
     cOrigin          = from
 
 
@@ -61,19 +63,19 @@ getRayNormPersp :: Camera -> Double -> Double -> Ray
 getRayNormPersp c u v = Ray
   (cOrigin c)
   (   cLowerLeftCorner c
-  <+> ((cHorizontal c) .^ u)
-  <+> ((cVertical c) .^ v)
-  <-> (cOrigin c)
+  + ((cHorizontal c) * u)
+  + ((cVertical c) * v)
+  - (cOrigin c)
   )
 
 getCameraReflectedThroughUV c =
   let
     uvC = (   cLowerLeftCorner c
-          <+> ((cHorizontal c) .^ 0.5)
-          <+> ((cVertical c) .^ 0.5)
-          -- <-> (cOrigin c)
+          + ((cHorizontal c) * 0.5)
+          + ((cVertical c) * 0.5)
+          -- - (cOrigin c)
           )
-    (CVec3 x y' z) = uvC .^ 2 <-> (cOrigin c)
+    (CVec3 x y' z) = uvC * 2 - (cOrigin c)
     (CVec3 _ y _) = cOrigin c
   in CVec3 x y z
 
@@ -81,11 +83,11 @@ getCameraReflectedThroughUV c =
 getRayRevPersp :: Camera -> Double -> Double -> Ray
 getRayRevPersp c u v = Ray
   (   cLowerLeftCorner c
-  <+> ((cHorizontal c) .^ u)
-  <+> ((cVertical c) .^ v))
-  (cRP <-> (   cLowerLeftCorner c
-  <+> ((cHorizontal c) .^ u)
-  <+> ((cVertical c) .^ v)
+  + ((cHorizontal c) * u)
+  + ((cVertical c) * v))
+  (cRP - (   cLowerLeftCorner c
+  + ((cHorizontal c) * u)
+  + ((cVertical c) * v)
   ))
   where
     cRP = getCameraReflectedThroughUV c

@@ -11,11 +11,11 @@ import           Data.Function
 import           Data.List
 import           Data.Maybe
 import           Data.Time.Clock.POSIX
-import           Data.Vec3
+import           Linear.V3
 import           Debug.Trace
 import           System.Environment
 
-import qualified Data.Text.IO                  as T
+-- import qualified Data.Text.IO                  as T
 
 -- import Normal
 
@@ -53,7 +53,7 @@ main = do
   -- print (renderUV 0 0)
   -- print (imF 10 10)
   -- render 10 [] 10 10 >>= print
-  -- print (colorToPixel $ CVec3 0.8 0.7 1.0)
+  -- print (colorToPixel $ V3 0.8 0.7 1.0)
   now <- getPOSIXTime
   hash <- head <$> getArgs
   writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") im
@@ -86,11 +86,14 @@ main = do
       return im
 
   now  <- getPOSIXTime
-  hash <- head <$> getArgs
+
   -- writeGif ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".gif") images
   -- writeGif ("./image.gif") images
-  writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") $ head images
   writePng ("./image.png") $ head images
+  
+  hash <- head <$> getArgs
+  writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") $ head images
+
 
 
 {-
@@ -98,5 +101,5 @@ main'' :: IO ()
 main'' = do
   putStrLn $ types
   putStrLn $ cameraToWebgl camera
-  putStrLn $ sphereToWebgl 1 (Sphere (mkLambertian $ CVec3 0.1 0.2 0.5) (CVec3 0 0 (-1)) 0.5)
+  putStrLn $ sphereToWebgl 1 (Sphere (mkLambertian $ V3 0.1 0.2 0.5) (V3 0 0 (-1)) 0.5)
 -}

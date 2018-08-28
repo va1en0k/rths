@@ -7,7 +7,7 @@ module Hitable where
 import           Data.Function
 import           Data.List
 import           Data.Maybe
-import           Data.Vec3
+-- import           Linear.V3
 
 import           Geometry.Vectors
 import           Material
@@ -16,7 +16,7 @@ import           Types
 
 
 rayPointAt :: Ray -> Double -> CVec3
-rayPointAt (Ray o d) t = o <+> (mapv (* t) d)
+rayPointAt (Ray o d) t = o + (mapv (* t) d)
 
 
 instance Hitable Hitable_ where
