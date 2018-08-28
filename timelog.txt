@@ -1346,3 +1346,11 @@ sys	0m10.899s
 
 8998dbf
 + ./Main 8998dbf +RTS -N
+20a0d4f
++ ./Main 20a0d4f +RTS -N
+
+real	1m6.564s
+user	2m17.802s
+sys	0m26.939s
+
+

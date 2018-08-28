@@ -27,8 +27,8 @@ setWorld :: World -> RT ()
 setWorld w = updateSettings (\s -> s { world = w })
 
 randomWorld :: RT ()
--- randomWorld :: RandomGen g => Rand g World
-randomWorld = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
+randomWorld = setWorld [sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000]
+randomWorld' = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
  where
   typical =
     [ sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
