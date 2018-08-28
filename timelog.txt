@@ -2038,3 +2038,11 @@ user	0m26.808s
 sys	0m5.218s
 
 
+d756c5b
++ ./Main d756c5b +RTS -N
+
+real	0m11.651s
+user	0m24.088s
+sys	0m4.893s
+
+
