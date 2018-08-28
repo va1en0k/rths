@@ -39,7 +39,7 @@ import           Geometry.Camera
 
 
 sky :: Ray -> Color
-sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.5 0.7 1.0)
+sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.4 0.6 1.0)
  where
   CVec3 _ y _ = normalize $ direction r
   t           = (y + 1) * 0.5
@@ -169,7 +169,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
   uvAA (x, y) = do
     (a : b : _) <- getRands
     return
-      $ ( ((a + fromIntegral x) / (fromIntegral $ fst res))
+      $ ( ((a + fromIntegral x) / (fromIntegral $ fst res)) - 0.1
         , 1.5 - ((b + fromIntegral y) / (fromIntegral $ snd res))
         )
 

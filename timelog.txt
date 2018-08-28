@@ -2560,3 +2560,11 @@ user	0m47.151s
 sys	0m9.860s
 
 
+bb2ed09
++ ./Main bb2ed09 +RTS -N
+
+real	0m24.733s
+user	0m51.747s
+sys	0m10.761s
+
+
