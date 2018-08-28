@@ -1988,3 +1988,11 @@ user	0m41.358s
 sys	0m8.574s
 
 
+dc8719c
++ ./Main dc8719c +RTS -N
+
+real	0m12.705s
+user	0m26.074s
+sys	0m5.460s
+
+
