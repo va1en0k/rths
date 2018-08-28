@@ -110,7 +110,7 @@ instance Hitable Plane where
 
 table =
   let
-    mat = mkLambertian $ CVec3 (196/256) (182/256) (94/256)
+    mat = mkLambertian $ CVec3 (209/256) (192/256) (87/256)
     cover =
       [ (V3 0 (-1) 1)
       , (V3 (-2) (-1) 1)
