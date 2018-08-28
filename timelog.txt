@@ -1159,3 +1159,12 @@ user	142m3.744s
 sys	78m51.919s
 + cat stderr.log
 + false
+b905668
++ ./Main b905668 +RTS -N
+./try.sh: line 20: 83065 Killed: 9               ./Main $HASH +RTS -N 2> stderr.log
+
+real	177m39.552s
+user	185m47.844s
+sys	242m3.369s
++ cat stderr.log
++ false
