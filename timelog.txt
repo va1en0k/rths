@@ -1378,3 +1378,11 @@ user	0m3.554s
 sys	0m1.040s
 + cat stderr.log
 + false
+b6d9f5e
++ ./Main b6d9f5e +RTS -N
+
+real	0m1.378s
+user	0m3.748s
+sys	0m0.968s
++ cat stderr.log
++ false

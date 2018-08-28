@@ -72,10 +72,10 @@ main :: IO ()
 main = do
   print camera
   world <- runRT (Settings undefined undefined undefined) $ randomWorld >> getWorld
-  let scenario = [(!! 1000) $ makeScenario world]
+  -- let scenario = [(!! 1000) $ makeScenario world]
   -- let world = randomWorld
   -- let world = objects
-  images <- (flip mapM) (zip [1..] scenario) $ \(i, w) ->
+  images <- (flip mapM) (zip [1..] [world]) $ \(i, w) ->
     do
       print $ "--- " ++ show i ++ " ---"
       imF <-
