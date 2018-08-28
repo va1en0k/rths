@@ -1900,3 +1900,11 @@ user	0m35.205s
 sys	0m7.058s
 
 
+024f5dc
++ ./Main 024f5dc +RTS -N
+
+real	0m19.326s
+user	0m38.512s
+sys	0m7.826s
+
+
