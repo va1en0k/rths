@@ -1980,3 +1980,11 @@ user	0m44.703s
 sys	0m9.002s
 
 
+8cf08a8
++ ./Main 8cf08a8 +RTS -N
+
+real	0m20.393s
+user	0m41.358s
+sys	0m8.574s
+
+
