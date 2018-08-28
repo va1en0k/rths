@@ -77,7 +77,7 @@ kernel void doubleArray(
     int sphereCount = get_global_size(1);
 
     struct hit h, hbest;
-    hbest.t = 10; //lol random
+    hbest.t = 1; //lol random
 
     for (int sphereId = 0; sphereId <= 2116; sphereId++) {
       struct sphere sphere = {
