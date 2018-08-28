@@ -5,7 +5,7 @@ import           Data.Vec3
 import           Types
 import           Config
 
-camera = mkCamera (CVec3 18 5 8)
+camera = mkCamera (CVec3 18 5 10)
                   (CVec3 0 0 0)
                   (CVec3 0 (-1) 0)
                   20
