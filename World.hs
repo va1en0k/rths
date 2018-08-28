@@ -54,9 +54,7 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
       , (CVec3 0 (-1) (-1))
       ] ++
       [ sphere red cameraF 0.1
-      , triangle red (lv cameraF) (lv $ cLowerLeftCorner camera) (lv (cLowerLeftCorner camera <+> (   cLowerLeftCorner camera
-            <+> ((cHorizontal camera) .^ 1)
-            <+> ((cVertical camera) .^ 1))))
+      , triangle red (lv cameraF) (lv $ cLowerLeftCorner camera) (lv cameraF + V3 1 0 0)
       ]
 
     typical = table
