@@ -43,10 +43,10 @@ randomWorld = setWorld $ [head typical] ++ hints -- ((typical ++) <$> concat <$>
       map (\p -> sphere (mkLambertian p) p 0.1)
       [ CVec3 0 0 0
       , CVec3 1 1 1
-      , CVec3 0.5 0.5 0.5
-      , CVec3 0.5 0 0
-      , CVec3 0 0.5 0
-      , CVec3 0 0 0.5
+      -- , CVec3 0.5 0.5 0.5
+      -- , CVec3 0.5 0 0
+      -- , CVec3 0 0.5 0
+      -- , CVec3 0 0 0.5
       , CVec3 (-1) (-1) (-1)
       ]
 
