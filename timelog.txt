@@ -1924,3 +1924,11 @@ user	0m43.513s
 sys	0m9.022s
 
 
+0036d5c
++ ./Main 0036d5c +RTS -N
+
+real	0m15.837s
+user	0m32.691s
+sys	0m6.424s
+
+
