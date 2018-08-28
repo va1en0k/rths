@@ -1570,3 +1570,11 @@ user	0m10.778s
 sys	0m2.499s
 
 
+b2a160b
++ ./Main b2a160b +RTS -N
+
+real	0m4.658s
+user	0m10.700s
+sys	0m2.440s
+
+

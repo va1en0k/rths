@@ -38,7 +38,7 @@ randomWorld :: RT ()
 --   , sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
 --   , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
 --   ]
-randomWorld = setWorld $ [head typical] ++ hints -- ((typical ++) <$> concat <$> sequence randList) >>= setWorld
+randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequence randList) >>= setWorld
   where
     hints =
       map (\p -> sphere (mkLambertian p) p 0.1)
