@@ -15,6 +15,7 @@ import           RTMonad
 
 sphere m c r = MkHitable $ Sphere m c r
 plane m p no = MkHitable $ Plane m p no
+triangle m a b c = MkHitable $ Triangle m a b c
 
 objects :: [Hitable_]
 objects =
@@ -39,7 +40,8 @@ randomWorld :: RT ()
 randomWorld = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
  where
   typical =
-    [ plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.2))
+    [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
+      triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 (-1) (-1) (-1)) (V3 0 (-0.9) 0) (V3 1 (-1.1) 1)
     --sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
     ,
     -- sphere (mkDielectric 1.5) (CVec3 0 0 0) 1,
@@ -88,6 +90,28 @@ instance Hitable Plane where
     in if abs denom > 0.001 && t >= mn && t <= mx
         then Just $ Hit t (rayPointAt r t) (bv no) m
         else Nothing
+
+
+data Triangle = Triangle Material (V3 Double) (V3 Double) (V3 Double)
+  deriving (Show)
+
+sameSide :: Ray -> (V3 Double) -> (V3 Double) -> Bool
+sameSide (Ray o d) a b =
+  let cp1 = lv d `cross` (a - lv o)
+      cp2 = lv d `cross` (b - lv o)
+  in cp1 `dot` cp2 >= 0
+
+instance Hitable Triangle where
+  asSphere line = undefined
+  hit p@(Triangle m a b c) r@(Ray org dir) mn mx =
+    let plane = Plane m a (b `cross` c)
+        sides = [(c, Ray (bv a) $ bv (b - a)), (a, Ray (bv b) $ bv (c - b)), (b, Ray (bv c) $ bv (a - c))]
+    in case hit plane r mn mx of
+      Nothing -> Nothing
+      Just h@(Hit t p n m) ->
+        if (and $ map (\(v, s) -> sameSide s v $ lv p) sides)
+          then Just h
+          else Nothing
 
 
 instance Hitable Sphere where
