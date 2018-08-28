@@ -1192,3 +1192,11 @@ user	0m29.598s
 sys	0m8.166s
 
 
+20cf21e
++ ./Main 20cf21e +RTS -N
+
+real	0m12.006s
+user	0m29.274s
+sys	0m7.978s
+
+
