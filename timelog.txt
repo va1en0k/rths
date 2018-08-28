@@ -1866,3 +1866,5 @@ user	0m21.361s
 sys	0m4.589s
 
 
+7b0e482
++ ./Main 7b0e482 +RTS -N
