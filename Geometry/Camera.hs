@@ -5,7 +5,7 @@ import           Data.Vec3
 import           Types
 import           Config
 
-camera = mkCamera (CVec3 13 2 3)
+camera = mkCamera (CVec3 13 2 (-3))
                   (CVec3 0 0 0)
                   (CVec3 0 (-1) 0)
                   20
@@ -31,6 +31,7 @@ mkCamera from at vup vfov aspect focusDist = Camera
   v          = w >< u
 
 getRay :: Camera -> Double -> Double -> Ray
+
 getRay c u v = Ray
   (cOrigin c)
   (   cLowerLeftCorner c
@@ -38,3 +39,5 @@ getRay c u v = Ray
   <+> ((cVertical c) .^ v)
   <-> (cOrigin c)
   )
+
+-- getRay _ u v =
