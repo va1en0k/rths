@@ -48,7 +48,8 @@ randomWorld = setWorld $ [head typical] ++ hints -- ((typical ++) <$> concat <$>
       , (CVec3 0 (-1) (-1))
       ]
 
-    typical =
+    typical = table
+    typical' =
       [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
         -- triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 0 0) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
         polygon (mkLambertian $ CVec3 0.5 0.5 0.5)
@@ -106,6 +107,20 @@ instance Hitable Plane where
         then Just $ Hit t (rayPointAt r t) (bv no) m
         else Nothing
 
+
+table =
+  let
+    mat = mkLambertian $ CVec3 0.5 0.5 0.5
+    cover =
+      [ (V3 0 (-1) 1)
+      , (V3 (-2) (-1) 1)
+      , (V3 (-2) (-1) (-1))
+      , (V3 0 (-1) (-1))
+      ]
+  in
+    [ polygon mat cover
+    , polygon mat (map (+ V3 0 (- 0.2) 0) cover)
+    ]
 
 data Triangle = Triangle Material (V3 Double) (V3 Double) (V3 Double)
   deriving (Show)
