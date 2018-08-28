@@ -24,7 +24,7 @@ camera = Camera {
   cOrigin = CVec3 0 0 (-10),
   cHorizontal = CVec3 16 0 0,
   cVertical = CVec3 0 8 0,
-  cLowerLeftCorner = CVec3 (-4) (-2) (-3)}
+  cLowerLeftCorner = CVec3 (-8) (-6) (-3)}
 
 
 mkCamera :: CVec3 -> CVec3 -> CVec3 -> Double -> Double -> Double -> Camera

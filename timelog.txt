@@ -2142,3 +2142,11 @@ user	1m8.963s
 sys	0m14.500s
 
 
+ccc57cb
++ ./Main ccc57cb +RTS -N
+
+real	0m28.681s
+user	0m57.781s
+sys	0m11.733s
+
+
