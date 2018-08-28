@@ -2708,3 +2708,11 @@ user	0m23.608s
 sys	0m4.894s
 
 
+a5cfa1e
++ ./Main a5cfa1e +RTS -N
+
+real	0m12.726s
+user	0m26.815s
+sys	0m6.272s
+
+

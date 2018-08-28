@@ -60,7 +60,7 @@ main = do
   writePng ("./image.png") im
 -}
 
-import           Parallel.Render
+import           Graphics.Render.RayTracer
 
 import Physics.Render
 
