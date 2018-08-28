@@ -2,6 +2,8 @@ module World where
 
 import           Control.Monad.Random
 import           Data.Vec3
+import           Linear.V3
+import           Linear.Metric hiding (norm)
 
 import           Geometry.Vectors
 import           Hitable
@@ -10,8 +12,9 @@ import           Types
 
 import           RTMonad
 
-sphere m c r = MkHitable $ Sphere m c r
 
+sphere m c r = MkHitable $ Sphere m c r
+plane m p no = MkHitable $ Plane m p no
 
 objects :: [Hitable_]
 objects =
@@ -27,7 +30,10 @@ setWorld :: World -> RT ()
 setWorld w = updateSettings (\s -> s { world = w })
 
 randomWorld :: RT ()
-randomWorld = setWorld [sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0)    1]
+randomWorld = setWorld
+  [ plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.1 1 0.1)
+  , sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0) 1
+  ]
 randomWorld' = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
  where
   typical =
@@ -61,10 +67,29 @@ randomWorld' = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
         () | otherwise -> sphere (mkDielectric 1.5) center 0.2
       else return []
 
+lv :: CVec3 -> V3 Double
+lv (CVec3 a b c) = V3 a b c
+
+bv :: V3 Double -> CVec3
+bv (V3 a b c) = CVec3 a b c
+
+-- point, normal
+data Plane = Plane Material (V3 Double) (V3 Double)
+  deriving (Show)
+
+instance Hitable Plane where
+  asSphere line = undefined
+  hit p@(Plane m po no) r@(Ray org dir) mn mx =
+    let denom = no `dot` lv dir
+        t = ((po - lv org) `dot` no) / denom
+    in if abs denom > 0.001 && t >= 0
+        then Just $ Hit t (rayPointAt r t) (bv no) m
+        else Nothing
+
 
 instance Hitable Sphere where
   asSphere a = a
-  hit s@(Sphere m sc sr) r@(Ray org dir) mn mx =
+  hit (Sphere m sc sr) r@(Ray org dir) mn mx =
     let oc = org <-> sc
         a = dir .* dir
         b = 2 * oc .* dir
@@ -75,7 +100,7 @@ instance Hitable Sphere where
             p = rayPointAt r x
             -- n = normalize $ p <-> CVec3 0 0 (-1)
             n = mapv (/ sr) (p <-> sc)
-            h = Hit x p n s
+            h = Hit x p n m
     in if dsc < 0 then Nothing
        else let x0 = ( - b - sqrt dsc ) / (2 * a)
                 x1 = ( - b + sqrt dsc ) / (2 * a)

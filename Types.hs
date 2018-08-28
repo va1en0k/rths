@@ -26,7 +26,7 @@ data Hit = Hit {
   hitP      :: CVec3,
   hitNormal :: CVec3,
   -- scatter :: forall g . RandomGen g => Rand g Scatter
-  hitSphere :: Sphere
+  hitMaterial :: Material
 } deriving (Show)
 --
 -- instance Show Hit where

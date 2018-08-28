@@ -87,8 +87,8 @@ nextRay (Hit { hitNormal = n, hitP = p }) =
 --   mapv ((/16) . (+8) . abs) c <+> mapv (/2) nextColor
 
 applyMaterial :: Ray -> Hit -> RT (Either Color (Color, Ray))
-applyMaterial r h@(Hit { hitSphere = (Sphere m _ _) }) =
-  (scatterF m) r h >>= \sc -> return $ case sc of
+applyMaterial r h =
+  (scatterF $ hitMaterial h) r h >>= \sc -> return $ case sc of
     Just (c, r) -> Right (c, r)
     Nothing     -> Left (CVec3 0 0 0)
 

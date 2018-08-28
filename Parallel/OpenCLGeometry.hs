@@ -29,7 +29,7 @@ sphereToDoubles (Sphere _ (CVec3 a b c) r) = [a, b, c, r]
 
 doublesToHit :: [Sphere] -> [Double] -> Hit
 doublesToHit spheres [t, a, b, c, x, y, z, sid] =
-  Hit t (CVec3 a b c) (CVec3 x y z) (spheres !! floor sid)
+  Hit t (CVec3 a b c) (CVec3 x y z) undefined -- (spheres !! floor sid)
 
 
 
