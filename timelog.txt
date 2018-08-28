@@ -1826,3 +1826,11 @@ user	0m31.288s
 sys	0m6.476s
 
 
+aea842c
++ ./Main aea842c +RTS -N
+
+real	0m16.480s
+user	0m33.730s
+sys	0m6.493s
+
+
