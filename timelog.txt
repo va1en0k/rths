@@ -1802,3 +1802,11 @@ user	0m31.728s
 sys	0m6.721s
 
 
+fa4e7fb
++ ./Main fa4e7fb +RTS -N
+
+real	0m15.728s
+user	0m32.169s
+sys	0m6.336s
+
+
