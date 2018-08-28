@@ -30,16 +30,17 @@ setWorld :: World -> RT ()
 setWorld w = updateSettings (\s -> s { world = w })
 
 randomWorld :: RT ()
-randomWorld = setWorld
-  [ plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.2))
-  , sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0) 1
-  , sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
-  , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
-  ]
-randomWorld' = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
+-- randomWorld = setWorld
+--   [ plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.2))
+--   , sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0) 1
+--   , sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
+--   , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
+--   ]
+randomWorld = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
  where
   typical =
-    [ sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
+    [ plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.2))
+    --sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
     ,
     -- sphere (mkDielectric 1.5) (CVec3 0 0 0) 1,
       sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
