@@ -2424,3 +2424,11 @@ user	0m32.226s
 sys	0m6.586s
 
 
+e3e148e
++ ./Main e3e148e +RTS -N
+
+real	0m15.918s
+user	0m32.817s
+sys	0m6.464s
+
+
