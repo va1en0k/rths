@@ -2,7 +2,7 @@ module Config where
 
 -- 4 * 4 slowdown
 quality :: Bool
-quality = True
+quality = False
 
 res :: (Int, Int)
 res = if quality then (600, 300) else (300, 150)
