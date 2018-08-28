@@ -2190,3 +2190,11 @@ user	0m32.235s
 sys	0m6.430s
 
 
+3520f67
++ ./Main 3520f67 +RTS -N
+
+real	0m15.996s
+user	0m31.917s
+sys	0m6.730s
+
+
