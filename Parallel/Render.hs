@@ -42,7 +42,7 @@ sky :: Ray -> Color
 sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.6 0.8 1.0)
  where
   CVec3 _ y _ = normalize $ direction r
-  t           = 0.3 + 0.7 * (y + 1) * 0.5
+  t           = 0.6 + 0.4 * (abs y + 1) * 0.5
 
 
 toUV :: (Int, Int) -> (Double, Double)
