@@ -5,14 +5,14 @@ import           Data.Vec3
 import           Types
 import           Config
 
--- camera = mkCamera (CVec3 13 4 6)
---                   (CVec3 0 0 0)
---                   (CVec3 0 (-1) 0)
---                   20
---                   (fromIntegral (fst res) / fromIntegral (snd res))
---                   10
+camera = mkCamera (CVec3 13 4 6)
+                  (CVec3 0 0 0)
+                  (CVec3 0 (-1) 0)
+                  20
+                  (fromIntegral (fst res) / fromIntegral (snd res))
+                  10
 
-camera = Camera {cOrigin = CVec3 13.0 2.0 (-11.0), cHorizontal = CVec3 4.555881805991546 0.0 5.384223952535464, cVertical = CVec3 0.3140143177281695 (-3.502467390044967) (-0.26570442269306643), cLowerLeftCorner = CVec3 2.983297972382686 2.584810007982875 (-7.143929486203352)}
+-- camera = Camera {cOrigin = CVec3 13.0 2.0 (-11.0), cHorizontal = CVec3 4.555881805991546 0.0 5.384223952535464, cVertical = CVec3 0.3140143177281695 (-3.502467390044967) (-0.26570442269306643), cLowerLeftCorner = CVec3 2.983297972382686 2.584810007982875 (-7.143929486203352)}
 
 -- camera = Camera {cOrigin = CVec3 13.0 2.0 (11.0), cHorizontal = CVec3 4.555881805991546 0.0 5.384223952535464, cVertical = CVec3 0.3140143177281695 (-3.502467390044967) (-0.26570442269306643), cLowerLeftCorner = CVec3 2.983297972382686 2.584810007982875 (-7.143929486203352)}
 
@@ -67,5 +67,5 @@ getRayRevPersp c u v = Ray
     (CVec3 _ y _) = cOrigin c
     cRP = CVec3 x y z
 
-getRay = getRayRevPersp
--- getRay = getRayNormPersp
+-- getRay = getRayRevPersp
+getRay = getRayNormPersp
