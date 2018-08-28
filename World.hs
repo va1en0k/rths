@@ -39,6 +39,11 @@ randomWorld :: RT ()
 --   , sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
 --   , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
 --   ]
+
+red = (mkLambertian $ CVec3 0.9 0.1 0.1)
+
+cameraF = (getCameraReflectedThroughUV camera)
+
 randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequence randList) >>= setWorld
   where
     hints =
@@ -47,7 +52,12 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
       , (CVec3 (-2) (-1) 1)
       , (CVec3 (-2) (-1) (-1))
       , (CVec3 0 (-1) (-1))
-      ] -- [sphere (mkLambertian $ CVec3 0.9 0.1 0.1) (getCameraReflectedThroughUV camera) 0.1]
+      ] ++
+      [ sphere red cameraF 0.1
+      , triangle red (lv cameraF) (lv $ cLowerLeftCorner camera) (lv (cLowerLeftCorner camera <+> (   cLowerLeftCorner camera
+            <+> ((cHorizontal camera) .^ 0.01)
+            <+> ((cVertical camera) .^ 0.01))))
+      ]
 
     typical = table
     typical' =
