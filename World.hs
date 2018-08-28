@@ -117,10 +117,13 @@ table =
       , (V3 (-2) (-1) (-1))
       , (V3 0 (-1) (-1))
       ]
+    cover_down = (map (+ V3 0 (- 0.4) 0) cover)
+    sideIdxs = zip [0..3] (tail $ cycle [0..3])
+    sides = map (\(i, j) -> [cover !! i, cover !! j, cover_down !! j, cover_down !! i]) sideIdxs
   in
     [ polygon mat cover
-    , polygon mat (map (+ V3 0 (- 0.4) 0) cover)
-    ]
+    , polygon mat cover_down
+    ] ++ map (polygon mat) sides
 
 data Triangle = Triangle Material (V3 Double) (V3 Double) (V3 Double)
   deriving (Show)
