@@ -1304,3 +1304,11 @@ user	0m25.597s
 sys	0m7.871s
 
 
+ca92f8b
++ ./Main ca92f8b +RTS -N
+
+real	0m10.799s
+user	0m31.427s
+sys	0m8.775s
+
+
