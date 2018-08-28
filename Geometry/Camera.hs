@@ -12,19 +12,19 @@ import           Config
 --                   (fromIntegral (fst res) / fromIntegral (snd res))
 --                   10
 
-camera = Camera {
-  cOrigin = CVec3 13.0 4.0 19.0,
-  cHorizontal = CVec3 (-8.987280150604205) 0.0 4.987280150604205,
-  cVertical = CVec3 0.4806138049029842 (-6.4604193953014866) 0.4806138049029842, cLowerLeftCorner = CVec3 12.314843072425312 6.802851336421494 9.327562921821107
-}
+-- camera = Camera {
+--   cOrigin = CVec3 13.0 4.0 19.0,
+--   cHorizontal = CVec3 (-8.987280150604205) 0.0 4.987280150604205,
+--   cVertical = CVec3 0.4806138049029842 (-6.4604193953014866) 0.4806138049029842, cLowerLeftCorner = CVec3 12.314843072425312 6.802851336421494 9.327562921821107
+-- }
 
 -- camera = Camera {cOrigin = CVec3 13.0 2.0 (-11.0), cHorizontal = CVec3 4.555881805991546 0.0 5.384223952535464, cVertical = CVec3 0.3140143177281695 (-3.502467390044967) (-0.26570442269306643), cLowerLeftCorner = CVec3 2.983297972382686 2.584810007982875 (-7.143929486203352)}
 
--- camera = Camera {
---   cOrigin = CVec3 (-10) 0 0,
---   cHorizontal = CVec3 32 0 0,
---   cVertical = CVec3 0 4 0,
---   cLowerLeftCorner = CVec3 (-4) (-2) (-3)}
+camera = Camera {
+  cOrigin = CVec3 (-10) 0 0,
+  cHorizontal = CVec3 32 0 0,
+  cVertical = CVec3 0 4 0,
+  cLowerLeftCorner = CVec3 (-4) (-2) (-3)}
 
 
 mkCamera :: CVec3 -> CVec3 -> CVec3 -> Double -> Double -> Double -> Camera
