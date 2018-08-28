@@ -2406,3 +2406,5 @@ user	0m32.671s
 sys	0m6.654s
 
 
+b7f94bd
++ ./Main b7f94bd +RTS -N
