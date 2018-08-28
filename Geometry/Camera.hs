@@ -59,8 +59,8 @@ getCameraReflectedThroughUV c =
           <+> ((cVertical c) .^ 0.5)
           -- <-> (cOrigin c)
           )
-    (CVec3 x y' z) = uvC .^ 2 <-> (cOrigin c)
-    (CVec3 _ y _) = cOrigin c
+    (CVec3 x y z) = uvC .^ 2 <-> (cOrigin c)
+    (CVec3 _ y' _) = cOrigin c
   in CVec3 x y z
 
 
@@ -71,7 +71,7 @@ getRayRevPersp c u v = Ray
   <+> ((cVertical c) .^ v))
   (cRP <-> (   cLowerLeftCorner c
   <+> ((cHorizontal c) .^ u)
-  <+> ((cVertical c) .^ v)
+  <-> ((cVertical c) .^ v)
   ))
   where
     cRP = getCameraReflectedThroughUV c
