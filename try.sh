@@ -6,6 +6,7 @@ ghc app/Main.hs -isrc/ -j -fexcess-precision -optc-O3 -optc-ffast-math -rtsopts 
 git add *.hs || true
 git add */*.hs || true
 git add */*/*.hs || true
+git add */*/*/*.hs || true
 git add *.c || true
 git add */*.c || true
 git add */*/*.c || true
