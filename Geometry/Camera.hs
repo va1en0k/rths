@@ -74,14 +74,7 @@ getRayRevPersp c u v = Ray
   <+> ((cVertical c) .^ v)
   ))
   where
-    uvC = (   cLowerLeftCorner c
-            <+> ((cHorizontal c) .^ 0.5)
-            <+> ((cVertical c) .^ 0.5)
-            -- <-> (cOrigin c)
-            )
-    (CVec3 x _ z) = uvC .^ 2 <-> (cOrigin c)
-    (CVec3 _ y _) = cOrigin c
-    cRP = CVec3 x y z
+    cRP = getCameraReflectedThroughUV c
 
--- getRay = getRayRevPersp
-getRay = getRayNormPersp
+getRay = getRayRevPersp
+-- getRay = getRayNormPersp
