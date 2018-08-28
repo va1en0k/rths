@@ -48,15 +48,21 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
   where
     hints =
       map (\p -> sphere (mkLambertian p) p 0.1)
-      [ (CVec3 0.4 (-0.4) 6)
-      , (CVec3 (-1.3) (-0.4) 6)
+      [ --(CVec3 0.4 (-0.4) 6)
+      --, (CVec3 (-1.3) (-0.4) 6)
       -- , (CVec3 0 (0.3) (-1))
       ] ++
       [ --sphere red cameraF 0.1
       --, triangle red (lv cameraF) (lv $ (cLowerLeftCorner camera <+> cVertical camera)) (lv cameraF + V3 1 0 0)
       ]
 
-    typical = table ++ [sphere red (CVec3 (0.15) (-1.3) 8) 0.6]
+    -- X> Yv Z^
+
+    typical = table ++
+      [ sphere red (CVec3 (0.15) (-1.6) 8) 0.6
+      , sphere red (CVec3 0.3 (-0.4) 3.5) 0.6
+      , sphere red (CVec3 (-0.2) (0.3) 3.5) 0.6
+      ]
     typical' =
       [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
         -- triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 0 0) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
