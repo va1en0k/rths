@@ -2014,3 +2014,11 @@ user	0m42.147s
 sys	0m8.424s
 
 
+80deaaa
++ ./Main 80deaaa +RTS -N
+
+real	0m17.673s
+user	0m35.338s
+sys	0m7.074s
+
+
