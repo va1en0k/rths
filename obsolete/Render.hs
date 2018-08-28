@@ -19,7 +19,7 @@ import           System.Environment
 import           Geometry.Vectors
 import           Types
 import           Progress
-import           World
+import           Geometry.World
 import           RayTracer
 import           Config
 

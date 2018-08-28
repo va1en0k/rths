@@ -3,7 +3,7 @@ module Physics.Render where
 import Data.Vec3
 
 import Types
-import World
+import Geometry.World
 
 yStep = 0.02
 

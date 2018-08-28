@@ -1,4 +1,4 @@
-module World where
+module Geometry.World where
 
 import           Control.Monad.Random
 import           Data.Vec3
@@ -44,7 +44,7 @@ red = (mkLambertian $ CVec3 0.9 0.1 0.1)
 blue = (mkLambertian $ CVec3 0.1 0.1 0.9)
 green = (mkLambertian $ CVec3 0.1 0.9 0.1)
 
-cameraF = (getCameraReflectedThroughUV camera)
+-- cameraF = (getCameraReflectedThroughUV camera)
 
 randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequence randList) >>= setWorld
   where

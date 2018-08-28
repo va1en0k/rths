@@ -20,7 +20,7 @@ import           System.Environment
 import           Geometry.Vectors
 import           Types
 -- import Progress
-import           World
+import           Geometry.World
 -- import RayTracer
 
 import           RTMonad
@@ -174,7 +174,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
         )
 
   lsRT = do
-    allRaysAA <- map (uncurry $ getRay camera) <$> allUVsAA
+    allRaysAA <- map camera <$> allUVsAA
     ps        <-
       map colorToPixel <$> map avgv <$> takeBy aaGenCount <$> colors 0 allRaysAA
     return $ zip allPixels ps

@@ -11,7 +11,7 @@ import           Data.List
 import           Data.Ord
 
 import           Types
-import           World
+import           Geometry.World
 -- import RayTracer
 import           Parallel.Shaders        hiding ( main )
 import           Util

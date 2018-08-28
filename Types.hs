@@ -43,15 +43,6 @@ class Hitable a where
 type Color = CVec3
 
 
-
-data Camera = Camera {
-  cOrigin          :: CVec3,
-  cHorizontal      :: CVec3,
-  cVertical        :: CVec3,
-  cLowerLeftCorner :: CVec3
-} deriving Show
-
-
 -- Materials
 
 data Material = Material {scatterF :: Ray -> Hit -> RT (Maybe (Color, Ray))}

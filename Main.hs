@@ -23,7 +23,7 @@ import           Geometry.Vectors
 import           Geometry.Camera
 import           Types
 -- import Progress
-import           World
+import           Geometry.World
 -- import RayTracer
 import           Config
 
@@ -70,9 +70,9 @@ writeGif fname images = case writeGifAnimation fname 5 LoopingForever images of
 
 main :: IO ()
 main = do
-  print camera
-  print $ getRayNormPersp camera 0.5 0.5
-  print $ getRayRevPersp camera 0.5 0.5
+  -- print camera
+  -- print $ getRayNormPersp camera 0.5 0.5
+  -- print $ getRayRevPersp camera 0.5 0.5
   world <- runRT (Settings undefined undefined undefined) $ randomWorld >> getWorld
   -- let scenario = [(!! 1000) $ makeScenario world]
   -- let world = randomWorld
