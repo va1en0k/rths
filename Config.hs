@@ -1,10 +1,14 @@
 module Config where
 
+-- 4 * 4 slowdown
+quality :: Bool
+quality = True
+
 res :: (Int, Int)
-res = (600, 300)
+res = if quality then (600, 300) else (300, 150)
 
 aaGenCount :: Int
-aaGenCount = 16
+aaGenCount = if quality then 16 else 4
 
 ---
 

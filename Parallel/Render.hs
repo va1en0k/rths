@@ -169,8 +169,8 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
   uvAA (x, y) = do
     (a : b : _) <- getRands
     return
-      $ ( ((a + fromIntegral x) / (fromIntegral $ fst res)) * 1.1 - 0.1
-        , 1.5 - ((b + fromIntegral y) / (fromIntegral $ snd res))
+      $ ( ((a + fromIntegral x) / (fromIntegral $ fst res))
+        , 1.0 - ((b + fromIntegral y) / (fromIntegral $ snd res)) -- pixels are from up to down
         )
 
   lsRT = do

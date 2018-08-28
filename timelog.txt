@@ -2664,3 +2664,5 @@ user	10m41.288s
 sys	2m21.372s
 
 
+5d7d730
++ ./Main 5d7d730 +RTS -N
