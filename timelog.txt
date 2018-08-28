@@ -1730,3 +1730,11 @@ user	0m55.208s
 sys	0m11.896s
 
 
+c626469
++ ./Main c626469 +RTS -N
+
+real	0m26.596s
+user	0m53.933s
+sys	0m12.112s
+
+
