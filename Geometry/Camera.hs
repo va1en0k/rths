@@ -16,7 +16,7 @@ import           Config
 
 camera = Camera {
   cOrigin = CVec3 (-10) 0 0,
-  cHorizontal = CVec3 8 0 0,
+  cHorizontal = CVec3 16 0 0,
   cVertical = CVec3 0 4 0,
   cLowerLeftCorner = CVec3 (-4) (-2) (-3)}
 
