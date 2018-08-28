@@ -71,6 +71,7 @@ prepareShader =
 --   runIO $ runGeometryShader e s (map asSphere w) rs
 
 hits :: [Ray] -> RT [Maybe Hit]
+hits [] = return []
 hits rs = do
   (Settings world e s) <- getSettings
   -- runIO $ runGeometryShader e s (map asSphere world) rs

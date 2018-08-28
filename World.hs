@@ -31,7 +31,7 @@ setWorld w = updateSettings (\s -> s { world = w })
 
 randomWorld :: RT ()
 randomWorld = setWorld
-  [ plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.1 1 0.1)
+  [ plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.1 1 (-0.1))
   , sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0) 1
   ]
 randomWorld' = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
