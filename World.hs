@@ -55,7 +55,7 @@ randomWorld = setWorld $ [head typical] ++ hints -- ((typical ++) <$> concat <$>
         [ (V3 0 (-1) 1)
         , (V3 (-2) (-1) 1)
         , (V3 (-2) (-1) (-1))
-        -- , (V3 0 (-1) (-1))
+        , (V3 0 (-1) (-1))
         ]
       --sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
       ,
