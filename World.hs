@@ -119,7 +119,7 @@ sameSide (Ray o d) a b =
 instance Hitable Triangle where
   asSphere line = undefined
   hit p@(Triangle m a b c) r@(Ray org dir) mn mx =
-    let plane = Plane m a (b `cross` c)
+    let plane = Plane m a ((b - a) `cross` (c - a))
         sides = [(c, Ray (bv a) $ bv (b - a)), (a, Ray (bv b) $ bv (c - b)), (b, Ray (bv c) $ bv (a - c))]
     in case hit plane r mn mx of
       Nothing -> Nothing

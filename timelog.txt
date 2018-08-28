@@ -1538,3 +1538,11 @@ user	0m11.390s
 sys	0m2.438s
 
 
+3acfd86
++ ./Main 3acfd86 +RTS -N
+
+real	0m3.726s
+user	0m9.500s
+sys	0m2.293s
+
+
