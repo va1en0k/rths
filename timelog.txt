@@ -2684,3 +2684,11 @@ user	0m21.469s
 sys	0m4.496s
 
 
+db6894b
++ ./Main db6894b +RTS -N
+
+real	0m11.377s
+user	0m23.145s
+sys	0m4.637s
+
+
