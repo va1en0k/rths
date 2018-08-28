@@ -2004,3 +2004,5 @@ user	0m43.333s
 sys	0m9.032s
 
 
+6f6ded3
++ ./Main 6f6ded3 +RTS -N
