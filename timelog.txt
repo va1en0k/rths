@@ -2270,3 +2270,11 @@ user	0m35.630s
 sys	0m6.834s
 
 
+f3b1e77
++ ./Main f3b1e77 +RTS -N
+
+real	0m16.137s
+user	0m32.711s
+sys	0m6.915s
+
+
