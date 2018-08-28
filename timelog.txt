@@ -1344,3 +1344,5 @@ user	0m59.618s
 sys	0m10.899s
 
 
+8998dbf
++ ./Main 8998dbf +RTS -N

@@ -74,6 +74,7 @@ hits :: [Ray] -> RT [Maybe Hit]
 hits rs = do
   (Settings world e s) <- getSettings
   -- runIO $ runGeometryShader e s (map asSphere world) rs
+  runIO $ print (length rs)
   return $ map (\r -> hit world r 0.0001 1000) rs
 
 
