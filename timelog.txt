@@ -1410,3 +1410,11 @@ user	0m15.944s
 sys	0m3.736s
 
 
+bdc54d1
++ ./Main bdc54d1 +RTS -N
+
+real	0m4.833s
+user	0m12.541s
+sys	0m3.394s
+
+
