@@ -61,8 +61,8 @@ getRayRevPersp c u v = Ray
             <+> ((cVertical c) .^ 0.5)
             -- <-> (cOrigin c)
             )
-    (CVec3 x y _) = uvC .^ 2 <-> (cOrigin c)
-    (CVec3 _ _ z) = cOrigin c
+    (CVec3 x _ z) = uvC .^ 2 <-> (cOrigin c)
+    (CVec3 _ y _) = cOrigin c
     cRP = CVec3 x y z
 
 getRay = getRayRevPersp
