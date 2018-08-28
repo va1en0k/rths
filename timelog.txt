@@ -2022,3 +2022,11 @@ user	0m35.338s
 sys	0m7.074s
 
 
+6cba281
++ ./Main 6cba281 +RTS -N
+
+real	0m24.454s
+user	0m50.752s
+sys	0m10.810s
+
+
