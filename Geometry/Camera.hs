@@ -12,9 +12,9 @@ import           Config
 --                   (fromIntegral (fst res) / fromIntegral (snd res))
 --                   10
 
--- camera = Camera {cOrigin = CVec3 13.0 2.0 (-11.0), cHorizontal = CVec3 4.555881805991546 0.0 5.384223952535464, cVertical = CVec3 0.3140143177281695 (-3.502467390044967) (-0.26570442269306643), cLowerLeftCorner = CVec3 2.983297972382686 2.584810007982875 (-7.143929486203352)}
+camera = Camera {cOrigin = CVec3 13.0 2.0 (-11.0), cHorizontal = CVec3 4.555881805991546 0.0 5.384223952535464, cVertical = CVec3 0.3140143177281695 (-3.502467390044967) (-0.26570442269306643), cLowerLeftCorner = CVec3 2.983297972382686 2.584810007982875 (-7.143929486203352)}
 
-camera = Camera {cOrigin = CVec3 13.0 2.0 (11.0), cHorizontal = CVec3 4.555881805991546 0.0 5.384223952535464, cVertical = CVec3 0.3140143177281695 (-3.502467390044967) (-0.26570442269306643), cLowerLeftCorner = CVec3 2.983297972382686 2.584810007982875 (-7.143929486203352)}
+-- camera = Camera {cOrigin = CVec3 13.0 2.0 (11.0), cHorizontal = CVec3 4.555881805991546 0.0 5.384223952535464, cVertical = CVec3 0.3140143177281695 (-3.502467390044967) (-0.26570442269306643), cLowerLeftCorner = CVec3 2.983297972382686 2.584810007982875 (-7.143929486203352)}
 
 
 mkCamera :: CVec3 -> CVec3 -> CVec3 -> Double -> Double -> Double -> Camera
@@ -35,9 +35,12 @@ mkCamera from at vup vfov aspect focusDist = Camera
   u          = normalize $ vup >< w
   v          = w >< u
 
-getRay :: Camera -> Double -> Double -> Ray
 
-getRay c u v = Ray
+
+
+
+getRayNormPersp :: Camera -> Double -> Double -> Ray
+getRayNormPersp c u v = Ray
   (cOrigin c)
   (   cLowerLeftCorner c
   <+> ((cHorizontal c) .^ u)
@@ -45,4 +48,19 @@ getRay c u v = Ray
   <-> (cOrigin c)
   )
 
--- getRay _ u v =
+getRayRevPersp :: Camera -> Double -> Double -> Ray
+getRayRevPersp c u v = Ray
+  (cRP <-> (   cLowerLeftCorner c
+  <+> ((cHorizontal c) .^ u)
+  <+> ((cVertical c) .^ v)
+  ))
+  cRP
+  where
+    uvC = (   cLowerLeftCorner c
+            <+> ((cHorizontal c) .^ 0.5)
+            <+> ((cVertical c) .^ 0.5)
+            -- <-> (cOrigin c)
+            )
+    cRP = uvC .^ 2 <-> (cOrigin c)
+
+getRay = getRayRevPersp
