@@ -1682,3 +1682,11 @@ user	0m24.683s
 sys	0m4.881s
 
 
+d3c6472
++ ./Main d3c6472 +RTS -N
+
+real	0m11.591s
+user	0m23.720s
+sys	0m4.888s
+
+
