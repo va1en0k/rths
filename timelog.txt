@@ -1706,3 +1706,11 @@ user	0m31.152s
 sys	0m6.213s
 
 
+27b1635
++ ./Main 27b1635 +RTS -N
+
+real	0m15.254s
+user	0m31.240s
+sys	0m5.978s
+
+
