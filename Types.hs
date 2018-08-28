@@ -49,7 +49,7 @@ data Camera = Camera {
   cHorizontal      :: CVec3,
   cVertical        :: CVec3,
   cLowerLeftCorner :: CVec3
-}
+} deriving Show
 
 
 -- Materials

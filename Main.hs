@@ -20,6 +20,7 @@ import qualified Data.Text.IO                  as T
 -- import Normal
 
 import           Geometry.Vectors
+import           Geometry.Camera
 import           Types
 -- import Progress
 import           World
@@ -69,6 +70,7 @@ writeGif fname images = case writeGifAnimation fname 5 LoopingForever images of
 
 main :: IO ()
 main = do
+  print camera
   world <- runRT (Settings undefined undefined undefined) $ randomWorld >> getWorld
   let scenario = [(!! 1000) $ makeScenario world]
   -- let world = randomWorld

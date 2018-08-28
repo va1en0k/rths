@@ -1200,3 +1200,11 @@ user	0m29.274s
 sys	0m7.978s
 
 
+976d4e4
++ ./Main 976d4e4 +RTS -N
+
+real	0m10.276s
+user	0m28.599s
+sys	0m7.942s
+
+
