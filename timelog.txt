@@ -1208,3 +1208,11 @@ user	0m28.599s
 sys	0m7.942s
 
 
+ce7275c
++ ./Main ce7275c +RTS -N
+
+real	0m10.756s
+user	0m29.935s
+sys	0m8.379s
+
+
