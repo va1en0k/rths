@@ -62,10 +62,11 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
       [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
         -- triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 0 0) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
         polygon (mkLambertian $ CVec3 0.5 0.5 0.5)
-        [ (V3 0 (-1) 1)
-        , (V3 (-2) (-1) 1)
-        , (V3 (-2) (-1) (-1))
-        , (V3 0 (-1) (-1))
+        [
+        -- , (V3 0.4 (0.3) 4)
+        -- , (V3 (-1.6) (0.3) 4)
+        -- , (V3 (-1.6) (0.3) 2)
+        -- , (V3 0.4 (0.3) 2)
         ]
       --sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
       ,
@@ -121,10 +122,10 @@ table =
   let
     mat = mkLambertian $ CVec3 (209/256) (192/256) (87/256)
     cover =
-      [ (V3 0.4 (0.3) 4)
-      , (V3 (-1.6) (0.3) 4)
-      , (V3 (-1.6) (0.3) 2)
-      , (V3 0.4 (0.3) 2)
+      [ (V3 0.6 (0.3) 4)
+      , (V3 (-1.4) (0.3) 4)
+      , (V3 (-1.4) (0.3) 2)
+      , (V3 0.6 (0.3) 2)
       ]
     cover_down = (map (+ V3 0 (- 0.4) 0) cover)
     sideIdxs = zip [0..3] (tail $ cycle [0..3])
