@@ -119,7 +119,7 @@ table =
       ]
   in
     [ polygon mat cover
-    , polygon mat (map (+ V3 0 (- 0.2) 0) cover)
+    , polygon mat (map (+ V3 0 (- 0.4) 0) cover)
     ]
 
 data Triangle = Triangle Material (V3 Double) (V3 Double) (V3 Double)
