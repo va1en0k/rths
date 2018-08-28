@@ -61,9 +61,9 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
     -- X> Yv Z^
 
     typical = table ++
-      [ sphere red (CVec3 (0) (-1.6) 8) 1.3
-      , sphere green (CVec3 (-1.7) (0.4) 3.5) 0.6
-      , sphere blue (CVec3 0.9 (0.3) 3.5) 0.6
+      [ sphere red (CVec3 (0) (-1.6) 9) 1.3
+      , sphere green (CVec3 (-1.9) (0.4) 3.5) 0.6
+      , sphere blue (CVec3 1.1 (0.3) 3.5) 0.6
       ]
     typical' =
       [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
