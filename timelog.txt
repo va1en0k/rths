@@ -2398,3 +2398,11 @@ user	0m32.584s
 sys	0m6.748s
 
 
+bcb74d4
++ ./Main bcb74d4 +RTS -N
+
+real	0m15.886s
+user	0m32.671s
+sys	0m6.654s
+
+
