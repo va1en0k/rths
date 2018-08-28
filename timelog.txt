@@ -2110,3 +2110,11 @@ user	0m50.026s
 
 sys	0m10.747s
 
+da1bfeb
++ ./Main da1bfeb +RTS -N
+
+real	0m11.650s
+user	0m23.789s
+sys	0m4.973s
+
+
