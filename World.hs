@@ -6,6 +6,7 @@ import           Linear.V3
 import           Linear.Metric hiding (norm)
 
 import           Geometry.Vectors
+import           Geometry.Camera
 import           Hitable
 import           Material
 import           Types
@@ -46,7 +47,7 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
       , (CVec3 (-2) (-1) 1)
       , (CVec3 (-2) (-1) (-1))
       , (CVec3 0 (-1) (-1))
-      ]
+      ] ++ [sphere (mkLambertian $ CVec3 0.9 0.1 0.1) (getCameraReflectedThroughUV camera) 0.1]
 
     typical = table
     typical' =
