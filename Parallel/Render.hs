@@ -157,7 +157,7 @@ genImageBuf :: Int -> Int -> RT ImgBuf
 genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
  where
     -- ls :: RandT g Identity [((Int, Int), PixelRGB8)]
-  allPixels = [ (i, -j) | i <- [0 .. w], j <- [0 .. h] ]
+  allPixels = [ (i, j) | i <- [0 .. w], j <- [0 .. h] ]
 
   allUVs    = map toUV allPixels
   allUVsAA  = concat <$> mapM uvsAA allPixels
@@ -170,7 +170,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     (a : b : _) <- getRands
     return
       $ ( ((a + fromIntegral x) / (fromIntegral $ fst res))
-        , ((b + fromIntegral y) / (fromIntegral $ snd res))
+        , -((b + fromIntegral y) / (fromIntegral $ snd res))
         )
 
   lsRT = do
