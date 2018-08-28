@@ -82,5 +82,5 @@ getRayRevPersp c u v = Ray
   where
     cRP = getCameraReflectedThroughUV c
 
-getRay = getRayRevPersp
--- getRay = getRayNormPersp
+-- getRay = getRayRevPersp
+getRay = getRayNormPersp
