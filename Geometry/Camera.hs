@@ -24,7 +24,7 @@ type Camera = (Double, Double) -> Ray
 --   cLowerLeftCorner = CVec3 (-16) (-10) (-3)}
 
 camera = mkCamera (CVec3 0 8 (-10))
-                  (CVec3 0 0 0)
+                  (CVec3 0.7 0.3 3)
                   (CVec3 0 1 0)
                   20
                   (fromIntegral (fst res) / fromIntegral (snd res))
