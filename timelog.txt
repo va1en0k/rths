@@ -2198,3 +2198,11 @@ user	0m31.917s
 sys	0m6.730s
 
 
+f992168
++ ./Main f992168 +RTS -N
+
+real	0m16.602s
+user	0m33.036s
+sys	0m6.949s
+
+
