@@ -1892,3 +1892,11 @@ user	0m40.794s
 sys	0m7.954s
 
 
+cef598d
++ ./Main cef598d +RTS -N
+
+real	0m17.596s
+user	0m35.205s
+sys	0m7.058s
+
+
