@@ -1530,3 +1530,11 @@ user	0m10.410s
 sys	0m3.187s
 
 
+7e2a3db
++ ./Main 7e2a3db +RTS -N
+
+real	0m4.732s
+user	0m11.390s
+sys	0m2.438s
+
+
