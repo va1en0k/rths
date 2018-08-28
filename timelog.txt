@@ -1850,3 +1850,11 @@ user	0m35.026s
 sys	0m7.429s
 
 
+1bacdc2
++ ./Main 1bacdc2 +RTS -N
+
+real	0m18.080s
+user	0m37.060s
+sys	0m7.738s
+
+
