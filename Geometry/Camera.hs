@@ -50,11 +50,13 @@ getRayNormPersp c u v = Ray
 
 getRayRevPersp :: Camera -> Double -> Double -> Ray
 getRayRevPersp c u v = Ray
+  (   cLowerLeftCorner c
+  <+> ((cHorizontal c) .^ u)
+  <+> ((cVertical c) .^ v))
   (cRP <-> (   cLowerLeftCorner c
   <+> ((cHorizontal c) .^ u)
   <+> ((cVertical c) .^ v)
   ))
-  cRP
   where
     uvC = (   cLowerLeftCorner c
             <+> ((cHorizontal c) .^ 0.5)
