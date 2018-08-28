@@ -2118,3 +2118,11 @@ user	0m23.789s
 sys	0m4.973s
 
 
+af624b7
++ ./Main af624b7 +RTS -N
+
+real	0m28.059s
+user	0m57.698s
+sys	0m12.260s
+
+
