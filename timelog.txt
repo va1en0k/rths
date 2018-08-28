@@ -2464,3 +2464,11 @@ user	0m34.999s
 sys	0m7.198s
 
 
+311e73a
++ ./Main 311e73a +RTS -N
+
+real	0m18.475s
+user	0m38.229s
+sys	0m7.849s
+
+
