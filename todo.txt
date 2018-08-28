@@ -1,0 +1,18 @@
+Todo:
+  * quick-render autoreload window
+
+Refactor:
+  * remove world from RT monad
+  * replace CVec3 with V3 everywhere
+  * redesign the shape-system
+
+Themes:
+  * setting up a comfy environment
+  * well-typing the ray tracer
+  * parallelizing haskell with opencl
+
+Goals:
+  * nice fast editor
+  * icon with reverse perspective
+  * debug lines
+  * opencl arrow

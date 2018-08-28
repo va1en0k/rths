@@ -2724,3 +2724,11 @@ user	0m24.503s
 sys	0m4.975s
 
 
+f1f89ae
++ app/Main f1f89ae +RTS -N
+
+real	0m10.785s
+user	0m21.650s
+sys	0m4.660s
+
+

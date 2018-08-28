@@ -1,0 +1,116 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 3a38227cb9dae855e129225cd41991278e17b94f8c13d7a6964e6f420826fe76
+
+name:           rublev
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/rublev#readme>
+homepage:       https://github.com/githubuser/rublev#readme
+bug-reports:    https://github.com/githubuser/rublev/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2018 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/rublev
+
+library
+  exposed-modules:
+      Config
+      Geometry.Camera
+      Geometry.Vectors
+      Geometry.World
+      Graphics.Images
+      Graphics.Render
+      Graphics.Render.RayTracer
+      Hitable
+      Lib
+      Material
+      Parallel.OpenCLGeometry
+      Parallel.Shaders
+      Physics.Render
+      Random
+      RTMonad
+      Types
+      Util
+  other-modules:
+      Paths_rublev
+  hs-source-dirs:
+      src
+  build-depends:
+      CLUtil ==0.5.1
+    , JuicyPixels ==3.2.6.4
+    , MonadRandom ==0.4.2.1
+    , OpenCL
+    , array ==0.5.1.0
+    , base >=4.7 && <5
+    , deepseq ==1.4.1.1
+    , interpolate
+    , language-c-quote
+    , linear
+    , mtl ==2.2.1
+    , primitive ==0.6.1.0
+    , time ==1.5.0.1
+    , vector
+  default-language: Haskell2010
+
+executable rublev-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_rublev
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      CLUtil ==0.5.1
+    , JuicyPixels ==3.2.6.4
+    , MonadRandom ==0.4.2.1
+    , OpenCL
+    , array ==0.5.1.0
+    , base >=4.7 && <5
+    , deepseq ==1.4.1.1
+    , interpolate
+    , language-c-quote
+    , linear
+    , mtl ==2.2.1
+    , primitive ==0.6.1.0
+    , rublev
+    , time ==1.5.0.1
+    , vector
+  default-language: Haskell2010
+
+test-suite rublev-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_rublev
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      CLUtil ==0.5.1
+    , JuicyPixels ==3.2.6.4
+    , MonadRandom ==0.4.2.1
+    , OpenCL
+    , array ==0.5.1.0
+    , base >=4.7 && <5
+    , deepseq ==1.4.1.1
+    , interpolate
+    , language-c-quote
+    , linear
+    , mtl ==2.2.1
+    , primitive ==0.6.1.0
+    , rublev
+    , time ==1.5.0.1
+    , vector
+  default-language: Haskell2010
