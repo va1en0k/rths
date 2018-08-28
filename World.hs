@@ -37,40 +37,50 @@ randomWorld :: RT ()
 --   , sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
 --   , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
 --   ]
-randomWorld = setWorld $ [head typical] -- ((typical ++) <$> concat <$> sequence randList) >>= setWorld
- where
-  typical =
-    [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
-      triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 0 0) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
-    --sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
-    ,
-    -- sphere (mkDielectric 1.5) (CVec3 0 0 0) 1,
-      sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
-    , sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0)    1
-    , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
-    ]
+randomWorld = setWorld $ [head typical] ++ hints -- ((typical ++) <$> concat <$> sequence randList) >>= setWorld
+  where
+    hints =
+      map (\p -> sphere (mkLambertian p) p 0.1)
+      [ CVec3 0 0 0
+      , CVec3 1 1 1
+      , CVec3 0.5 0.5 0.5
+      , CVec3 0.5 0 0
+      , CVec3 0 0.5 0
+      , CVec3 0 0 0.5
+      ]
 
-  randList :: [RT [Hitable_]]
-  randList = (flip map) [ (a, b) | a <- [-10 .. 7], b <- [-8 .. 8] ]
-                        (uncurry genSphere)
+    typical =
+      [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
+        triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 0 0) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
+      --sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
+      ,
+      -- sphere (mkDielectric 1.5) (CVec3 0 0 0) 1,
+        sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
+      , sphere (mkLambertian $ CVec3 0.4 0.2 0.1) (CVec3 (-4) 1 0)    1
+      , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
+      ]
 
-  genSphere :: Double -> Double -> RT [Hitable_]
-  genSphere a b = do
-    (mt           : x  : y  : z  : _) <- getRands
-    (r1 : r2 : r3 : r4 : r5 : r6 : _) <- getRands
-    let center = CVec3 (a + x * 0.9) (0.2 + y * 5) (b + 0.9 * z)
-    if (norm (center <-> CVec3 4 0.2 0) > 0.9)
-      then return $ return $ case () of
-        () | mt < 0.6 ->
-          sphere (mkLambertian $ CVec3 (r1 * r2) (r3 * r4) (r5 * r6)) center 0.2
-        () | mt < 0.75 -> sphere
-          ( mkMetal (0.5 * r4)
-          $ CVec3 (0.5 * (1 + r1)) (0.5 * (1 + r2)) (0.5 * (1 + r3))
-          )
-          center
-          0.2
-        () | otherwise -> sphere (mkDielectric 1.5) center 0.2
-      else return []
+    randList :: [RT [Hitable_]]
+    randList = (flip map) [ (a, b) | a <- [-10 .. 7], b <- [-8 .. 8] ]
+                          (uncurry genSphere)
+
+    genSphere :: Double -> Double -> RT [Hitable_]
+    genSphere a b = do
+      (mt           : x  : y  : z  : _) <- getRands
+      (r1 : r2 : r3 : r4 : r5 : r6 : _) <- getRands
+      let center = CVec3 (a + x * 0.9) (0.2 + y * 5) (b + 0.9 * z)
+      if (norm (center <-> CVec3 4 0.2 0) > 0.9)
+        then return $ return $ case () of
+          () | mt < 0.6 ->
+            sphere (mkLambertian $ CVec3 (r1 * r2) (r3 * r4) (r5 * r6)) center 0.2
+          () | mt < 0.75 -> sphere
+            ( mkMetal (0.5 * r4)
+            $ CVec3 (0.5 * (1 + r1)) (0.5 * (1 + r2)) (0.5 * (1 + r3))
+            )
+            center
+            0.2
+          () | otherwise -> sphere (mkDielectric 1.5) center 0.2
+        else return []
 
 lv :: CVec3 -> V3 Double
 lv (CVec3 a b c) = V3 a b c
