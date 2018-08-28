@@ -1216,3 +1216,11 @@ user	0m29.935s
 sys	0m8.379s
 
 
+7d45a0c
++ ./Main 7d45a0c +RTS -N
+
+real	0m9.239s
+user	0m28.024s
+sys	0m7.225s
+
+
