@@ -48,7 +48,7 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
   where
     hints =
       map (\p -> sphere (mkLambertian p) p 0.1)
-      [ (CVec3 (-0.45) (-0.9) 2.5)
+      [ (CVec3 (-0.45) (-0.1) 2.5)
       , (CVec3 0.4 (-0.4) 6)
       , (CVec3 (-1.3) (-0.4) 6)
       -- , (CVec3 0 (0.3) (-1))
