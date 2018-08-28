@@ -2182,3 +2182,11 @@ user	0m57.336s
 sys	0m11.633s
 
 
+b29bbca
++ ./Main b29bbca +RTS -N
+
+real	0m15.702s
+user	0m32.235s
+sys	0m6.430s
+
+
