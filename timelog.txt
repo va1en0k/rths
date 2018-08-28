@@ -1908,3 +1908,11 @@ user	0m38.512s
 sys	0m7.826s
 
 
+8fc3a2a
++ ./Main 8fc3a2a +RTS -N
+
+real	0m15.766s
+user	0m32.075s
+sys	0m6.541s
+
+
