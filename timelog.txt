@@ -1956,3 +1956,11 @@ user	0m36.612s
 sys	0m7.248s
 
 
+d17fd58
++ ./Main d17fd58 +RTS -N
+
+real	0m19.783s
+user	0m40.230s
+sys	0m7.742s
+
+
