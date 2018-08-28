@@ -2006,3 +2006,11 @@ sys	0m9.032s
 
 6f6ded3
 + ./Main 6f6ded3 +RTS -N
+3444f97
++ ./Main 3444f97 +RTS -N
+
+real	0m20.460s
+user	0m42.147s
+sys	0m8.424s
+
+
