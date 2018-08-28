@@ -2668,3 +2668,11 @@ sys	2m21.372s
 + ./Main 5d7d730 +RTS -N
 86c6e59
 + ./Main 86c6e59 +RTS -N
+39d5a47
++ ./Main 39d5a47 +RTS -N
+
+real	0m11.774s
+user	0m23.999s
+sys	0m5.165s
+
+

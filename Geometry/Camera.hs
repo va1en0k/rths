@@ -7,12 +7,7 @@ import           Config
 
 type Camera = (Double, Double) -> Ray
 
-camera = mkCamera (CVec3 18 5 18)
-                  (CVec3 0 0 0)
-                  (CVec3 0 (-1) 0)
-                  20
-                  (fromIntegral (fst res) / fromIntegral (snd res))
-                  10
+
 
 -- camera = Camera {
 --   cOrigin = CVec3 13.0 4.0 19.0,
@@ -28,9 +23,15 @@ camera = mkCamera (CVec3 18 5 18)
 --   cVertical = CVec3 0 16 0,
 --   cLowerLeftCorner = CVec3 (-16) (-10) (-3)}
 
+camera = mkCamera (CVec3 0 2 (-3))
+                  (CVec3 0 0 0)
+                  (CVec3 0 1 0)
+                  20
+                  (fromIntegral (fst res) / fromIntegral (snd res))
+                  10
 
 mkCamera :: CVec3 -> CVec3 -> CVec3 -> Double -> Double -> Double -> Camera
-mkCamera from at vup vfov aspect focusDist = \(u, v) ->
+mkCamera from at vup fov aspect focusDist = \(u, v) ->
   Ray cOrigin
     (   cLowerLeftCorner
     <+> (cHorizontal .^ u)
@@ -38,7 +39,7 @@ mkCamera from at vup vfov aspect focusDist = \(u, v) ->
     <-> cOrigin
     )
   where
-    theta      = vfov * pi / 180
+    theta      = fov * pi / 180
     halfHeight = tan $ theta / 2
     halfWidth  = aspect * halfHeight
     w          = normalize $ from <-> at
