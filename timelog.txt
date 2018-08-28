@@ -2632,3 +2632,11 @@ user	1m2.542s
 sys	0m13.991s
 
 
+7262c55
++ ./Main 7262c55 +RTS -N
+
+real	0m28.545s
+user	1m0.885s
+sys	0m13.224s
+
+

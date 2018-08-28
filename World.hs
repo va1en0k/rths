@@ -61,7 +61,7 @@ randomWorld = setWorld $ typical ++ hints -- ((typical ++) <$> concat <$> sequen
     -- X> Yv Z^
 
     typical = table ++
-      [ sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5) (CVec3 (0) (-1.6) 8) 1.8
+      [ sphere (mkMetal 0.1 $ CVec3 0.7 0.6 0.4) (CVec3 (0) (-1.6) 8) 1.8
       , sphere (mkLambertian $ CVec3 0.4 0.2 0.8) (CVec3 (-2.0) (0.4) 3.5) 0.8
       , sphere (mkDielectric 1.5) (CVec3 1.1 (0.3) 3.7) 0.8
       ]
