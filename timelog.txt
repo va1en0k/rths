@@ -2214,3 +2214,11 @@ user	0m33.107s
 sys	0m6.721s
 
 
+3a0faac
++ ./Main 3a0faac +RTS -N
+
+real	0m16.062s
+user	0m32.816s
+sys	0m6.610s
+
+
