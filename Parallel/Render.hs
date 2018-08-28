@@ -170,7 +170,7 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     (a : b : _) <- getRands
     return
       $ ( ((a + fromIntegral x) / (fromIntegral $ fst res))
-        , 1.0 - ((b + fromIntegral y) / (fromIntegral $ snd res))
+        , 1.2 - ((b + fromIntegral y) / (fromIntegral $ snd res))
         )
 
   lsRT = do
