@@ -2350,3 +2350,11 @@ user	0m32.398s
 sys	0m6.713s
 
 
+fd723d6
++ ./Main fd723d6 +RTS -N
+
+real	0m15.737s
+user	0m32.781s
+sys	0m6.680s
+
+
