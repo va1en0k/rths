@@ -1746,3 +1746,11 @@ user	0m53.134s
 sys	0m11.279s
 
 
+50d9dcc
++ ./Main 50d9dcc +RTS -N
+
+real	0m15.006s
+user	0m30.422s
+sys	0m6.006s
+
+
