@@ -37,7 +37,7 @@ randomWorld :: RT ()
 --   , sphere (mkDielectric 1.5)                 (CVec3 0 1 0)       1
 --   , sphere (mkMetal 0 $ CVec3 0.7 0.6 0.5)    (CVec3 4 1 0)       1
 --   ]
-randomWorld = ((typical ++) <$> concat <$> sequence randList) >>= setWorld
+randomWorld = setWorld $ [head typical] -- ((typical ++) <$> concat <$> sequence randList) >>= setWorld
  where
   typical =
     [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
