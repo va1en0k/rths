@@ -57,7 +57,7 @@ prepareShader =
   runIO
       (do
         engine <- initShaderEngine
-        source <- sphereSource
+        source <- fullSource
         shader <- createShader engine source
         return (engine, shader)
       )
@@ -65,10 +65,16 @@ prepareShader =
           (\s -> s { shaderEngine = engine, rayTraceShader = shader })
 
 
+-- hits :: [Ray] -> RT [Maybe Hit]
+-- hits rs = do
+--   (Settings w e s) <- getSettings
+--   runIO $ runGeometryShader e s (map asSphere w) rs
+
 hits :: [Ray] -> RT [Maybe Hit]
 hits rs = do
-  (Settings w e s) <- getSettings
-  runIO $ runGeometryShader e s (map asSphere w) rs
+  (Settings world e s) <- getSettings
+  -- runIO $ runGeometryShader e s (map asSphere world) rs
+  return $ map (\r -> hit world r 0 0.0001) rs
 
 
 nextRay :: Hit -> RT Ray

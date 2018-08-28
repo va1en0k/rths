@@ -9,7 +9,7 @@ struct hit
     float t;
     float3 point;
     float3 normal;
-    float sphereId;
+    float objectId;
 };
 
 struct sphere
@@ -17,6 +17,7 @@ struct sphere
     float3 center;
     float radius;
 };
+
 
 
 bool sphereHit(struct sphere s, struct ray r, float from, float to, struct hit * hit) {
@@ -109,4 +110,10 @@ kernel void doubleArray(
       hbest.normal[0], hbest.normal[1], hbest.normal[2],
       hbest.sphereId
     );
+}
+
+bool lineHit(struct ray l, struct ray r, float from, float to, struct hit * hit) {
+  // ray: origin + direction * t
+  //  \exists t: (x,y,z) = o+dt
+  // line: ax + by + cz + d = 0
 }

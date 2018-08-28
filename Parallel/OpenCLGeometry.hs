@@ -16,8 +16,8 @@ import           World
 import           Parallel.Shaders        hiding ( main )
 import           Util
 
-sphereSource :: IO String
-sphereSource = readFile "Parallel/sphere.c"
+fullSource :: IO String
+fullSource = readFile "Parallel/sphere.c"
 
 -- v (CVec3 x y z) = [i|(float3)(#{x}, #{y}, #{z})|]
 
@@ -75,10 +75,10 @@ main :: IO ()
 main = do
   -- print $ compileSphere $ Sphere undefined (CVec3 0 0 (-1)) 0.5
   engine <- initShaderEngine
-  -- let s = sphereSource
+  -- let s = fullSource
   -- putStrLn s
   -- print worldOfSpheres
-  source <- sphereSource
+  source <- fullSource
   shader <- createShader engine source
   output <- runGeometryShader engine shader worldOfSpheres testRays
   putStrLn $ "Output shaders: " ++ show output

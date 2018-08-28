@@ -67,4 +67,5 @@ getRayRevPersp c u v = Ray
     (CVec3 _ y _) = cOrigin c
     cRP = CVec3 x y z
 
-getRay = getRayRevPersp
+-- getRay = getRayRevPersp
+getRay = getRayNormPersp
