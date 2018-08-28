@@ -2496,3 +2496,11 @@ user	0m38.616s
 sys	0m8.009s
 
 
+f11dacb
++ ./Main f11dacb +RTS -N
+
+real	0m18.750s
+user	0m38.967s
+sys	0m7.922s
+
+
