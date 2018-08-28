@@ -2432,3 +2432,11 @@ user	0m32.817s
 sys	0m6.464s
 
 
+ba83a79
++ ./Main ba83a79 +RTS -N
+
+real	0m15.685s
+user	0m32.562s
+sys	0m6.389s
+
+
