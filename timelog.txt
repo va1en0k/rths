@@ -2062,3 +2062,11 @@ user	0m29.969s
 sys	0m5.820s
 + cat stderr.log
 + false
+53d0537
++ ./Main 53d0537 +RTS -N
+
+real	0m15.064s
+user	0m30.340s
+sys	0m6.213s
+
+
