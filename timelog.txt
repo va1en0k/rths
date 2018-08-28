@@ -2046,3 +2046,11 @@ user	0m24.088s
 sys	0m4.893s
 
 
+7e5a332
++ ./Main 7e5a332 +RTS -N
+
+real	0m11.907s
+user	0m24.184s
+sys	0m5.118s
+
+

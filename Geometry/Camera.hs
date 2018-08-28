@@ -74,10 +74,10 @@ getRayRevPersp :: Camera -> Double -> Double -> Ray
 getRayRevPersp c u v = Ray
   (   cLowerLeftCorner c
   <+> ((cHorizontal c) .^ u)
-  <+> ((cVertical c) .^ (-v)))
+  <+> ((cVertical c) .^ v))
   (cRP <-> (   cLowerLeftCorner c
   <+> ((cHorizontal c) .^ u)
-  <+> ((cVertical c) .^ (-v))
+  <+> ((cVertical c) .^ v)
   ))
   where
     cRP = getCameraReflectedThroughUV c
