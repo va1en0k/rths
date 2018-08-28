@@ -2408,3 +2408,11 @@ sys	0m6.654s
 
 b7f94bd
 + ./Main b7f94bd +RTS -N
+0901471
++ ./Main 0901471 +RTS -N
+
+real	0m15.499s
+user	0m31.994s
+sys	0m6.661s
+
+
