@@ -55,10 +55,10 @@ randomWorld = setWorld $ [head typical] ++ hints -- ((typical ++) <$> concat <$>
       [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
         -- triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 0 0) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
         polygon (mkLambertian $ CVec3 0.5 0.5 0.5)
-        [ (V3 1 0 1)
-        , (V3 (-1) 0 1)
-        , (V3 (-1) 0 (-1))
-        , (V3 1 0 (-1))
+        [ (V3 0 (-1) 1)
+        , (V3 (-2) (-1) 1)
+        , (V3 (-2) (-1) (-1))
+        , (V3 0 (-1) (-1))
         ]
       --sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
       ,
