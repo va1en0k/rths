@@ -2374,3 +2374,11 @@ user	0m32.043s
 sys	0m6.374s
 
 
+8d5cdab
++ ./Main 8d5cdab +RTS -N
+
+real	0m15.757s
+user	0m32.514s
+sys	0m6.514s
+
+
