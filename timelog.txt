@@ -2584,3 +2584,11 @@ user	0m48.831s
 sys	0m10.150s
 
 
+eb210fb
++ ./Main eb210fb +RTS -N
+
+real	0m24.129s
+user	0m49.686s
+sys	0m10.492s
+
+

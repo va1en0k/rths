@@ -39,7 +39,7 @@ import           Geometry.Camera
 
 
 sky :: Ray -> Color
-sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.4 0.6 1.0)
+sky r = ((1.0 - t) *. CVec3 1 1 1) <+> (t *. CVec3 0.3 0.5 1.0)
  where
   CVec3 _ y _ = normalize $ direction r
   t           = (y + 1) * 0.5
