@@ -87,8 +87,10 @@ main = do
 
   now  <- getPOSIXTime
   hash <- head <$> getArgs
-  writeGif ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".gif") images
-  writeGif ("./image.gif") images
+  -- writeGif ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".gif") images
+  -- writeGif ("./image.gif") images
+  writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") $ head images
+  writePng ("./image.png") $ head images
 
 
 {-
