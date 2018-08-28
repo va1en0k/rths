@@ -23,7 +23,7 @@ type Camera = (Double, Double) -> Ray
 --   cVertical = CVec3 0 16 0,
 --   cLowerLeftCorner = CVec3 (-16) (-10) (-3)}
 
-camera = mkCamera (CVec3 0 2 (-3))
+camera = mkCamera (CVec3 0 3 (-4))
                   (CVec3 0 0 0)
                   (CVec3 0 1 0)
                   20
