@@ -2278,3 +2278,11 @@ user	0m32.711s
 sys	0m6.915s
 
 
+8d41468
++ ./Main 8d41468 +RTS -N
+
+real	0m16.239s
+user	0m33.537s
+sys	0m7.008s
+
+
