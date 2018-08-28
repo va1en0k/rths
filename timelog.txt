@@ -2262,3 +2262,11 @@ user	0m31.087s
 sys	0m6.397s
 
 
+a2ca7fa
++ ./Main a2ca7fa +RTS -N
+
+real	0m17.238s
+user	0m35.630s
+sys	0m6.834s
+
+
