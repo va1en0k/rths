@@ -41,7 +41,7 @@ randomWorld = setWorld $ [head typical] -- ((typical ++) <$> concat <$> sequence
  where
   typical =
     [ --plane (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 (-1) (-1)) (V3 0.02 1 (-0.3))
-      triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 (-3) (-1) 2) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
+      triangle (mkLambertian $ CVec3 0.5 0.5 0.5) (V3 0 0 0) (V3 0 (-0.9) 4) (V3 3 (-1.1) 2)
     --sphere (mkLambertian $ CVec3 0.5 0.5 0.5) (CVec3 0 (-1000) 0) 1000
     ,
     -- sphere (mkDielectric 1.5) (CVec3 0 0 0) 1,
