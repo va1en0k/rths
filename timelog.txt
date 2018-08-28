@@ -2238,3 +2238,11 @@ user	0m33.227s
 sys	0m6.794s
 
 
+ef975fc
++ ./Main ef975fc +RTS -N
+
+real	0m16.121s
+user	0m32.735s
+sys	0m6.704s
+
+
