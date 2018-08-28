@@ -82,7 +82,7 @@ instance Hitable Plane where
   hit p@(Plane m po no) r@(Ray org dir) mn mx =
     let denom = no `dot` lv dir
         t = ((po - lv org) `dot` no) / denom
-    in if abs denom > 0.001 && t >= 0
+    in if abs denom > 0.001 && t >= mn && t <= mx
         then Just $ Hit t (rayPointAt r t) (bv no) m
         else Nothing
 

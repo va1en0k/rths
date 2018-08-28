@@ -1386,3 +1386,11 @@ user	0m3.748s
 sys	0m0.968s
 + cat stderr.log
 + false
+cfe2aac
++ ./Main cfe2aac +RTS -N
+
+real	0m43.820s
+user	1m51.324s
+
+sys	0m27.358s
+
