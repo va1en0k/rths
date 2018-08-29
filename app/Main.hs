@@ -88,16 +88,16 @@ transpSurface w h = do
 textRender :: String -> Render ()
 textRender text =
   do
+    selectFontFace "sans" FontSlantNormal FontWeightNormal
+    setFontSize 10
+
     lineWidth <- getLineWidth
     (TextExtents xb yb w h xa ya) <- textExtents text
 
     transpSurface (fromIntegral $ fst res) 120
 
-    selectFontFace "sans" FontSlantNormal FontWeightNormal
-    setFontSize 10
-
     setSourceRGB 0.1 0.5 0.2
-    setLineWidth 2.5
+    -- setLineWidth 2
     -- setLineCap LineCapRound
     -- setLineJoin LineJoinRound
 
