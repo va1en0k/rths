@@ -3276,3 +3276,11 @@ user	0m0.720s
 sys	0m0.061s
 + cat stderr.log
 + false
+dcaf1fd
++ app/Main dcaf1fd +RTS -N
+
+real	0m0.474s
+user	0m0.865s
+sys	0m0.054s
++ cat stderr.log
++ false
