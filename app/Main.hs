@@ -78,7 +78,7 @@ import Physics.Render
 
 main :: IO ()
 main = do
-  im <- text "hello?"
+  im <- text "hell"
   writePng "./image.png" im
 {-
 main' = do
