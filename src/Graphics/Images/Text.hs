@@ -81,7 +81,7 @@ textRender dims text =
     setSourceRGB 1 1 1
     setLineWidth 1.0
 
-    moveTo 0 (yb + h)
+    moveTo 0 (snd dims)
     textPath text
 
     fill
