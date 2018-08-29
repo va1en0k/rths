@@ -3308,3 +3308,11 @@ user	0m0.869s
 sys	0m0.057s
 
 
+6ee3c29
++ app/Main 6ee3c29 +RTS -N
+
+real	0m0.511s
+user	0m0.996s
+sys	0m0.061s
+
+
