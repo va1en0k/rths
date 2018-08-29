@@ -31,7 +31,7 @@ getTextSize str =
           selectFontFace "sans" FontSlantNormal FontWeightNormal
           setFontSize 20
           (TextExtents xb yb w h _ _) <- textExtents str
-          return (xb + w, h + abs yb)
+          return (xb + w, 20 + h + abs yb)
 
 
 surfaceToImg :: Surface -> IO Image

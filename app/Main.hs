@@ -79,7 +79,7 @@ import Physics.Render
 main :: IO ()
 main = do
   im <- text "hello?"
-  writePng "./image2.png" im
+  writePng "./image.png" im
 {-
 main' = do
   -- print camera
