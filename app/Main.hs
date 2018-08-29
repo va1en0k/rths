@@ -139,7 +139,7 @@ word32ToColor color = PixelRGB8 r g b where
   a = fromIntegral (shift (color .&. 0xFF000000) (-24))
   r = fromIntegral (shift (color .&. 0x00FF0000) (-16))
   g = fromIntegral (shift (color .&. 0x0000FF00) (-8))
-  b = fromIntegral (shift (color .&. 0x000000FF) (-24))
+  b = fromIntegral (shift (color .&. 0x000000FF) (-0))
 
 
 main :: IO ()
