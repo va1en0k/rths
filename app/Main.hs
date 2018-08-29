@@ -84,7 +84,7 @@ main :: IO ()
 
 main = do
   curPng <- readPng "./image.png"
-  t <- text "progress"
+  t <- text "loading..."
   let prg = superimpose curPng t
   writePng ("./image.png") prg
   -- print camera

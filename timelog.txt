@@ -3518,3 +3518,11 @@ sys	0m4.616s
 
 f16636b
 + app/Main f16636b +RTS -N
+3ccf489
++ app/Main 3ccf489 +RTS -N
+
+real	0m11.376s
+user	0m22.825s
+sys	0m4.795s
+
+
