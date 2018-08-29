@@ -17,7 +17,7 @@ import Graphics.Images
 transpSurface :: (Double, Double) -> Render ()
 transpSurface (w, h) = do
   save
-  rectangle 0 0 (w/2) (h/2)
+  rectangle 0 0 w h
   setSourceRGBA 0 0.1 0.3 1
   setOperator OperatorSource
   fill
@@ -81,7 +81,7 @@ textRender (w, h) text =
     setSourceRGB 1 1 1
     setLineWidth 1.0
 
-    moveTo 0 (h / 1.3)
+    moveTo 0 (h / 1.2)
     textPath text
 
     fill
