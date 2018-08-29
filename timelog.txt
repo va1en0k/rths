@@ -3444,3 +3444,11 @@ user	0m0.696s
 sys	0m0.056s
 
 
+d754bff
++ app/Main d754bff +RTS -N
+
+real	0m0.481s
+user	0m0.873s
+sys	0m0.060s
+
+
