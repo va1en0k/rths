@@ -89,7 +89,7 @@ textRender =
     moveTo 120 60
     lineTo 60 110
     lineTo 180 110
-    closePath
+    -- closePath
 
     -- textPath "Hello"
 
