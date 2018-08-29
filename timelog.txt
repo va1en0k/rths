@@ -3084,3 +3084,11 @@ user	0m0.915s
 sys	0m0.090s
 
 
+6188bf5
++ app/Main 6188bf5 +RTS -N
+
+real	0m0.545s
+user	0m1.084s
+sys	0m0.090s
+
+

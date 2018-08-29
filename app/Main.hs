@@ -96,7 +96,7 @@ textRender =
     -- setLineJoin LineJoinRound
 
     moveTo 0 0
-    showText "Hello"
+    textPath "Hello"
     -- lineTo 60 110
     -- lineTo 180 110
     -- closePath
