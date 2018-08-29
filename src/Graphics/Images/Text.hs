@@ -19,20 +19,20 @@ transpSurface w h = do
   save
   rectangle 0 0 w h
   setSourceRGBA 0 0 0 0
-  -- setOperator OperatorSource
+  setOperator OperatorSource
   fill
   restore
 
 getTextSize :: String -> IO (Double, Double)
-getTextSize str =
-    withImageSurface FormatARGB32 100 100 $ \surf ->
-      renderWith surf $
-        do
-          selectFontFace "sans" FontSlantNormal FontWeightNormal
-          setFontSize 20
-          (TextExtents xb yb w h _ _) <- textExtents str
-          liftIO $ print (xb, yb, w, h)
-          return (xb + w, 20 + h + abs yb)
+getTextSize str = return (100, 30)
+    -- withImageSurface FormatARGB32 100 100 $ \surf ->
+    --   renderWith surf $
+    --     do
+    --       selectFontFace "sans" FontSlantNormal FontWeightNormal
+    --       setFontSize 20
+    --       (TextExtents xb yb w h _ _) <- textExtents str
+    --       liftIO $ print (xb, yb, w, h)
+    --       return (xb + w, 20 + h + abs yb)
 
 
 surfaceToImg :: Surface -> IO Image
