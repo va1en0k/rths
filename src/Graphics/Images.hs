@@ -1,6 +1,13 @@
-module Graphics.Images where
+module Graphics.Images (
+  Image(..),
+  PixelRGB8(..),
+  ImgBuf,
+  colorToPixel,
+  writePng,
+  ) where
 
-import           Codec.Picture
+import qualified Codec.Picture as P
+import           Codec.Picture hiding (Image, writePng)
 import           Data.Array
 import           Linear.V3
 import           Linear.Metric
@@ -11,6 +18,13 @@ import           Util
 
 type ImgBuf = Array (Int, Int) PixelRGB8
 
+data Image = Image (Int, Int) ((Int, Int) -> PixelRGB8)
+
+writePng :: String -> Image -> IO ()
+writePng path (Image (w, h) f) =
+  let im = generateImage (curry f) w h
+  in P.writePng path im
+
 colorToPixel :: Color -> PixelRGB8
 colorToPixel c =
   let V3 r g b = mapv ((* 255.9) . sqrt) c
@@ -18,11 +32,11 @@ colorToPixel c =
                 (fromInteger $ floor g)
                 (fromInteger $ floor b)
 
-partialOverwritePng :: Image PixelRGB8 -> String -> IO ()
-partialOverwritePng imF fname =
-  do
-    mim <- readImage fname
-    let im = case mim of
-              Left err -> error err
-              Right im -> im
-    writePng ("./image.png") $ imF
+-- partialOverwritePng :: Image -> String -> IO ()
+-- partialOverwritePng newIm fname =
+--   do
+--     mim <- readImage fname
+--     let im = case mim of
+--               Left err -> error err
+--               Right im -> im
+--     writePng ("./image.png") $ imF

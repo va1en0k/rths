@@ -2,14 +2,12 @@
 {-# LANGUAGE FlexibleInstances         #-}
 {-# LANGUAGE TypeFamilies              #-}
 
-import           Codec.Picture
+import qualified           Codec.Picture as P
 import           Control.Monad.Identity
 import           Control.Monad.Primitive
 import           Control.Monad.Random
 -- import           Data.Array
-import           Data.Array.Unboxed
-import           Data.Array.IArray
-import           Data.Array.MArray
+
 import           Data.Function
 import           Data.List
 import           Data.Maybe
@@ -19,13 +17,15 @@ import           Data.Time.Clock.POSIX
 import           Linear.V3
 import           Debug.Trace
 import           System.Environment
-import Graphics.Rendering.Pango.Cairo
-import Graphics.Rendering.Cairo
+
 
 
 -- import qualified Data.Text.IO                  as T
 
 -- import Normal
+
+import Graphics.Images
+import Graphics.Images.Text
 
 import           Geometry.Vectors
 import           Geometry.Camera
@@ -71,101 +71,16 @@ main = do
 import           Graphics.Render.RayTracer
 
 import Physics.Render
-
-writeGif fname images = case writeGifAnimation fname 5 LoopingForever images of
-  Left s -> putStrLn s
-  Right a -> a
-
-transpSurface :: Double -> Double -> Render ()
-transpSurface w h = do
-  save
-  rectangle 0 0 w h
-  setSourceRGBA 0 0 0 0
-  setOperator OperatorSource
-  fill
-  restore
-
-textRender :: String -> Render ()
-textRender text =
-  do
-    selectFontFace "sans" FontSlantNormal FontWeightNormal
-    setFontSize 20
-
-    lineWidth <- getLineWidth
-    (TextExtents xb yb w h _ _) <- textExtents text
-
-    transpSurface (fromIntegral $ fst res) 120
-
-    setSourceRGB 1 1 1
-    setLineWidth 1.0
-    -- setLineCap LineCapRound
-    -- setLineJoin LineJoinRound
-
-    moveTo 0 (xb + h)
-    textPath text
-
-
-    fill
-    -- stroke
-    --
-    -- moveTo 0 0
-    -- lineTo 60 110
-    -- lineTo 180 110
-    -- closePath
-    --
-    -- stroke
-
-
-    -- save
-    -- rectangle 0 0 (fromIntegral $ fst res) 120
-    -- -- setSourceRGBA 0.4 0.7 0.3 0.7
-    -- -- fill
-    -- setSourceRGBA 1 0.2 0.3 0.8
-    -- setLineWidth 5
-    -- moveTo 0 0
-
-    -- moveTo 120 60
-    -- lineTo 60 110
-    -- lineTo 180 110
-    -- -- closePath
-    -- stroke
-    -- fill
-
-    -- textPath "Hello"
-
-
-word32ToColor :: Word32 -> PixelRGB8
-word32ToColor color = PixelRGB8 r g b where
-  a = fromIntegral (shift (color .&. 0xFF000000) (-24))
-  r = fromIntegral (shift (color .&. 0x00FF0000) (-16))
-  g = fromIntegral (shift (color .&. 0x0000FF00) (-8))
-  b = fromIntegral (shift (color .&. 0x000000FF) (-0))
-
+--
+-- writeGif fname images = case writeGifAnimation fname 5 LoopingForever images of
+--   Left s -> putStrLn s
+--   Right a -> a
 
 main :: IO ()
 main = do
-  cairoContext <- cairoCreateContext Nothing
-
-  withImageSurface FormatARGB32 (fst res) 120 $ \s ->
-    do
-      renderWith s $ textRender "Hello"
-
-      -- pxls :: UArray Int Word32 -- SurfaceData Int Word32
-      pxls' <- imageSurfaceGetPixels s :: IO (SurfaceData Int Word32)
-
-      pxls <- freeze pxls' :: IO (UArray Int Word32)
-      yk <- (`div` 4) <$> imageSurfaceGetStride s
-
-      let
-
-        p (x, y) = yk * y + x
-
-        imF = word32ToColor . (pxls !) . p
-
-        im = generateImage (curry imF) (fst res) 120
-
-      writePng ("./image.png") im
-
+  im <- text "hello?"
+  writePng "./image.png" im
+{-
 main' = do
   -- print camera
   -- print $ getRayNormPersp camera 0.5 0.5
@@ -191,7 +106,7 @@ main' = do
   hash <- head <$> getArgs
   writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") $ head images
 
-
+-}
 
 {-
 main'' :: IO ()
