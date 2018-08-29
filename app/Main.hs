@@ -97,7 +97,7 @@ textRender text =
     transpSurface (fromIntegral $ fst res) 120
 
     setSourceRGB 0.1 0.5 0.2
-    -- setLineWidth 2
+    setLineWidth 1.0
     -- setLineCap LineCapRound
     -- setLineJoin LineJoinRound
 
@@ -105,15 +105,15 @@ textRender text =
     textPath text
 
 
-    fillPreserve
-    stroke
-
-    moveTo 0 0
-    lineTo 60 110
-    lineTo 180 110
-    closePath
-
-    stroke
+    fill
+    -- stroke
+    --
+    -- moveTo 0 0
+    -- lineTo 60 110
+    -- lineTo 180 110
+    -- closePath
+    --
+    -- stroke
 
 
     -- save
