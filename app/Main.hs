@@ -94,7 +94,7 @@ textRender text =
     transpSurface (fromIntegral $ fst res) 120
 
     selectFontFace "sans" FontSlantNormal FontWeightNormal
-    setFontSize 40
+    setFontSize 10
 
     setSourceRGB 0.1 0.5 0.2
     setLineWidth 2.5

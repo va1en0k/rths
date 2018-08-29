@@ -3180,3 +3180,11 @@ user	0m0.905s
 sys	0m0.085s
 
 
+8a6746a
++ app/Main 8a6746a +RTS -N
+
+real	0m0.501s
+user	0m0.798s
+sys	0m0.080s
+
+
