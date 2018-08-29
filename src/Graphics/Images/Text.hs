@@ -17,8 +17,8 @@ import Graphics.Images
 transpSurface :: (Double, Double) -> Render ()
 transpSurface (w, h) = do
   save
-  rectangle 0 0 w h
-  setSourceRGBA 0 0 0 0
+  rectangle 0 0 (w/2) (h/2)
+  setSourceRGBA 0 0.1 0.3 0
   setOperator OperatorSource
   fill
   restore
