@@ -38,6 +38,7 @@ getTextSize str = return (100, 30)
 surfaceToImg :: Surface -> IO Image
 surfaceToImg surf =
   do
+    surfaceWriteToPNG surf "temp.png"
     print "b"
     pxls' <- imageSurfaceGetPixels surf -- :: IO (SurfaceData Int Word32)
     w <- imageSurfaceGetWidth surf
