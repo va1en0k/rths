@@ -3228,3 +3228,11 @@ user	0m0.886s
 sys	0m0.097s
 
 
+eb452a5
++ app/Main eb452a5 +RTS -N
+
+real	0m0.508s
+user	0m0.735s
+sys	0m0.083s
+
+

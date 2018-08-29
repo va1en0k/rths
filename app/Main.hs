@@ -89,7 +89,7 @@ textRender :: String -> Render ()
 textRender text =
   do
     selectFontFace "sans" FontSlantNormal FontWeightNormal
-    setFontSize 10
+    setFontSize 20
 
     lineWidth <- getLineWidth
     (TextExtents xb yb w h _ _) <- textExtents text
