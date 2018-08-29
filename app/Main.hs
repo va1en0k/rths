@@ -82,13 +82,13 @@ textRender =
     rectangle 0 0 (fromIntegral $ fst res) 120
     setSourceRGBA 0.4 0.3 0.7 0.7
     fill
-    setSourceRGBA 1 0.2 0.3 0.8
-    setLineWidth 5
-    moveTo 0 0
-    -- textPath "Hello"
-    moveTo 120 60
-    lineTo 60 110
-    lineTo 180 110
+    -- setSourceRGBA 1 0.2 0.3 0.8
+    -- setLineWidth 5
+    -- moveTo 0 0
+    -- -- textPath "Hello"
+    -- moveTo 120 60
+    -- lineTo 60 110
+    -- lineTo 180 110
     -- closePath
 
     -- textPath "Hello"
