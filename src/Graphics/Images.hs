@@ -3,11 +3,11 @@ module Graphics.Images (
   PixelRGB8(..),
   ImgBuf,
   colorToPixel,
-  writePng,
+  writePng, readPng
   ) where
 
 import qualified Codec.Picture as P
-import           Codec.Picture hiding (Image, writePng)
+import           Codec.Picture hiding (Image, writePng, readPng)
 import           Data.Array
 import           Linear.V3
 import           Linear.Metric
@@ -19,6 +19,15 @@ import           Util
 type ImgBuf = Array (Int, Int) PixelRGB8
 
 data Image = Image (Int, Int) ((Int, Int) -> PixelRGB8)
+
+readPng :: String -> IO Image
+readPng path =
+  do
+    Right im <- readImage path
+    let
+      img = convertRGB8 im
+      dms = (imageWidth img, imageHeight img)
+    return $ Image dms $ uncurry (pixelAt img)
 
 writePng :: String -> Image -> IO ()
 writePng path (Image (w, h) f) =

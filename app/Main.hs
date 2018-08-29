@@ -83,6 +83,7 @@ main :: IO ()
 --   writePng "./image.png" im
 
 main = do
+  curPng <- readPng "./image.png"
   -- print camera
   -- print $ getRayNormPersp camera 0.5 0.5
   -- print $ getRayRevPersp camera 0.5 0.5
