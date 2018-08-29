@@ -81,6 +81,7 @@ textRender =
   do
     rectangle 0 0 (fromIntegral $ fst res) 120
     fill
+    moveTo 0 0
     textPath "Hello"
 
 
