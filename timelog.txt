@@ -3388,3 +3388,11 @@ user	0m0.826s
 sys	0m0.057s
 
 
+dc1abd9
++ app/Main dc1abd9 +RTS -N
+
+real	0m0.475s
+user	0m0.749s
+sys	0m0.054s
+
+

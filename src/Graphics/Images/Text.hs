@@ -14,8 +14,8 @@ import Graphics.Rendering.Cairo
 import Graphics.Images
 
 
-transpSurface :: Double -> Double -> Render ()
-transpSurface w h = do
+transpSurface :: (Double, Double) -> Render ()
+transpSurface (w, h) = do
   save
   rectangle 0 0 w h
   setSourceRGBA 0 0 0 0
@@ -24,7 +24,7 @@ transpSurface w h = do
   restore
 
 getTextSize :: String -> IO (Double, Double)
-getTextSize str = return (50, 30)
+getTextSize str = return (150, 30)
     -- withImageSurface FormatARGB32 100 100 $ \surf ->
     --   renderWith surf $
     --     do
@@ -78,7 +78,7 @@ textRender dims text =
 
     (TextExtents _ yb _ h _ _) <- textExtents text
 
-    uncurry transpSurface dims
+    transpSurface dims
 
     setSourceRGB 1 1 1
     setLineWidth 1.0
