@@ -2948,3 +2948,11 @@ user	0m0.822s
 sys	0m0.086s
 
 
+db22ab1
++ app/Main db22ab1 +RTS -N
+
+real	0m0.534s
+user	0m0.817s
+sys	0m0.100s
+
+
