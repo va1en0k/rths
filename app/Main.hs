@@ -79,8 +79,10 @@ writeGif fname images = case writeGifAnimation fname 5 LoopingForever images of
 textRender :: Render ()
 textRender =
   do
-    setSourceRGB 1 1 0
-    setLineWidth 5
+    setSourceRGB 1 0 0
+    setLineWidth 20
+    setLineCap LineCapRound
+    setLineJoin LineJoinRound
 
     moveTo 120 60
     lineTo 60 110
@@ -89,6 +91,7 @@ textRender =
 
     stroke
     fill
+    save
     -- rectangle 0 0 (fromIntegral $ fst res) 120
     -- -- setSourceRGBA 0.4 0.7 0.3 0.7
     -- -- fill
