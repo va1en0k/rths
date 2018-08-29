@@ -119,8 +119,8 @@ main = do
 
         im = generateImage (curry imF) (fst res) 120
 
-      print $ imF (0, 0)
-      print $ imF (10, 10)
+      print $ pxls ! p (0, 0)
+      print $ pxls ! p (10, 10)
       writePng ("./image.png") im
 
 main' = do
