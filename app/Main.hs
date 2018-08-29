@@ -80,7 +80,7 @@ textRender :: Render ()
 textRender =
   do
     rectangle 0 0 (fromIntegral $ fst res) 120
-    setSourceRGBA 0.4 0.3 0.7 0.7
+    setSourceRGBA 0.4 0.7 0.3 0.7
     fill
     setSourceRGBA 1 0.2 0.3 0.8
     setLineWidth 5
