@@ -81,7 +81,7 @@ textRender (w, h) text =
     setSourceRGB 1 1 1
     setLineWidth 1.0
 
-    moveTo 0 (h / 1.4)
+    moveTo 0 (h / 1.3)
     textPath text
 
     fill
