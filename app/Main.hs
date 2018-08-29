@@ -136,6 +136,7 @@ main = do
 
       print $ pxls ! p (0, 0)
       print $ pxls ! p (10, 10)
+      print $ pxls ! p (120, 60)
       writePng ("./image.png") im
 
 main' = do
