@@ -42,6 +42,7 @@ surfaceToImg surf =
     pxls' <- imageSurfaceGetPixels surf -- :: IO (SurfaceData Int Word32)
     w <- imageSurfaceGetWidth surf
     h <- imageSurfaceGetHeight surf
+    print (w, h)
 
     pxls <- freeze pxls' :: IO (UArray Int Word32)
     yk <- (`div` 4) <$> imageSurfaceGetStride surf
