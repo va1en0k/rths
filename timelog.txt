@@ -3116,3 +3116,11 @@ user	0m0.883s
 sys	0m0.083s
 
 
+b638d64
++ app/Main b638d64 +RTS -N
+
+real	0m0.547s
+user	0m1.064s
+sys	0m0.100s
+
+
