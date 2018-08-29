@@ -24,7 +24,7 @@ transpSurface (w, h) = do
   restore
 
 getTextSize :: String -> IO (Double, Double)
-getTextSize str = return (10, 30)
+getTextSize str = return (100, 30)
     -- withImageSurface FormatARGB32 100 100 $ \surf ->
     --   renderWith surf $
     --     do
