@@ -90,8 +90,8 @@ textRender =
   do
     transpSurface (fromIntegral $ fst res) 120
 
-    setSourceRGB 1 0 0
-    setLineWidth 20
+    setSourceRGB 1 0.5 0.2
+    setLineWidth 3.0
     setLineCap LineCapRound
     setLineJoin LineJoinRound
 
