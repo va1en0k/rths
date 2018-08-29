@@ -31,6 +31,7 @@ getTextSize str =
           selectFontFace "sans" FontSlantNormal FontWeightNormal
           setFontSize 20
           (TextExtents xb yb w h _ _) <- textExtents str
+          liftIO $ print (xb, yb, w, h)
           return (xb + w, 20 + h + abs yb)
 
 

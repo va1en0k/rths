@@ -3324,3 +3324,11 @@ user	0m0.720s
 sys	0m0.055s
 
 
+af24ae2
++ app/Main af24ae2 +RTS -N
+
+real	0m0.473s
+user	0m0.678s
+sys	0m0.054s
+
+
