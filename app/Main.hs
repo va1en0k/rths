@@ -85,9 +85,12 @@ transpSurface w h = do
   fill
   restore
 
-textRender :: Render ()
-textRender =
+textRender :: String -> Render ()
+textRender text =
   do
+    lineWidth <- getLineWidth
+    (TextExtents xb yb w h _ _) <- textExtents text
+
     transpSurface (fromIntegral $ fst res) 120
 
     selectFontFace "sans" FontSlantNormal FontWeightNormal
@@ -97,9 +100,9 @@ textRender =
     setLineWidth 2.5
     -- setLineCap LineCapRound
     -- setLineJoin LineJoinRound
-    lineWidth <- getLineWidth
-    moveTo 0 (2 * lineWidth)
-    textPath "Hello"
+
+    moveTo 0 w
+    textPath text
 
 
     fillPreserve
@@ -145,7 +148,7 @@ main = do
 
   withImageSurface FormatARGB32 (fst res) 120 $ \s ->
     do
-      renderWith s textRender
+      renderWith s $ textRender "Hello"
 
       -- pxls :: UArray Int Word32 -- SurfaceData Int Word32
       pxls' <- imageSurfaceGetPixels s :: IO (SurfaceData Int Word32)
