@@ -97,12 +97,16 @@ textRender =
 
     moveTo 0 0
     textPath "Hello"
-    -- lineTo 60 110
-    -- lineTo 180 110
-    -- closePath
+
 
     fillPreserve
     stroke
+
+    moveTo 0 0
+    lineTo 60 110
+    lineTo 180 110
+    closePath
+
 
     -- save
     -- rectangle 0 0 (fromIntegral $ fst res) 120
