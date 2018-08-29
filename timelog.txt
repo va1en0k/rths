@@ -3452,3 +3452,11 @@ user	0m0.873s
 sys	0m0.060s
 
 
+c650946
++ app/Main c650946 +RTS -N
+
+real	0m0.480s
+user	0m0.751s
+sys	0m0.059s
+
+
