@@ -135,12 +135,14 @@ main = do
   withImageSurface FormatARGB32 (fst res) 120 $ \s ->
     do
       renderWith s textRender
-      surfaceWriteToPNG s "Text.png"
 
       -- pxls :: UArray Int Word32 -- SurfaceData Int Word32
       pxls' <- imageSurfaceGetPixels s :: IO (SurfaceData Int Word32)
+
+
+
       pxls <- freeze pxls' :: IO (UArray Int Word32)
-      yk <- (div 4) <$> imageSurfaceGetStride s
+      yk <- (`div` 4) <$> imageSurfaceGetStride s
 
       let
 
@@ -149,6 +151,9 @@ main = do
         imF = word32ToColor . (pxls !) . p
 
         im = generateImage (curry imF) (fst res) 120
+
+      -- pl <- readArray pxls' (p)
+      -- print $ pl
 
       print $ pxls ! p (0, 0)
       print $ pxls ! p (10, 10)
