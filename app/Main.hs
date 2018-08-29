@@ -81,7 +81,7 @@ textRender =
   do
     rectangle 0 0 (fromIntegral $ fst res) 120
     fill
-    setSourceRGBA 1 0 0 1
+    setSourceRGBA 1 0.2 0.3 0.8
     moveTo 0 0
     moveTo 120 60
     lineTo 60 110

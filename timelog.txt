@@ -2820,3 +2820,11 @@ user	0m0.908s
 sys	0m0.086s
 
 
+8e512c4
++ app/Main 8e512c4 +RTS -N
+
+real	0m0.539s
+user	0m0.868s
+sys	0m0.094s
+
+
