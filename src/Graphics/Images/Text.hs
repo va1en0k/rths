@@ -19,7 +19,7 @@ transpSurface w h = do
   save
   rectangle 0 0 w h
   setSourceRGBA 0 0 0 0
-  setOperator OperatorSource
+  -- setOperator OperatorSource
   fill
   restore
 
