@@ -101,7 +101,7 @@ textRender =
     -- lineTo 180 110
     -- closePath
 
-    -- stroke
+    stroke
     fill
     -- save
     -- rectangle 0 0 (fromIntegral $ fst res) 120
