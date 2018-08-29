@@ -7,13 +7,18 @@ import           Control.Monad.Identity
 import           Control.Monad.Primitive
 import           Control.Monad.Random
 import           Data.Array
+import           Data.Array.MArray
 import           Data.Function
 import           Data.List
 import           Data.Maybe
+import           Data.Word
 import           Data.Time.Clock.POSIX
 import           Linear.V3
 import           Debug.Trace
 import           System.Environment
+import Graphics.Rendering.Pango.Cairo
+import Graphics.Rendering.Cairo
+
 
 -- import qualified Data.Text.IO                  as T
 
@@ -68,8 +73,27 @@ writeGif fname images = case writeGifAnimation fname 5 LoopingForever images of
   Left s -> putStrLn s
   Right a -> a
 
+textRender :: Render ()
+textRender =
+  do
+    rectangle 0 0 (fromIntegral $ fst res) 120
+    fill
+    showText "Hello"
+
+
 main :: IO ()
 main = do
+  cairoContext <- cairoCreateContext Nothing
+  pxls <- withImageSurface FormatRGB24 (fst res) 120 $ \s ->
+            renderWith s textRender >> imageSurfaceGetPixels s
+
+      -- return (imageSurfaceGetPixels :: IO (SurfaceData Int e))
+  -- (getBounds <$> (
+  getBounds (pxls :: SurfaceData Int Word32) >>= print
+  -- )
+  -- writePng ("./image.png") im
+
+main' = do
   -- print camera
   -- print $ getRayNormPersp camera 0.5 0.5
   -- print $ getRayRevPersp camera 0.5 0.5
@@ -90,7 +114,7 @@ main = do
   -- writeGif ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".gif") images
   -- writeGif ("./image.gif") images
   writePng ("./image.png") $ head images
-  
+
   hash <- head <$> getArgs
   writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") $ head images
 

@@ -6,7 +6,7 @@ Refactor:
   * replace CVec3 with V3 everywhere
   * redesign the shape-system
 
-Themes:
+Post themes:
   * setting up a comfy environment
   * well-typing the ray tracer
   * parallelizing haskell with opencl
@@ -16,3 +16,4 @@ Goals:
   * icon with reverse perspective
   * debug lines
   * opencl arrow
+  * HDR

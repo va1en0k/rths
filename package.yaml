@@ -20,23 +20,30 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/githubuser/rublev#readme>
 
 dependencies:
-- base >= 4.7 && < 5
-- linear
-- vector
-- OpenCL
-- primitive==0.6.1.0
-- mtl==2.2.1
-- array==0.5.1.0
-- deepseq==1.4.1.1
-- MonadRandom==0.4.2.1
-- JuicyPixels==3.2.6.4
-- time==1.5.0.1
-- CLUtil==0.5.1
-- interpolate
-- language-c-quote
+# - base >= 4.7 && < 5
+# - linear
+# - vector
+# - OpenCL
+# - primitive==0.6.1.0
+# - mtl==2.2.1
+# - array==0.5.1.0
+# - deepseq==1.4.1.1
+# - MonadRandom==0.4.2.1
+# - JuicyPixels==3.2.6.4
+# - time==1.5.0.1
+# - CLUtil==0.5.1
+# - interpolate
+# - language-c-quote
+# - pango
+# - cairo==0.13.3.1
+# - glib==0.13.4.0
+# - gtk2hs-buildtools
+# - Cabal==1.24.2.0
 
 library:
   source-dirs: src
+  cc-options: -U__BLOCKS__ -D_Nonnull=
+  cpp-options: -DCALLCONV=ccall -D__nullable= -D__nonnull=
 
 executables:
   rublev-exe:
@@ -48,6 +55,8 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - rublev
+    cc-options: -U__BLOCKS__ -D_Nonnull=
+    cpp-options: -DCALLCONV=ccall -D__nullable= -D__Nonnull=
 
 tests:
   rublev-test:

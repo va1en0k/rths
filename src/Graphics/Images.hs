@@ -17,3 +17,12 @@ colorToPixel c =
   in  PixelRGB8 (fromInteger $ floor r)
                 (fromInteger $ floor g)
                 (fromInteger $ floor b)
+
+partialOverwritePng :: Image PixelRGB8 -> String -> IO ()
+partialOverwritePng imF fname =
+  do
+    mim <- readImage fname
+    let im = case mim of
+              Left err -> error err
+              Right im -> im
+    writePng ("./image.png") $ imF
