@@ -83,6 +83,7 @@ textRender =
     setSourceRGBA 0.4 0.3 0.7 0.7
     fill
     setSourceRGBA 1 0.2 0.3 0.8
+    setLineWidth 5
     moveTo 0 0
     textPath "Hello"
     moveTo 120 60

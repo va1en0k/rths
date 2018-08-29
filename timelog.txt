@@ -2860,3 +2860,11 @@ user	0m0.840s
 sys	0m0.078s
 
 
+e71a46c
++ app/Main e71a46c +RTS -N
+
+real	0m0.515s
+user	0m0.797s
+sys	0m0.083s
+
+
