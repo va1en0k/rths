@@ -37,13 +37,14 @@ getTextSize str =
 surfaceToImg :: Surface -> IO Image
 surfaceToImg surf =
   do
+    print "b"
     pxls' <- imageSurfaceGetPixels surf -- :: IO (SurfaceData Int Word32)
     w <- imageSurfaceGetWidth surf
     h <- imageSurfaceGetHeight surf
 
     pxls <- freeze pxls' :: IO (UArray Int Word32)
     yk <- (`div` 4) <$> imageSurfaceGetStride surf
-
+    print "c"
     let p (x, y) = yk * y + x
     return $ Image (w, h) $ word32ToColor . (pxls !) . p
 
@@ -57,6 +58,7 @@ text str = do
   withImageSurface FormatARGB32 (floor w) (floor h) $ \surf ->
     do
       renderWith surf (textRender (w, h) str)
+      print "a"
       surfaceToImg surf
 
 
