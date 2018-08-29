@@ -91,6 +91,8 @@ textRender =
     lineTo 180 110
     closePath
 
+    stroke
+
     -- textPath "Hello"
 
 
