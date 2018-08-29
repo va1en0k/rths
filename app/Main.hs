@@ -88,6 +88,7 @@ textRender =
     closePath
 
     stroke
+    fill
     -- rectangle 0 0 (fromIntegral $ fst res) 120
     -- -- setSourceRGBA 0.4 0.7 0.3 0.7
     -- -- fill
