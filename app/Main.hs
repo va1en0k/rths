@@ -82,13 +82,13 @@ textRender =
     rectangle 0 0 (fromIntegral $ fst res) 120
     setSourceRGBA 0.4 0.3 0.7 0.7
     fill
-    -- setSourceRGBA 1 0.2 0.3 0.8
-    -- setLineWidth 5
-    -- moveTo 0 0
-    -- -- textPath "Hello"
-    -- moveTo 120 60
-    -- lineTo 60 110
-    -- lineTo 180 110
+    setSourceRGBA 1 0.2 0.3 0.8
+    setLineWidth 5
+    moveTo 0 0
+    -- textPath "Hello"
+    moveTo 120 60
+    lineTo 60 110
+    lineTo 180 110
     -- closePath
 
     -- textPath "Hello"
@@ -96,9 +96,10 @@ textRender =
 
 word32ToColor :: Word32 -> PixelRGB8
 word32ToColor color = PixelRGB8 r g b where
+  a = fromIntegral (shift (color .&. 0xFF000000) (-24))
+  b = fromIntegral (shift (color .&. 0x00FF0000) (-16))
+  g = fromIntegral (shift (color .&. 0x0000FF00) (-8))
   r = fromIntegral (shift (color .&. 0x000000FF) (-24))
-  g = fromIntegral (shift (color .&. 0x00FF0000) (-16))
-  b = fromIntegral (shift (color .&. 0x0000FF00) (-8))
 
 
 main :: IO ()
