@@ -92,7 +92,7 @@ textRender text =
     setFontSize 10
 
     lineWidth <- getLineWidth
-    (TextExtents xb yb w h xa ya) <- textExtents text
+    (TextExtents xb yb w h _ _) <- textExtents text
 
     transpSurface (fromIntegral $ fst res) 120
 
@@ -101,7 +101,7 @@ textRender text =
     -- setLineCap LineCapRound
     -- setLineJoin LineJoinRound
 
-    moveTo 0 (xb + h + xa)
+    moveTo 0 (xb + h)
     textPath text
 
 

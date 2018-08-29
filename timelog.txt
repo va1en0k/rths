@@ -3196,3 +3196,11 @@ user	0m0.834s
 sys	0m0.086s
 
 
+ce1c48e
++ app/Main ce1c48e +RTS -N
+
+real	0m0.511s
+user	0m0.818s
+sys	0m0.082s
+
+
