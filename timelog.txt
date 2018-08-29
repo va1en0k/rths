@@ -3164,3 +3164,11 @@ user	0m0.877s
 sys	0m0.082s
 
 
+b510a0c
++ app/Main b510a0c +RTS -N
+
+real	0m0.513s
+user	0m0.914s
+sys	0m0.086s
+
+

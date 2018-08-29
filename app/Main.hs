@@ -101,7 +101,7 @@ textRender text =
     -- setLineCap LineCapRound
     -- setLineJoin LineJoinRound
 
-    moveTo 0 w
+    moveTo 0 (w + xb)
     textPath text
 
 
