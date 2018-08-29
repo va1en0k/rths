@@ -2844,3 +2844,11 @@ user	0m0.825s
 sys	0m0.080s
 
 
+0c9e1bc
++ app/Main 0c9e1bc +RTS -N
+
+real	0m0.532s
+user	0m0.980s
+sys	0m0.087s
+
+
