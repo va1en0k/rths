@@ -98,7 +98,7 @@ textRender =
     -- setLineCap LineCapRound
     -- setLineJoin LineJoinRound
     lineWidth <- getLineWidth
-    moveTo 0 lineWidth
+    moveTo 0 (2 * lineWidth)
     textPath "Hello"
 
 
