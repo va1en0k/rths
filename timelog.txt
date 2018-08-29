@@ -3068,3 +3068,11 @@ user	0m0.808s
 sys	0m0.084s
 
 
+cbfacc4
++ app/Main cbfacc4 +RTS -N
+
+real	0m0.506s
+user	0m0.771s
+sys	0m0.082s
+
+
