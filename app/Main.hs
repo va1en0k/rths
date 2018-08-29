@@ -98,7 +98,7 @@ textRender =
     -- setLineCap LineCapRound
     -- setLineJoin LineJoinRound
 
-    moveTo 0 0
+    moveTo 0 40
     textPath "Hello"
 
 
