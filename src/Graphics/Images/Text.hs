@@ -59,7 +59,10 @@ text str = do
     do
       renderWith surf (textRender (w, h) str)
       print "a"
-      surfaceToImg surf
+      i <- surfaceToImg surf
+      print "D"
+      return i
+
 
 
 
