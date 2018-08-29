@@ -71,19 +71,17 @@ text str = do
 
 
 textRender :: (Double, Double) -> String -> Render ()
-textRender dims text =
+textRender (w, h) text =
   do
     selectFontFace "sans" FontSlantNormal FontWeightNormal
     setFontSize 20
 
-    (TextExtents _ yb _ h _ _) <- textExtents text
-
-    transpSurface dims
+    transpSurface (w, h)
 
     setSourceRGB 1 1 1
     setLineWidth 1.0
 
-    moveTo 0 (snd dims)
+    moveTo 0 (h / 1.4)
     textPath text
 
     fill
