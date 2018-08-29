@@ -54,6 +54,7 @@ text str = do
   cairoContext <- cairoCreateContext Nothing
 
   (w, h) <- getTextSize str
+  print (w, h)
 
   withImageSurface FormatARGB32 (floor w) (floor h) $ \surf ->
     do
