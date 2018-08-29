@@ -25,7 +25,7 @@ transpSurface w h = do
 
 getTextSize :: String -> IO (Double, Double)
 getTextSize str =
-    withImageSurface FormatARGB32 1 1 $ \surf ->
+    withImageSurface FormatARGB32 100 100 $ \surf ->
       renderWith surf $
         do
           selectFontFace "sans" FontSlantNormal FontWeightNormal

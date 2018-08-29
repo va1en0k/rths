@@ -3268,3 +3268,11 @@ user	0m0.746s
 sys	0m0.054s
 + cat stderr.log
 + false
+3408f0e
++ app/Main 3408f0e +RTS -N
+
+real	0m0.482s
+user	0m0.720s
+sys	0m0.061s
++ cat stderr.log
++ false
