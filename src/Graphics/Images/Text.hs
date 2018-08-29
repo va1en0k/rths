@@ -24,15 +24,15 @@ transpSurface (w, h) = do
   restore
 
 getTextSize :: String -> IO (Double, Double)
-getTextSize str = return (100, 30)
-    -- withImageSurface FormatARGB32 100 100 $ \surf ->
-    --   renderWith surf $
-    --     do
-    --       selectFontFace "sans" FontSlantNormal FontWeightNormal
-    --       setFontSize 20
-    --       (TextExtents xb yb w h _ _) <- textExtents str
-    --       liftIO $ print (xb, yb, w, h)
-    --       return (xb + w, 20 + h + abs yb)
+getTextSize str =
+    withImageSurface FormatARGB32 1 1 $ \surf ->
+      renderWith surf $
+        do
+          selectFontFace "sans" FontSlantNormal FontWeightNormal
+          setFontSize 20
+          (TextExtents xb yb w h _ _) <- textExtents str
+          liftIO $ print (xb, yb, w, h)
+          return (w, h)
 
 
 surfaceToImg :: Surface -> IO Image
