@@ -32,7 +32,7 @@ getTextSize str =
           setFontSize 20
           (TextExtents xb yb w h _ _) <- textExtents str
           liftIO $ print (xb, yb, w, h)
-          return (w + xb, h * 1.5) -- no fucking idea
+          return (w * 1.4, h * 1.4) -- no fucking idea
 
 
 surfaceToImg :: Surface -> IO Image

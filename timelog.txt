@@ -3460,3 +3460,11 @@ user	0m0.751s
 sys	0m0.059s
 
 
+c06c270
++ app/Main c06c270 +RTS -N
+
+real	0m0.501s
+user	0m0.896s
+sys	0m0.067s
+
+
