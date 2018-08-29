@@ -76,9 +76,20 @@ writeGif fname images = case writeGifAnimation fname 5 LoopingForever images of
   Left s -> putStrLn s
   Right a -> a
 
+transpSurface :: Double -> Double -> Render ()
+transpSurface w h = do
+  save
+  rectangle 0 0 w h
+  setSourceRGBA 0 0 0 0
+  setOperator OperatorSource
+  fill
+  restore
+
 textRender :: Render ()
 textRender =
   do
+    transpSurface (fromIntegral $ fst res) 120
+
     setSourceRGB 1 0 0
     setLineWidth 20
     setLineCap LineCapRound
@@ -121,7 +132,7 @@ main :: IO ()
 main = do
   cairoContext <- cairoCreateContext Nothing
 
-  withImageSurface FormatRGB24 (fst res) 120 $ \s ->
+  withImageSurface FormatARGB32 (fst res) 120 $ \s ->
     do
       renderWith s textRender
 
