@@ -3140,3 +3140,11 @@ user	0m0.816s
 sys	0m0.089s
 
 
+ec0059f
++ app/Main ec0059f +RTS -N
+
+real	0m0.529s
+user	0m0.890s
+sys	0m0.087s
+
+
