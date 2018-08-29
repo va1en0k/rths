@@ -135,6 +135,7 @@ main = do
   withImageSurface FormatARGB32 (fst res) 120 $ \s ->
     do
       renderWith s textRender
+      surfaceWriteToPNG s "Text.png"
 
       -- pxls :: UArray Int Word32 -- SurfaceData Int Word32
       pxls' <- imageSurfaceGetPixels s :: IO (SurfaceData Int Word32)
