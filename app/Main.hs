@@ -6,12 +6,15 @@ import           Codec.Picture
 import           Control.Monad.Identity
 import           Control.Monad.Primitive
 import           Control.Monad.Random
-import           Data.Array
+-- import           Data.Array
+import           Data.Array.Unboxed
+import           Data.Array.IArray
 import           Data.Array.MArray
 import           Data.Function
 import           Data.List
 import           Data.Maybe
 import           Data.Word
+import           Data.Bits
 import           Data.Time.Clock.POSIX
 import           Linear.V3
 import           Debug.Trace
@@ -81,17 +84,35 @@ textRender =
     showText "Hello"
 
 
+word32ToColor :: Word32 -> PixelRGB8
+word32ToColor color = PixelRGB8 r g b where
+  r = fromIntegral (shift (color .&. 0xFF000000) (-24))
+  g = fromIntegral (shift (color .&. 0x00FF0000) (-16))
+  b = fromIntegral (shift (color .&. 0x0000FF00) (-8))
+
+
 main :: IO ()
 main = do
   cairoContext <- cairoCreateContext Nothing
-  pxls <- withImageSurface FormatRGB24 (fst res) 120 $ \s ->
-            renderWith s textRender >> imageSurfaceGetPixels s
 
-      -- return (imageSurfaceGetPixels :: IO (SurfaceData Int e))
-  -- (getBounds <$> (
-  getBounds (pxls :: SurfaceData Int Word32) >>= print
-  -- )
-  -- writePng ("./image.png") im
+  withImageSurface FormatRGB24 (fst res) 120 $ \s ->
+    do
+      renderWith s textRender
+
+      -- pxls :: UArray Int Word32 -- SurfaceData Int Word32
+      pxls' <- imageSurfaceGetPixels s :: IO (SurfaceData Int Word32)
+      pxls <- freeze pxls' :: IO (UArray Int Word32)
+      yk <- (div 4) <$> imageSurfaceGetStride s
+
+      let
+
+        p (x, y) = yk * y + x
+
+        imF = word32ToColor . (pxls !) . p
+
+        im = generateImage (curry imF) (fst res) 120
+
+      writePng ("./image.png") im
 
 main' = do
   -- print camera
