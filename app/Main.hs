@@ -86,9 +86,9 @@ textRender =
     setLineWidth 5
     moveTo 0 0
     textPath "Hello"
-    -- moveTo 120 60
-    -- lineTo 60 110
-    -- lineTo 180 110
+    moveTo 120 60
+    lineTo 60 110
+    lineTo 180 110
     -- closePath
     stroke
     -- fill

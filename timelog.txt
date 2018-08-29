@@ -2964,3 +2964,11 @@ user	0m0.793s
 sys	0m0.080s
 
 
+8026d95
++ app/Main 8026d95 +RTS -N
+
+real	0m0.522s
+user	0m0.907s
+sys	0m0.081s
+
+
