@@ -3380,3 +3380,11 @@ user	0m0.718s
 sys	0m0.060s
 
 
+cd1c93a
++ app/Main cd1c93a +RTS -N
+
+real	0m0.477s
+user	0m0.826s
+sys	0m0.057s
+
+
