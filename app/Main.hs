@@ -92,24 +92,25 @@ textRender =
 
     setSourceRGB 1 0.5 0.2
     setLineWidth 3.0
-    setLineCap LineCapRound
-    setLineJoin LineJoinRound
+    -- setLineCap LineCapRound
+    -- setLineJoin LineJoinRound
 
-    moveTo 120 60
-    lineTo 60 110
-    lineTo 180 110
-    closePath
+    moveTo 0 0
+    textPath "Hello"
+    -- lineTo 60 110
+    -- lineTo 180 110
+    -- closePath
 
-    stroke
+    -- stroke
     fill
-    save
+    -- save
     -- rectangle 0 0 (fromIntegral $ fst res) 120
     -- -- setSourceRGBA 0.4 0.7 0.3 0.7
     -- -- fill
     -- setSourceRGBA 1 0.2 0.3 0.8
     -- setLineWidth 5
     -- moveTo 0 0
-    -- textPath "Hello"
+
     -- moveTo 120 60
     -- lineTo 60 110
     -- lineTo 180 110
@@ -139,8 +140,6 @@ main = do
       -- pxls :: UArray Int Word32 -- SurfaceData Int Word32
       pxls' <- imageSurfaceGetPixels s :: IO (SurfaceData Int Word32)
 
-
-
       pxls <- freeze pxls' :: IO (UArray Int Word32)
       yk <- (`div` 4) <$> imageSurfaceGetStride s
 
@@ -152,12 +151,6 @@ main = do
 
         im = generateImage (curry imF) (fst res) 120
 
-      -- pl <- readArray pxls' (p)
-      -- print $ pl
-
-      print $ pxls ! p (0, 0)
-      print $ pxls ! p (10, 10)
-      print $ pxls ! p (120, 60)
       writePng ("./image.png") im
 
 main' = do
