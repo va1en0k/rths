@@ -81,7 +81,7 @@ textRender =
   do
     rectangle 0 0 (fromIntegral $ fst res) 120
     fill
-    showText "Hello"
+    textPath "Hello"
 
 
 word32ToColor :: Word32 -> PixelRGB8
