@@ -3,7 +3,8 @@ module Graphics.Images (
   PixelRGB8(..),
   ImgBuf,
   colorToPixel,
-  writePng, readPng
+  writePng, readPng,
+  superimpose
   ) where
 
 import qualified Codec.Picture as P
@@ -19,6 +20,12 @@ import           Util
 type ImgBuf = Array (Int, Int) PixelRGB8
 
 data Image = Image (Int, Int) ((Int, Int) -> PixelRGB8)
+
+superimpose :: Image -> Image -> Image
+superimpose (Image (w, h) f1) (Image (w1, h1) f2) = Image (w, h) imF
+  where imF (x, y) | x < w1 && y < h1 = f2 (x, y)
+        imF (x, y)                    = f1 (x, y)
+
 
 readPng :: String -> IO Image
 readPng path =

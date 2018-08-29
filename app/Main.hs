@@ -84,6 +84,9 @@ main :: IO ()
 
 main = do
   curPng <- readPng "./image.png"
+  t <- text "progress"
+  let prg = superimpose curPng t
+  writePng ("./image.png") prg
   -- print camera
   -- print $ getRayNormPersp camera 0.5 0.5
   -- print $ getRayRevPersp camera 0.5 0.5
