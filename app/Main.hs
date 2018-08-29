@@ -77,11 +77,12 @@ import Physics.Render
 --   Right a -> a
 
 main :: IO ()
+
+-- main = do
+--   im <- text "hell"
+--   writePng "./image.png" im
+
 main = do
-  im <- text "hell"
-  writePng "./image.png" im
-{-
-main' = do
   -- print camera
   -- print $ getRayNormPersp camera 0.5 0.5
   -- print $ getRayRevPersp camera 0.5 0.5
@@ -93,9 +94,8 @@ main' = do
     do
       print $ "--- " ++ show i ++ " ---"
       imF <-
-        runRT (Settings w undefined undefined) $ uncurry genImageF res
-      let im = (generateImage imF (fst res) (snd res))
-      return im
+        runRT (Settings w undefined undefined) $ genImageF res
+      return $ Image res imF
 
   now  <- getPOSIXTime
 
@@ -106,7 +106,6 @@ main' = do
   hash <- head <$> getArgs
   writePng ("./out/image__" ++ (show now) ++ "__" ++ hash ++ ".png") $ head images
 
--}
 
 {-
 main'' :: IO ()

@@ -182,8 +182,8 @@ genImageBuf w h = array ((0, 0), (w, h)) <$> lsRT
     return $ zip allPixels ps
 
 
-genImageF :: Int -> Int -> RT (Int -> Int -> PixelRGB8)
-genImageF w h = prepareShader >> (f <$> genImageBuf w h)
+genImageF :: (Int, Int) -> RT ((Int, Int) -> PixelRGB8)
+genImageF (w, h) = prepareShader >> (f <$> genImageBuf w h)
   where
     -- f b x y | trace ((show x) ++ " " ++ (show y)) False = undefined
-        f b x y = b ! (x, y)
+        f b coord = b ! coord
