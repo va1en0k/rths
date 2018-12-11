@@ -19,23 +19,27 @@ extra-source-files:
 # common to point users to the README.md file.
 description:         Please see the README on GitHub at <https://github.com/githubuser/rublev#readme>
 
+build-tools:
+- happy
+
 dependencies:
-# - base >= 4.7 && < 5
-# - linear
-# - vector
-# - OpenCL
-# - primitive==0.6.1.0
-# - mtl==2.2.1
-# - array==0.5.1.0
-# - deepseq==1.4.1.1
-# - MonadRandom==0.4.2.1
-# - JuicyPixels==3.2.6.4
-# - time==1.5.0.1
-# - CLUtil==0.5.1
-# - interpolate
-# - language-c-quote
-# - pango
-# - cairo==0.13.3.1
+- base==4.8.2.0
+- linear
+- vector
+- OpenCL
+- primitive
+- mtl
+- array
+- deepseq
+- MonadRandom
+- JuicyPixels
+- time
+- CLUtil
+- interpolate
+- language-c-quote
+- pango
+- cairo
+- OpenGL
 # - glib==0.13.4.0
 # - gtk2hs-buildtools
 # - Cabal==1.24.2.0
@@ -48,6 +52,18 @@ library:
 executables:
   rublev-exe:
     main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - rublev
+    cc-options: -U__BLOCKS__ -D_Nonnull=
+    cpp-options: -DCALLCONV=ccall -D__nullable= -D__Nonnull=
+
+  rt:
+    main:                Realtime.hs
     source-dirs:         app
     ghc-options:
     - -threaded
